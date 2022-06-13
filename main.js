@@ -8,7 +8,7 @@ require('dotenv').config();
 
 require('ffmpeg-static');
 const { Player } = require("discord-music-player");
-require('./handlers/loader')
+require('./src/handlers/loader')
 const player = new Player(client, {
     leaveOnEmpty: false,            //optional
 });
