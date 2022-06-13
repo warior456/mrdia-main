@@ -1,0 +1,21 @@
+{
+  "name": "mrdia",
+  "version": "1.0.0",
+  "description": "my bot",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matteo_fey",
+  "license": "ISC",
+  "dependencies": {
+    "discord-music-player": "^8.3.0",
+    "discord-together": "^1.3.2",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "ffmpeg-static": "^4.4.0",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^3.0.0",
+    "ytdl-core": "^4.11.0"
+  }
+}
