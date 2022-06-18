@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-const { path, config } = require("../../../bot")
+const { path, config } = require("../../../main")
 module.exports = async function (client, message, command, isInteraction, interactionType) {
     if (!command) return;
     const container = {
