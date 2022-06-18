@@ -1,8 +1,11 @@
+const { Client } = require('discord.js');
+
+
 (async () => {
     const Discord = require("discord.js");
     const config = require("./Config");
     const path = __dirname;
-    const client = new Discord.Client({
+    global.client = new Client({
         intents: [
             Discord.Intents.FLAGS.GUILDS,
             Discord.Intents.FLAGS.GUILD_MESSAGES,
@@ -38,7 +41,16 @@
     await Handler.loadContextMenus(client, path);
     await Handler.loadButtonCommands(client, path);
     await Handler.loadSelectMenus(client, path);
-    })()
+    
+
+    
+    // require('./src/Structures/Handlers/Handler')
+    
+    
+    
+
+
+})()
 
 
 

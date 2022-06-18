@@ -1,5 +1,5 @@
 const fs = require('fs');
-const file = require('../../File')
+const file = require('../../Utils/File')
 module.exports = {
     name: 'prefix',
     description: "pong!",

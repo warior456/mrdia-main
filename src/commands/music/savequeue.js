@@ -1,5 +1,5 @@
 const fs = require('fs');
-const File = require('../../File.js');
+const File = require('../../Utils/File');
 
 module.exports = {
     name: 'savequeue',

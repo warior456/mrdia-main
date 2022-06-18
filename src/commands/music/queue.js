@@ -1,5 +1,5 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js'); 
-const {timeToSeconds, addLeadingZeros, addTime } = require('../../utilities');
+const {timeToSeconds, addLeadingZeros, addTime } = require('../../Utils/utilities');
 
 const show_q = async (message, client, Discord, guildQueue)=>{
     let newMessage = 'false'

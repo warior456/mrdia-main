@@ -28,7 +28,7 @@ module.exports = async function (client, message, command, isInteraction, intera
                 if (!command) return;
                 let args = message.content.slice(prefix.length).trim()
                 if (args.toLowerCase().startsWith(cmdName)) args = args.slice(cmdName.length).trim().split(" ")
-                command.run(client, message, args, container)
+                command.execute(message, args, command.name, client, Discord)
             })
         }
     }

@@ -1,6 +1,6 @@
 const chalk = require("chalk")
 const Box = require("cli-box")
-
+const config = require("../../Config");
 
 module.exports = {
     
@@ -61,8 +61,9 @@ Client Events              ::    Initiating ${client.events.size} events.
 
         console.log(chalk.bold.greenBright(ClientBox))
         console.log(chalk.bold.blueBright(CommandsBox))
+        console.log(`${client.user.tag} is Online`);
 
-        const activities = [`${process.env.PREFIX}help`, `${process.env.PREFIX}help`];
+        const activities = [`${config.prefix}help`, `${config.prefix}help`];
         const updateDelay = 20; // in seconds
         let currentIndex = 0;
 

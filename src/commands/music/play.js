@@ -9,7 +9,7 @@ module.exports = {
             console.log(message.guild.id)
             console.log(invite.code);
         });
-
+        console.log(cmd)
         if(cmd === 'play'||cmd === 'p') play(message, args, cmd, client, Discord, guildQueue);
     }
 }

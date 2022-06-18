@@ -16,7 +16,7 @@ const listqs = async (message, args, cmd, client, Discord, player, guildQueue)=>
             fs.mkdirSync(`./guildData/${message.guild.id}`);
         }
         let req_page = args[0]
-        let ques = fs.readdirSync(`./guildData/${message.guild.id}/`).filter(files => files.endsWith('.csv'))
+        let ques = fs.readdirSync(`./`).filter(files => files.endsWith('.csv'))
         let pages = Math.ceil(ques.length/10)
         if(!req_page||req_page <= 0)req_page = 1
             
