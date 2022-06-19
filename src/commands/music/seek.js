@@ -1,7 +1,7 @@
 module.exports = {
     name: 'seek',
     aliases: [],
-    description: '',
+    description: 'seek to a set time in the song',
 
     run: async (message, args, cmd, client, Discord) => {
         let guildQueue = client.player.getQueue(message.guild.id);

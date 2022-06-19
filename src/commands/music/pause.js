@@ -1,7 +1,7 @@
 module.exports = {
     name: 'pause',
     aliases: ['resume'],
-    description: '',
+    description: 'pause the current song',
 
     run: (message, args, cmd, client, Discord) => {
         let guildQueue = client.player.getQueue(message.guild.id);

@@ -12,11 +12,11 @@ module.exports = {
 }
 const listqs = async (message, args, cmd, client, Discord, player, guildQueue) => {
     try {
-        if (!fs.existsSync(`./guildData/${message.guild.id}`)) {
-            fs.mkdirSync(`./guildData/${message.guild.id}`);
+        if (!fs.existsSync(`./src/guildData/${message.guild.id}`)) {
+            fs.mkdirSync(`./src/guildData/${message.guild.id}`);
         }
         let req_page = args[0]
-        let ques = fs.readdirSync(`./`).filter(files => files.endsWith('.csv'))
+        let ques = fs.readdirSync(`./src/guildData/${message.guild.id}/`).filter(files => files.endsWith('.csv'))
         let pages = Math.ceil(ques.length / 10)
         if (!req_page || req_page <= 0) req_page = 1
 
