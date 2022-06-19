@@ -25,7 +25,7 @@ module.exports = {
 
 
 
-function show_queue(message, client, Discord, guildQueue, newMessage) {
+async function show_queue(message, client, Discord, guildQueue, newMessage) {
     try {
         if (!guildQueue) return message.channel.send(`There are no songs in the queue`)
 
@@ -83,7 +83,7 @@ function show_queue(message, client, Discord, guildQueue, newMessage) {
     }
 }
 
-function send_embed(message, client, Discord, guildQueue, queueMessage, footer, newMessage, field) {
+async function send_embed(message, client, Discord, guildQueue, queueMessage, footer, newMessage, field) {
     try {
 
         const queEmbed = new MessageEmbed()
