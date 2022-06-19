@@ -1,13 +1,13 @@
 const discord = require('discord.js')
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 module.exports = {
     name: 'party',
     description: "play games or watch together",
-    execute(message, args, cmd, client, Discord){
-        
+    run: (message, args, cmd, client, Discord) => {
+
         const channel = message.member.voice.channel || message.guild.channels.cache.get(args[0]);
-        if(!channel) return message.channel.send(`You have to be in a voice channel!`)
+        if (!channel) return message.channel.send(`You have to be in a voice channel!`)
         if (!channel.permissionsFor(message.guild.me).has("CREATE_INSTANT_INVITE")) return message.channel.send("❌ | I need `CREATE_INSTANT_INVITE` permission");
         let activity_ID = '';
         switch (args[0]) {
@@ -33,10 +33,10 @@ module.exports = {
 
             case 'betrayal':
                 party_ID = '773336526917861400'
-                party_type ='Betrayal.io'
+                party_type = 'Betrayal.io'
                 break;
 
-            case 'chess' :
+            case 'chess':
                 party_ID = '832012774040141894'
                 party_type = 'Chess in the Park'
                 break;
@@ -55,11 +55,11 @@ module.exports = {
                 return message.channel.send(`Invalid type | Options[youtube / poker / fishington / betrayal / chess]`)
 
 
-                // lettertile: '879863686565621790', // Note : First package to offer lettertile, any other package offering it will be clearly inspired by it
-                // wordsnack: '879863976006127627', // Note : First package to offer wordsnack any other package offering it will be clearly inspired by it
-                // awkword: '879863881349087252', // Note : First package to offer awkword, any other package offering it will be clearly inspired by it
-                // spellcast: '852509694341283871', // Note : First package to offer spellcast, any other package offering it will be clearly inspired by it
-                // checkers: '832013003968348200
+            // lettertile: '879863686565621790', // Note : First package to offer lettertile, any other package offering it will be clearly inspired by it
+            // wordsnack: '879863976006127627', // Note : First package to offer wordsnack any other package offering it will be clearly inspired by it
+            // awkword: '879863881349087252', // Note : First package to offer awkword, any other package offering it will be clearly inspired by it
+            // spellcast: '852509694341283871', // Note : First package to offer spellcast, any other package offering it will be clearly inspired by it
+            // checkers: '832013003968348200
         }
         fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
             method: "POST",
@@ -84,7 +84,7 @@ module.exports = {
             .catch(e => {
                 message.channel.send("❌ | Could not start **party!**");
             })
-        
+
 
     }
 }

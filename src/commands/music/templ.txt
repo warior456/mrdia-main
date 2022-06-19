@@ -3,7 +3,7 @@ module.exports = {
     aliases: [],
     description: 'clear messages!',
 
-    async execute(message, args, cmd, client, Discord) {
+    run: async(message, args, cmd, client, Discord) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if(!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
     }

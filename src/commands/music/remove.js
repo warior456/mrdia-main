@@ -3,17 +3,17 @@ module.exports = {
     aliases: [],
     description: 'removes the given song',
 
-    async execute(message, args, cmd, client, Discord) {
+    run: async (message, args, cmd, client, Discord) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if(!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if(cmd === 'remove') remove_song(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'remove') remove_song(message, args, cmd, client, Discord, guildQueue);
     }
 }
 
-const remove_song = async (message, args, cmd, client, Discord, guildQueue)=>{
+async function remove_song(message, args, cmd, client, Discord, guildQueue) {
     try {
-        if(!guildQueue){
+        if (!guildQueue) {
             return message.channel.send(`There are no songs in queue!`);
         }
         let remSongs = ''
@@ -25,5 +25,5 @@ const remove_song = async (message, args, cmd, client, Discord, guildQueue)=>{
     } catch (error) {
         console.log(error)
     }
-    
+
 }

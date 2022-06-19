@@ -3,17 +3,17 @@ module.exports = {
     aliases: [],
     description: 'Shuffles the queue',
 
-    async execute(message, args, cmd, client, Discord) {
+    run: async (message, args, cmd, client, Discord) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if(!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if(cmd === 'shuffle') shuffle_queue(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'shuffle') shuffle_queue(message, args, cmd, client, Discord, guildQueue);
     }
 }
 
-const shuffle_queue = async (message, args, cmd, client, Discord, guildQueue)=>{
+const shuffle_queue = async (message, args, cmd, client, Discord, guildQueue) => {
     try {
-        if(!guildQueue){
+        if (!guildQueue) {
             return message.channel.send(`There are no songs in queue!`);
         }
         await guildQueue.shuffle();

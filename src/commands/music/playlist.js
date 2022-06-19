@@ -3,27 +3,27 @@ module.exports = {
     aliases: ['pl'],
     description: 'Add a YouTube or Spotify playlist to the queue',
 
-    async execute(message, args, cmd, client, Discord) {
-        
-        let guildQueue = client.player.getQueue(message.guild.id);
-        if(!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+    run: async (message, args, cmd, client, Discord) => {
 
-        if(cmd === 'pl'||cmd === 'playlist') playlist(message, args, cmd, client, Discord, guildQueue);
+        let guildQueue = client.player.getQueue(message.guild.id);
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+
+        if (cmd === 'pl' || cmd === 'playlist') playlist(message, args, cmd, client, Discord, guildQueue);
     }
 }
 
 
-const playlist = async (message, args, cmd, client, Discord, guildQueue)=>{
+async function playlist(message, args, cmd, client, Discord, guildQueue) {
     try {
         let queue = client.player.createQueue(message.guild.id);
         await queue.join(message.member.voice.channel);
         let song = await queue.playlist(args.join(' '), {
-                requestedBy: message.author.id,
-                data: {
-                    skipVotes: []
-                }
+            requestedBy: message.author.id,
+            data: {
+                skipVotes: []
+            }
         });
-        if(song === 'undefined'){
+        if (song === 'undefined') {
             queue.stop();
             return message.channel.send('Something went wrong!');
         }
