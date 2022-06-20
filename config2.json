@@ -1,0 +1,18 @@
+{
+        "token": "DISCORD BOT TOKEN",
+        "prefix": "!",
+        "loadSlashsGlobal": false,
+        "_COMMENT_": "Set it to true, when your Slash Commands are ready, false loads instant true loads slow but stable! (GLOBAL/GUILD COMMANDS, DISCORD DOCS!)",
+        "slashCommandsDirs": [
+                {
+                        "Folder": "music",
+                        "CmdName": "music",
+                        "CmdDescription": "music commands"
+                },
+                {
+                        "Folder": "bot_owner_commands",
+                        "CmdName": "owner",
+                        "CmdDescription": "bot owner commands!"
+                }
+        ]
+}
