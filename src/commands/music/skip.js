@@ -11,7 +11,7 @@ module.exports = {
     }
 }
 
-const skip = async (message, args, cmd, client, Discord, guildQueue) => {
+async function skip(message, args, cmd, client, Discord, guildQueue) {
     try {
         if (!guildQueue) return message.channel.send(`Nothing to skip!`);
 

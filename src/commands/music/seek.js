@@ -11,7 +11,7 @@ module.exports = {
     }
 }
 
-const seek = async (message, args, cmd, client, Discord, guildQueue) => {
+async function seek (message, args, cmd, client, Discord, guildQueue) {
     try {
         if (!guildQueue) {
             return message.channel.send(`There are no songs playing!`)

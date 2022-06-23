@@ -11,7 +11,7 @@ module.exports = {
     }
 }
 
-const shuffle_queue = async (message, args, cmd, client, Discord, guildQueue) => {
+async function shuffle_queue(message, args, cmd, client, Discord, guildQueue) {
     try {
         if (!guildQueue) {
             return message.channel.send(`There are no songs in queue!`);

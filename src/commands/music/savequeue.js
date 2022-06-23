@@ -12,7 +12,7 @@ module.exports = {
         if (cmd === 'sq' || cmd === 'savequeue') save_queue(message, args, cmd, client, Discord, guildQueue);
     }
 }
-const save_queue = async (message, args, cmd, client, Discord, guildQueue) => {
+async function save_queue(message, args, cmd, client, Discord, guildQueue) {
     try {
         if (!args[0]) {
             return message.channel.send('Please provide a name');

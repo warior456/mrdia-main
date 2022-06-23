@@ -11,7 +11,7 @@ module.exports = {
     }
 }
 
-const stop = async (message, args, cmd, client, Discord, guildQueue) => {
+async function stop(message, args, cmd, client, Discord, guildQueue) {
     try {
         if (!guildQueue) {
             return message.channel.send('No songs playing!');
