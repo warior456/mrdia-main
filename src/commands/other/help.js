@@ -83,7 +83,7 @@ async function help(message, client) {
 function all_cmds(client) {
     let message = ''
     client.commands.messageCommands.forEach(cmd => {
-        message += `**${config.prefix}${cmd.name}**\n ${cmd.description} | ${cmd.aliases}\n\n`
+        message += `**${config.prefix}${cmd.name}**\n ${cmd.description} | [${cmd.aliases}]\n\n`
     
     });
     return message
