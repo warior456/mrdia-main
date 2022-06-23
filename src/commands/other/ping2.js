@@ -1,5 +1,6 @@
 module.exports = {
 	name: "ping2",
+	aliases: [],
 	description: "Run this to see my ping.",
 	run: async(client, interaction, container) => {
 		const ping = new container.Discord.MessageEmbed()

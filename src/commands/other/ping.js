@@ -1,5 +1,6 @@
 module.exports = {
     name: 'ping',
+    aliases: [],
     description: "pong!",
     run: (message, args, cmd, client, Discord) => {
         message.channel.send('Loading data').then(async (msg) => {

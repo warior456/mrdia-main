@@ -3,6 +3,7 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 
 module.exports = {
     name: 'party',
+    aliases: [],
     description: "play games or watch together",
     run: (message, args, cmd, client, Discord) => {
 

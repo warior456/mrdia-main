@@ -2,6 +2,7 @@ const fs = require('fs');
 const file = require('../../Utils/File')
 module.exports = {
     name: 'prefix',
+    aliases: [],
     description: "pong!",
     run: async (message, args, cmd, client, Discord) => {
         if (!fs.existsSync(`./guildData/${message.guild.id}`)) {
