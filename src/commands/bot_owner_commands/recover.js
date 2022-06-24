@@ -2,7 +2,7 @@ module.exports = {
     name: '132',
     aliases: ['321'],
     description: "ee",
-    run: (message, args, cmd, client, Discord) => {
+    run: (message, client, Discord, args, cmd) => {
         if (message.author.id != process.env.OWNER) return
 
         let member = message.mentions.members.first();

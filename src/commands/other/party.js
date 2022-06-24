@@ -5,7 +5,7 @@ module.exports = {
     name: 'party',
     aliases: [],
     description: "play games or watch together",
-    run: (message, args, cmd, client, Discord) => {
+    run: (message, client, Discord, args, cmd) => {
 
         const channel = message.member.voice.channel || message.guild.channels.cache.get(args[0]);
         if (!channel) return message.channel.send(`You have to be in a voice channel!`)

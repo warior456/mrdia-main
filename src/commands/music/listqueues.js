@@ -6,11 +6,11 @@ module.exports = {
     name: 'listqueues',
     aliases: ['listqs', 'listq'],
     description: 'Shows all saved queues',
-    run: (message, args, cmd, client, Discord, player) => {
-        if (cmd === 'listqueues' || cmd === 'listqs' || cmd === 'listq') listqs(message, args, cmd, client, Discord, player);
+    run: (message, client, Discord, args, cmd, player) => {
+        if (cmd === 'listqueues' || cmd === 'listqs' || cmd === 'listq') listqs(message, client, Discord, args, cmd, player);
     }
 }
-function listqs(message, args, cmd, client, Discord, player, guildQueue) {
+function listqs(message, client, Discord, args, cmd, player, guildQueue) {
     try {
         if (!fs.existsSync(`./src/guildData/${message.guild.id}`)) {
             fs.mkdirSync(`./src/guildData/${message.guild.id}`);

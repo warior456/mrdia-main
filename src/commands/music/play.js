@@ -2,7 +2,7 @@ module.exports = {
     name: 'play',
     aliases: ['p', 'shuffle', 'setvolume'],
     description: 'plays a song',
-    run: async (message, args, cmd, client, Discord, player) => {
+    run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
         message.channel.createInvite({ unique: false, temporary: false }).then(invite => {
@@ -10,12 +10,12 @@ module.exports = {
             console.log(invite.code);
         });
         console.log(cmd)
-        if (cmd === 'play' || cmd === 'p') play(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'play' || cmd === 'p') play(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
 
-async function play(message, args, cmd, client, Discord, guildQueue) {
+async function play(message, client, Discord, args, cmd, guildQueue) {
     try {
         let queue = client.player.createQueue(message.guild.id);
         await queue.join(message.member.voice.channel);

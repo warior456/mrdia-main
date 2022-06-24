@@ -5,7 +5,7 @@ module.exports = {
     aliases: [],
     description: 'clear messages!',
 
-    run: async (message, args, cmd, client, Discord) => {
+    run: async (message, client, Discord, args, cmd) => {
         
         // if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 

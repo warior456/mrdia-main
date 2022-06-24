@@ -5,14 +5,14 @@ module.exports = {
     name: 'savequeue',
     aliases: ['sq'],
     description: 'Saves the current queue with a given name',
-    run: async (message, args, cmd, client, Discord, player) => {
+    run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'sq' || cmd === 'savequeue') save_queue(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'sq' || cmd === 'savequeue') save_queue(message, client, Discord, args, cmd, guildQueue);
     }
 }
-async function save_queue(message, args, cmd, client, Discord, guildQueue) {
+async function save_queue(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!args[0]) {
             return message.channel.send('Please provide a name');

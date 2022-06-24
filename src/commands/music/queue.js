@@ -17,7 +17,7 @@ module.exports = {
         await guildQueue.setData({
             page: args[0]
         });
-        let newMessage = 'true'
+        let newMessage = true
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
         show_queue(message, client, Discord, guildQueue, newMessage);
     }, show_q
@@ -111,8 +111,8 @@ async function send_embed(message, client, Discord, guildQueue, queueMessage, fo
                     .setStyle('SECONDARY')
             );
 
-        if (newMessage == 'true') message = await message.channel.send({ embeds: [queEmbed], components: [row] });
-        else if (newMessage == 'false') message.edit({ embeds: [queEmbed], components: [row] });
+        if (newMessage == true) message = await message.channel.send({ embeds: [queEmbed], components: [row] });
+        else if (newMessage == false) message.edit({ embeds: [queEmbed], components: [row] });
 
 
     } catch (error) {

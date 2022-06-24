@@ -3,7 +3,7 @@ module.exports = {
     aliases: [],
     description: 'clear messages!',
 
-    run: async (message, args, cmd, client, Discord) => {
+    run: async (message, client, Discord, args, cmd) => {
 
         if (message.member.permissions.has("MANAGE_MESSAGES") || message.author.id === process.env.OWNER) {                             //if (message.channel.permissionsFor(message.member).has("MANAGE_MESSAGES", true))
 

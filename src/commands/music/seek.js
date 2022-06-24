@@ -3,15 +3,15 @@ module.exports = {
     aliases: [],
     description: 'seek to a set time in the song',
 
-    run: async (message, args, cmd, client, Discord) => {
+    run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'seek') seek(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'seek') seek(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
-async function seek (message, args, cmd, client, Discord, guildQueue) {
+async function seek (message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
             return message.channel.send(`There are no songs playing!`)

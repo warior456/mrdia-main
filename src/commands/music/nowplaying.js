@@ -3,17 +3,17 @@ module.exports = {
     name: 'nowplaying',
     aliases: ['np'],
     description: 'show the current playing track',
-    run: async (message, args, cmd, client, Discord, player) => {
+    run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        now_playing(message, args, cmd, client, Discord, guildQueue);
+        now_playing(message, client, Discord, args, cmd, guildQueue);
 
     }
 }
 
 
-async function now_playing(message, args, cmd, client, Discord, guildQueue) {
+async function now_playing(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
             return message.channel.send(`There are no songs playing!`)

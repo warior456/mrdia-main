@@ -3,14 +3,14 @@ module.exports = {
     aliases: ['removedupes', 'rd'],
     description: 'Removes duplicate songs from the queue',
 
-    run: (message, args, cmd, client, Discord) => {
+    run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
-        if (cmd === 'removeduplicates' || cmd === 'removedupes' || cmd === 'rd') rdupes(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'removeduplicates' || cmd === 'removedupes' || cmd === 'rd') rdupes(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
-function rdupes(message, args, cmd, client, Discord, guildQueue) {
+function rdupes(message, client, Discord, args, cmd, guildQueue) {
     try {
         const uniques = []
         guildQueue.songs = guildQueue.songs.filter((song, i) => uniques.includes(song.url) ? false : (uniques.push(song.url), true))

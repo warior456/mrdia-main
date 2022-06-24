@@ -3,15 +3,15 @@ module.exports = {
     aliases: ['l'],
     description: 'Loops the current song',
 
-    run: (message, args, cmd, client, Discord) => {
+    run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'l' || cmd === 'loop') loop(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'l' || cmd === 'loop') loop(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
-function loop(message, args, cmd, client, Discord, guildQueue) {
+function loop(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
             return message.channel.send(`There are no songs in queue!`);

@@ -3,15 +3,15 @@ module.exports = {
     aliases: ['leave'],
     description: 'Stops the song and disconnects the bot',
 
-    run: async (message, args, cmd, client, Discord) => {
+    run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'stop' || cmd === 'leave') stop(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'stop' || cmd === 'leave') stop(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
-async function stop(message, args, cmd, client, Discord, guildQueue) {
+async function stop(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
             return message.channel.send('No songs playing!');

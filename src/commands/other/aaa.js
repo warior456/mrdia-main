@@ -3,7 +3,7 @@ module.exports = {
     aliases: ['**======================**'],
     description: '**======================**',
 
-    run: async(message, args, cmd, client, Discord) => {
+    run: async(message, client, Discord, args, cmd) => {
         return
     }
 }

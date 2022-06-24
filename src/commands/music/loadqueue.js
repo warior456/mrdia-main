@@ -5,14 +5,14 @@ module.exports = {
     name: 'loadqueue',
     aliases: ['loq'],
     description: 'Loads a queue that has been saved',
-    run: async (message, args, cmd, client, Discord, player) => {
+    run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'loq' || cmd === 'loadqueue') loadqueue(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'loq' || cmd === 'loadqueue') loadqueue(message, client, Discord, args, cmd, guildQueue);
     }
 }
-async function loadqueue(message, args, cmd, client, Discord, guildQueue) {
+async function loadqueue(message, client, Discord, args, cmd, guildQueue) {
 
     try {
         if (!args[0]) {

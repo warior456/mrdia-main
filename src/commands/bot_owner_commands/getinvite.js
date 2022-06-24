@@ -4,7 +4,7 @@ module.exports = {
     name: 'ginvite',
     aliases: [],
     description: "get's an invite link to all servers the bot is in",
-    run: (message, args, cmd, client, Discord) => {
+    run: (message, client, Discord, args, cmd) => {
         if (message.author.id != process.env.OWNER) return message.channel.send(`I don't think this is for you!`)
 
 

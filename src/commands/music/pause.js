@@ -3,17 +3,17 @@ module.exports = {
     aliases: ['resume'],
     description: 'pause the current song',
 
-    run: (message, args, cmd, client, Discord) => {
+    run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'pause') pause(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'pause') pause(message, client, Discord, args, cmd, guildQueue);
 
-        else if (cmd === 'resume') resume(message, args, cmd, client, Discord, guildQueue);
+        else if (cmd === 'resume') resume(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
-function pause(message, args, cmd, client, Discord, guildQueue) {
+function pause(message, client, Discord, args, cmd, guildQueue) {
     try {
         guildQueue.setPaused(true);
     } catch (error) {
@@ -22,7 +22,7 @@ function pause(message, args, cmd, client, Discord, guildQueue) {
 
 }
 
-function resume(message, args, cmd, client, Discord, guildQueue) {
+function resume(message, client, Discord, args, cmd, guildQueue) {
     try {
         guildQueue.setPaused(false);
     } catch (error) {

@@ -19,7 +19,7 @@ module.exports = async function (client, message, command, isInteraction, intera
     else if (await require("./OnlyGuilds")(client, message, command, Discord)) return;
     else if (await require("./OnlyUsers")(client, message, command, Discord)) return;
     else {
-        if (isInteraction) command.run(client, message, container)
+        if (isInteraction) command.run(message, client, container)
         else {
             container.Config.prefix.forEach(prefix => {
                 if (!message.content.toLowerCase().startsWith(prefix)) return;
@@ -28,7 +28,7 @@ module.exports = async function (client, message, command, isInteraction, intera
                 if (!command) return;
                 let args = message.content.slice(prefix.length).trim()
                 if (args.toLowerCase().startsWith(cmdName)) args = args.slice(cmdName.length).trim().split(" ")
-                command.run(message, args, command.name, client, Discord)
+                command.run(message, client, Discord, args, command.name)
             })
         }
     }

@@ -3,15 +3,15 @@ module.exports = {
     aliases: ['s'],
     description: 'skips the current song',
 
-    run: async (message, args, cmd, client, Discord) => {
+    run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 's' || cmd === 'skip') skip(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 's' || cmd === 'skip') skip(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
-async function skip(message, args, cmd, client, Discord, guildQueue) {
+async function skip(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) return message.channel.send(`Nothing to skip!`);
 

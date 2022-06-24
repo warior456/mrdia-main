@@ -5,7 +5,7 @@ module.exports = {
     name: 'help',
     aliases: ['?'],
     description: 'shows all commands',
-    run: (message, args, cmd, client, Discord) => {
+    run: (message, client, Discord, args, cmd) => {
         if (cmd === 'help' || cmd === '?') {
             switch (args[0]) {
                 // case 'music':

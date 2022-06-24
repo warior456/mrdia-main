@@ -3,15 +3,15 @@ module.exports = {
     aliases: ['sv'],
     description: 'Sets the volume of the bot',
 
-    run: (message, args, cmd, client, Discord) => {
+    run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'setvolume' || cmd === 'sv') setVolume(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'setvolume' || cmd === 'sv') setVolume(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
-function setVolume (message, args, cmd, client, Discord, guildQueue) {
+function setVolume (message, client, Discord, args, cmd, guildQueue) {
     try {
         if (message.member.roles.cache.some(role => role.name === 'Dj') || message.author.id == process.env.OWNER || message.member.permissions.has("ADMINISTRATOR")) {
             guildQueue.setVolume(parseInt(args[0]));

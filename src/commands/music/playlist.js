@@ -3,17 +3,17 @@ module.exports = {
     aliases: ['pl'],
     description: 'Add a YouTube or Spotify playlist to the queue',
 
-    run: async (message, args, cmd, client, Discord) => {
+    run: async (message, client, Discord, args, cmd) => {
 
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'pl' || cmd === 'playlist') playlist(message, args, cmd, client, Discord, guildQueue);
+        if (cmd === 'pl' || cmd === 'playlist') playlist(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
 
-async function playlist(message, args, cmd, client, Discord, guildQueue) {
+async function playlist(message, client, Discord, args, cmd, guildQueue) {
     try {
         let queue = client.player.createQueue(message.guild.id);
         await queue.join(message.member.voice.channel);
