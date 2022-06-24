@@ -16,10 +16,10 @@ module.exports = async function (message, command, Discord) {
                 .setColor("RANDOM")
                 .setTimestamp()
                 .setDescription(`This command can only be ran in these channels.\n•${onlyChannels.join("\n•")}`)],
-                allowedMentions: {
-                    repliedUser: false
-                }
-            })
-            return true;
-        }
+            allowedMentions: {
+                repliedUser: false
+            }
+        })
+        return true;
     }
+}
