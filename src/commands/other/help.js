@@ -12,12 +12,12 @@ module.exports = {
                 //     help_music(message);
                 //     break;
 
-                // case 'hidden':
-                //     help_hidden(message, client)
+                // case 'other':
+                //     help_other(message, client)
                 //     break;
 
                 default:
-                    help(message, client);
+                    help(message, client, args);
                     break;
             }
         }
@@ -69,22 +69,20 @@ module.exports = {
 //     message.channel.send({ embeds: [musicEmbed] });
 // }
 
-async function help(message, client) {
-    const hiddenEmbed = new discord.MessageEmbed()
+async function help(message, client, args) {
+    const help = true
+    const helpEmbed = new discord.MessageEmbed()
         .setColor('#a5fc03')
         .setTitle(`**Hidden commands tips \nMy prefix is ${(config.prefix)}**`)
-        .setDescription(all_cmds(client))
-        // .addFields(                                                             //{name: '', value: ''}
-        //     { name: all_cmds(client), value: "the commands" },
-        // )
-    message.channel.send({ embeds: [hiddenEmbed] });
+        .setDescription(all_cmds(client, args, help))
+    message.channel.send({ embeds: [helpEmbed] });
 }
 
-function all_cmds(client) {
+function all_cmds(client, args, help) {
     let message = ''
     client.commands.messageCommands.forEach(cmd => {
-        message += `**${config.prefix}${cmd.name}**\n ${cmd.description} | [${cmd.aliases}]\n\n`
-    
+        if(cmd.name == 'music'||cmd.name =='owner'||cmd.name =='other')return message += `**${cmd.name.toUpperCase()}**\n[${cmd.description}]\n[${cmd.aliases}]\n\n`
+        message += `**${config.prefix}${cmd.name}** | [${cmd.aliases}]\n ${cmd.description}\n\n`
     });
     return message
 }
