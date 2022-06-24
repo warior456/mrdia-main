@@ -11,11 +11,11 @@ const commandFiles = fs.readdirSync(`./src/commands/Basic`).filter(file => file.
 const clientId = '916665664037617705';
 const guildId = '829467609523159080';
 module.exports = async function (client, path) {
-for (const file of commandFiles) {
-	const command = require(`../../Commands/Basic/${file}`);
-    // console.log(command)
-	commands.push(JSON.stringify(command));
-}
+    for (const file of commandFiles) {
+        const command = require(`../../Commands/Basic/${file}`);
+        // console.log(command)
+        commands.push(JSON.stringify(command));
+    }
 }
 const rest = new REST({ version: '9' }).setToken(token);
 
