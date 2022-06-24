@@ -1,13 +1,14 @@
 module.exports = {
-	name: "ping",
+	name: "ping2",
+	aliases: [],
 	description: "Run this to see my ping.",
-	run: async(client, interaction, container) => {
+	run: (message, client, container) => {
 		const ping = new container.Discord.MessageEmbed()
 		.setColor('RANDOM')
 		.setTimestamp()
 		.setTitle('🏓╎ Pong!')
-		.setDescription(`🏠╎Websocket Latency: ${client.ws.ping}ms\n🤖╎Bot Latency: ${Date.now() - interaction.createdTimestamp}ms`);
-		interaction.reply({ embeds: [ping] })
+		.setDescription(`🏠╎Websocket Latency: ${client.ws.ping}ms\n🤖╎Bot Latency: ${Date.now() - message.createdTimestamp}ms`);
+		message.reply({ embeds: [ping] })
 	}
 }
 

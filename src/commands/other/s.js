@@ -4,11 +4,11 @@ module.exports = {
     description: "random number generator",
     run: (message, client, Discord, args, cmd)=>{
         max = 400000;
-        if (cmd === 'sauce'){
+        // if (cmd === 'sauce'){
             message.channel.send(`${Math.floor(Math.random() * max)}`);
-        }
+        // }
         
-        else if (cmd === 'saucelink'){
+        if (cmd === 'saucelink'){
             if (message.channel.nsfw) {
                 message.channel.send(`https://nhentai.net/g/${Math.floor(Math.random() * max)}/`);
             } else {
@@ -16,5 +16,9 @@ module.exports = {
             }
             
             }
+            try {
+                message.reply({ content: 'dummy message', fetchReply: true })
+                    .then((message) => message.delete())
+            } catch (error) {console.log(error)}
     }
 }
