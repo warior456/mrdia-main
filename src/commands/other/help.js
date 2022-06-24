@@ -73,7 +73,7 @@ async function help(message, client, args) {
     const help = true
     const helpEmbed = new discord.MessageEmbed()
         .setColor('#a5fc03')
-        .setTitle(`**Hidden commands tips \nMy prefix is ${(config.prefix)}**`)
+        .setTitle(`**My prefix is: ${(config.prefix)}**`)
         .setDescription(all_cmds(client, args, help))
     message.channel.send({ embeds: [helpEmbed] });
 }
