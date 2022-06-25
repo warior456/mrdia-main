@@ -7,13 +7,14 @@ module.exports = {
     aliases: ['?'],
     description: 'help commands',
     options: [{
-        name: "user",
-        type: "USER",
-        description: "Provide the user.",
+        name: "type",
+        type: "STRING",
+        description: "other, music, owner",
         required: true
     }],
     category: 'other',
     run: (message, client, Discord, args, cmd) => {
+        if(!args) args = Discord
         if (!args[0]) args[0] = 'other'
         help(message, client, args[0])
     }
