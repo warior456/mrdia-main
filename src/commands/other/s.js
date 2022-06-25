@@ -2,6 +2,7 @@ module.exports = {
     name: 'sauce',
     aliases: ['saucelink'],
     description: "random number generator",
+    category: 'other',
     run: (message, client, Discord, args, cmd)=>{
         max = 400000;
         // if (cmd === 'sauce'){

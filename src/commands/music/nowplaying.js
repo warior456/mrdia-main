@@ -3,6 +3,7 @@ module.exports = {
     name: 'nowplaying',
     aliases: ['np'],
     description: 'show the current playing track',
+    category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')

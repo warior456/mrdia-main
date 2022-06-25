@@ -4,6 +4,7 @@ module.exports = {
     name: 'prefix',
     aliases: [],
     description: "pong!",
+    category: 'other',
     run: async (message, client, Discord, args, cmd) => {
         if (!fs.existsSync(`./guildData/${message.guild.id}`)) {
             fs.mkdirSync(`./guildData/${message.guild.id}`);

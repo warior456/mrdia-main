@@ -7,7 +7,6 @@ class Reply {
     constructor() {
         throw new Error("You can't initiate a utility class !!!");
     }
-
     /**
      * 
      * @param {object}  message the message or interaction component
@@ -15,7 +14,7 @@ class Reply {
      * @param {boolean} isEmbed - declares if it is an embed
      * @returns {Promise<void>}
      */
-    static async send(message, reply, isEmbed) {
+    static send(message, reply, isEmbed) {
         try {
             switch (isEmbed) {
                 case true:
@@ -33,6 +32,23 @@ class Reply {
         }
     }
 
+    static edit(message, reply, isEmbed){
+        try {
+            switch (isEmbed) {
+                case true:
+                    if(message.type == 'APPLICATION_COMMAND')return message.edit({ embeds: [reply] })
+                    message.channel.edit({ embeds: [reply] })
+                    break;
+
+                default:
+                    if(message.type == 'APPLICATION_COMMAND')return message.edit(reply)
+                    message.channel.edit(reply)
+                    break;
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 module.exports = Reply;

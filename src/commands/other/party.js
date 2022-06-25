@@ -5,6 +5,7 @@ module.exports = {
     name: 'party',
     aliases: [],
     description: "play games or watch together",
+    category: 'other',
     run: (message, client, Discord, args, cmd) => {
 
         const channel = message.member.voice.channel || message.guild.channels.cache.get(args[0]);

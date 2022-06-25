@@ -5,6 +5,7 @@ module.exports = {
     name: 'savequeue',
     aliases: ['sq'],
     description: 'Saves the current queue with a given name',
+    category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel) return message.channel.send('Join a voice channel first!')

@@ -6,6 +6,7 @@ module.exports = {
     name: 'listqueues',
     aliases: ['listqs', 'listq'],
     description: 'Shows all saved queues',
+    category: 'music',
     run: (message, client, Discord, args, cmd, player) => {
         if (cmd === 'listqueues' || cmd === 'listqs' || cmd === 'listq') listqs(message, client, Discord, args, cmd, player);
     }

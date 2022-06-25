@@ -1,27 +1,21 @@
 const discord = require('discord.js');
 const config = require("../../../Config");
+Reply = require('../../Utils/replyHandler')
 
 module.exports = {
     name: 'help',
     aliases: ['?'],
-    description: 'shows all commands',
+    description: 'help commands',
+    options: [{
+        name: "user",
+        type: "USER",
+        description: "Provide the user.",
+        required: true
+    }],
+    category: 'other',
     run: (message, client, Discord, args, cmd) => {
-        if (cmd === 'help' || cmd === '?') {
-            switch (args[0]) {
-                // case 'music':
-                //     help_music(message);
-                //     break;
-
-                // case 'other':
-                //     help_other(message, client)
-                //     break;
-
-                default:
-                    help(message, client, args);
-                    break;
-            }
-        }
-
+        if (!args[0]) args[0] = 'other'
+        help(message, client, args[0])
     }
 }
 
@@ -69,20 +63,19 @@ module.exports = {
 //     message.channel.send({ embeds: [musicEmbed] });
 // }
 
-async function help(message, client, args) {
-    const help = true
+async function help(message, client, option) {
     const helpEmbed = new discord.MessageEmbed()
         .setColor('#a5fc03')
         .setTitle(`**My prefix is: ${(config.prefix)}**`)
-        .setDescription(all_cmds(client, args, help))
-    message.channel.send({ embeds: [helpEmbed] });
+        .setDescription(helpMsg(client, option))
+    Reply.send(message, helpEmbed, true)
 }
 
-function all_cmds(client, args, help) {
-    let message = ''
+function helpMsg(client, option) {
+    let help_msg = ''
     client.commands.messageCommands.forEach(cmd => {
-        if(cmd.name == 'music'||cmd.name =='owner'||cmd.name =='other')return message += `**${cmd.name.toUpperCase()}**\n[${cmd.description}]\n[${cmd.aliases}]\n\n`
-        message += `**${config.prefix}${cmd.name}** | [${cmd.aliases}]\n ${cmd.description}\n\n`
+        if (cmd.category != option) return
+        help_msg += `**${config.prefix}${cmd.name}** | [${cmd.aliases}]\n ${cmd.description}\n\n`
     });
-    return message
+    return help_msg
 }

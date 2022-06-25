@@ -5,14 +5,16 @@ module.exports = {
 	name: "ping2",
 	aliases: [],
 	description: "Run this to see my ping.",
-	run: (message, client, Discord, args, cmd) => {
+	category: `other`,
+	run: async (message, client, Discord, args, cmd) => {
 		const ping = new discord.MessageEmbed()
-		.setColor('RANDOM')
-		.setTimestamp()
-		.setTitle('🏓╎ Pong!')
-		.setDescription(`🏠╎Websocket Latency: ${client.ws.ping}ms\n🤖╎Bot Latency: ${Date.now() - message.createdTimestamp}ms`);
+			.setColor('RANDOM')
+			.setTimestamp()
+			.setTitle('🏓╎ Pong!')
+			.setDescription(`🏠╎Websocket Latency: ${client.ws.ping}ms\n🤖╎Bot Latency: ${ Date.now() - message.createdTimestamp}ms`);
 		Reply.send(message, ping, true)
 	}
+
 }
 
 // const { MessageEmbed, Message } = require("discord.js");

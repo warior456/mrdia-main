@@ -2,7 +2,7 @@ module.exports = {
     name: 'forceskip',
     aliases: ['fskip', 'fs'],
     description: 'Force skips the current song',
-
+    category: 'music',
     run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')

@@ -2,7 +2,7 @@ module.exports = {
     name: 'playlist',
     aliases: ['pl'],
     description: 'Add a YouTube or Spotify playlist to the queue',
-
+    category: 'music',
     run: async (message, client, Discord, args, cmd) => {
 
         let guildQueue = client.player.getQueue(message.guild.id);

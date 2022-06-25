@@ -2,7 +2,7 @@ module.exports = {
     name: 'shuffle',
     aliases: [],
     description: 'Shuffles the queue',
-
+    category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')

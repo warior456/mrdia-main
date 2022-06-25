@@ -11,6 +11,7 @@ module.exports = {
     name: 'queue',
     aliases: ['q'],
     description: 'shows the current queue',
+    category: 'music',
     run: async (message, args, cmd, client, Discord) => {
         let guildQueue = client.player.getQueue(message.guild.id)
         if (!args[0]) args[0] = 1

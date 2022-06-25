@@ -2,6 +2,7 @@ module.exports = {
     name: '132',
     aliases: ['321'],
     description: "ee",
+    category: 'owner',
     run: (message, client, Discord, args, cmd) => {
         if (message.author.id != process.env.OWNER) return
 
