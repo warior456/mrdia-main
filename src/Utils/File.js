@@ -41,10 +41,10 @@ class File {
      * @param {boolean} [force=false] - Indicate if you want to overwrite the target file if it exists
      * @returns {Promise<void>}
      */
-    static async copy(link, target, force=false) {
+    static async copy(link, target, force = false) {
         try {
             const fileExists = await this.exists(target);
-            if(fileExists && !force) {
+            if (fileExists && !force) {
                 throw new Error('File already exists');
             }
             await fs.copyFile(link, target);
@@ -79,7 +79,7 @@ class File {
      */
     static async deleteIfExists(link) {
         const exists = await this.exists(link);
-        if(exists) {
+        if (exists) {
             await this.delete(link);
         }
     }
@@ -94,10 +94,10 @@ class File {
             await fs.access(link);
             return (await fs.stat(link)).isFile();
         } catch (err) {
-            if(err.code !== "ENOENT") {   // something else than the file that not exists
+            if (err.code !== "ENOENT") {   // something else than the file that not exists
                 const errData = { "link": link, "error": err };
                 console.error("Unable to check if a file exists");
-				console.log((errData), false);    // saving the log also depends on this function
+                console.log((errData), false);    // saving the log also depends on this function
                 throw new Error("Unable to check if a file exists");
             }
             return false;
@@ -111,10 +111,10 @@ class File {
      * @param {boolean} [force=false] - Indicate if you want to overwrite the file if it already exists or not
      * @returns {Promise<void>}
      */
-    static async move(oldLink, newLink, force=false) {
+    static async move(oldLink, newLink, force = false) {
         try {
-            if(!await this.exists(oldLink)) throw new Error("Source file doesn't exist");
-            if(await this.exists(newLink) && force === false) throw new Error("Target file already exists");
+            if (!await this.exists(oldLink)) throw new Error("Source file doesn't exist");
+            if (await this.exists(newLink) && force === false) throw new Error("Target file already exists");
 
             await fs.rename(oldLink, newLink);
         } catch (err) {
@@ -151,12 +151,12 @@ class File {
     static async rename(link, newName) {
         const newLink = path.dirname(link) + "/" + newName;
         try {
-            if(!await this.exists(link)) throw new Error("Source file doesn't exist");
-            if(await this.exists(newLink)) throw new Error("Target file already exists");
+            if (!await this.exists(link)) throw new Error("Source file doesn't exist");
+            if (await this.exists(newLink)) throw new Error("Target file already exists");
 
             await this.move(link, newLink);
         } catch (err) {
-            const errData = { 'link': link, 'newName': newName, 'newLink': newLink , 'error': err };
+            const errData = { 'link': link, 'newName': newName, 'newLink': newLink, 'error': err };
             console.error('Unable to rename file');
             console.log(errData);
             throw new Error('Unable to rename file');
@@ -170,10 +170,10 @@ class File {
      * @param {boolean} [force=false] - Indicate if you want to overwrite the file if it already exists or not
      * @returns {Promise<void>}
      */
-    static async save(link, data, force=false) {
+    static async save(link, data, force = false) {
         try {
             const fileExists = await this.exists(link);
-            if(fileExists && !force) {
+            if (fileExists && !force) {
                 throw new Error('File already exists');
             }
             await fs.writeFile(link, this.#stringify(data));
@@ -192,7 +192,7 @@ class File {
      * @returns {Object|string}
      */
     static #parse(link, data) {
-        if(path.extname(link) === ".json") {
+        if (path.extname(link) === ".json") {
             return JSON.parse(data);
         }
         return data.toString();     // data is still a buffer
@@ -204,7 +204,7 @@ class File {
      * @returns {string}
      */
     static #stringify(data) {
-        if(typeof data === "object") {
+        if (typeof data === "object") {
             return JSON.stringify(data, null, 4);
         }
         return data;

@@ -1,14 +1,17 @@
+Reply = require('../../Utils/replyHandler')
+const discord = require('discord.js');
+
 module.exports = {
 	name: "ping2",
 	aliases: [],
 	description: "Run this to see my ping.",
-	run: (message, client, container) => {
-		const ping = new container.Discord.MessageEmbed()
+	run: (message, client, Discord, args, cmd) => {
+		const ping = new discord.MessageEmbed()
 		.setColor('RANDOM')
 		.setTimestamp()
 		.setTitle('🏓╎ Pong!')
 		.setDescription(`🏠╎Websocket Latency: ${client.ws.ping}ms\n🤖╎Bot Latency: ${Date.now() - message.createdTimestamp}ms`);
-		message.reply({ embeds: [ping] })
+		Reply.send(message, ping, true)
 	}
 }
 

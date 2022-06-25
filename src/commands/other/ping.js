@@ -1,15 +1,18 @@
+Reply = require('../../Utils/replyHandler')
+
 module.exports = {
     name: 'ping',
     aliases: [],
     description: "pong!",
     run: (message, client, Discord, args, cmd) => {
-        
-        try {
-            message.reply({ content: pong(message), fetchReply: true })
+        let pongMessage = `pong!`
+        Reply.send(message, pongMessage, false)
+        // try {
+        //     message.reply({ content: pong(message), fetchReply: true })
                 
-        } catch (error) {
-            message.channel.send(pong(message));
-        }
+        // } catch (error) {
+        //     message.channel.send(pong(message));
+        // }
     }
 }
 
