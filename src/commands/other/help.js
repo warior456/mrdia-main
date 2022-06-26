@@ -10,14 +10,31 @@ module.exports = {
         name: "type",
         type: "STRING",
         description: "other, music, owner",
+        choices: [{ name: 'other', value: 'other' },{ name: 'music', value: 'music' },{ name: 'owner', value: 'owner' }],
         required: true
     }],
     category: 'other',
     run: (message, client, Discord, args, cmd) => {
-        if(!args) args = Discord
         if (!args[0]) args[0] = 'other'
         help(message, client, args[0])
     }
+}
+
+async function help(message, client, option) {
+    const helpEmbed = new discord.MessageEmbed()
+        .setColor('#a5fc03')
+        .setTitle(`**My prefix is: ${(config.prefix)}**`)
+        .setDescription(helpMsg(client, option))
+    Reply.send(message, helpEmbed, true)
+}
+
+function helpMsg(client, option) {
+    let help_msg = ''
+    client.commands.messageCommands.forEach(cmd => {
+        if (cmd.category != option) return
+        help_msg += `**${config.prefix}${cmd.name}** | [${cmd.aliases}]\n ${cmd.description}\n\n`
+    });
+    return help_msg
 }
 
 // async function help_default(message) {
@@ -64,19 +81,3 @@ module.exports = {
 //     message.channel.send({ embeds: [musicEmbed] });
 // }
 
-async function help(message, client, option) {
-    const helpEmbed = new discord.MessageEmbed()
-        .setColor('#a5fc03')
-        .setTitle(`**My prefix is: ${(config.prefix)}**`)
-        .setDescription(helpMsg(client, option))
-    Reply.send(message, helpEmbed, true)
-}
-
-function helpMsg(client, option) {
-    let help_msg = ''
-    client.commands.messageCommands.forEach(cmd => {
-        if (cmd.category != option) return
-        help_msg += `**${config.prefix}${cmd.name}** | [${cmd.aliases}]\n ${cmd.description}\n\n`
-    });
-    return help_msg
-}

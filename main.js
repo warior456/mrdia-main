@@ -1,4 +1,7 @@
 const { Client } = require('discord.js');
+const { Player } = require("discord-music-player");
+
+
 
 
 (async () => {
@@ -52,7 +55,10 @@ const { Client } = require('discord.js');
 
 })()
 
-
+const player = new Player(client, {
+    leaveOnEmpty: false,            //optional
+});
+client.player = player;
 
 // const Discord = require('discord.js');
 // import('node-fetch')

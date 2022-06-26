@@ -2,12 +2,20 @@ module.exports = {
     name: 'play',
     aliases: ['p', 'shuffle', 'setvolume'],
     description: 'plays a song',
+    options: [{
+        name: "song",
+        type: "STRING",
+        description: "give the song name",
+        required: true
+    }],
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
+        console.log(message.guild.id + '  1')
+        console.log(message.guildId + '  2')
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
         message.channel.createInvite({ unique: false, temporary: false }).then(invite => {
-            console.log(message.guild.id)
+            console.log(message.guild.id + '  3')
             console.log(invite.code);
         });
         console.log(cmd)

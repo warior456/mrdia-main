@@ -1,4 +1,3 @@
-const { Player } = require("discord-music-player");
 
 module.exports = {
     name: "errorManager",
@@ -11,10 +10,7 @@ module.exports = {
             console.log(error)
         })
 
-        const player = new Player(client, {
-            leaveOnEmpty: false,            //optional
-        });
-        client.player = player;
+
         
         client.player
         .on('channelEmpty',  (queue) => console.log(`Everyone left the Voice Channel, queue ended.`))

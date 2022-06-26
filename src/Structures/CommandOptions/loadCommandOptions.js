@@ -20,8 +20,11 @@ module.exports = async function (client, message, command, isInteraction, intera
     else if (await require("./OnlyUsers")(client, message, command, Discord)) return;
     else {
         if (isInteraction) {
-            
-            command.run(message, client, container) 
+            let args = []
+            for (let index = 0; index < message.options._hoistedOptions.length; index++) {
+                args[index] = `${message.options._hoistedOptions[index].value}`;
+            }
+            command.run(message, client, container, args) 
             
         }
         
