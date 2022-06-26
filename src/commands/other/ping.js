@@ -1,5 +1,5 @@
 
-Reply = require('../../Utils/replyHandler')
+Reply = require('../../Structures/Handlers/replyHandler')
 
 module.exports = {
     name: 'ping',

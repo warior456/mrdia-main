@@ -1,3 +1,5 @@
+
+Reply = require('../../Structures/Handlers/replyHandler')
 module.exports = {
     name: 'play',
     aliases: ['p', 'shuffle', 'setvolume'],
@@ -9,17 +11,15 @@ module.exports = {
         required: true
     }],
     category: 'music',
-    run: async (message, client, Discord, args, cmd, player) => {
-        console.log(message.guild.id + '  1')
-        console.log(message.guildId + '  2')
+    run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
         message.channel.createInvite({ unique: false, temporary: false }).then(invite => {
-            console.log(message.guild.id + '  3')
+            console.log(message.guild.id)
             console.log(invite.code);
         });
-        console.log(cmd)
-        if (cmd === 'play' || cmd === 'p') play(message, client, Discord, args, cmd, guildQueue);
+
+        play(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
@@ -28,8 +28,15 @@ async function play(message, client, Discord, args, cmd, guildQueue) {
     try {
         let queue = client.player.createQueue(message.guild.id);
         await queue.join(message.member.voice.channel);
+        // let userId = message.author.id
+        
+        let userId 
+        if (!message.author) {
+            userId = message.user.id;
+        }else{userId = message.author.id}
+        
         let song = await queue.play(args.join(' '), {
-            requestedBy: message.author.id,
+            requestedBy: userId,
             data: {
                 skipVotes: []
             }

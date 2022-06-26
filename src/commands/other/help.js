@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 const config = require("../../../Config");
-Reply = require('../../Utils/replyHandler')
+Reply = require('../../Structures/Handlers/replyHandler')
 
 module.exports = {
     name: 'help',

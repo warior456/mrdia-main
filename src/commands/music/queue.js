@@ -1,5 +1,6 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const { timeToSeconds, addLeadingZeros, addTime } = require('../../Utils/utilities');
+Reply = require('../../Structures/Handlers/replyHandler')
 
 const show_q = async (message, client, Discord, guildQueue) => {
     let newMessage = 'false'
@@ -12,7 +13,7 @@ module.exports = {
     aliases: ['q'],
     description: 'shows the current queue',
     category: 'music',
-    run: async (message, args, cmd, client, Discord) => {
+    run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id)
         if (!args[0]) args[0] = 1
         await guildQueue.setData({
