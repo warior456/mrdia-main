@@ -1,4 +1,5 @@
 
+
 Reply = require('../../Structures/Handlers/replyHandler')
 module.exports = {
     name: 'play',
@@ -12,8 +13,9 @@ module.exports = {
     }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
+        Reply.defer(message)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.edit(message, 'Join a voice channel first!')
         message.channel.createInvite({ unique: false, temporary: false }).then(invite => {
             console.log(message.guild.id)
             console.log(invite.code);
@@ -39,11 +41,11 @@ async function play(message, client, Discord, args, cmd, guildQueue) {
         });
         if (song === 'undefined') {
             queue.stop();
-            return Reply.send('Something went wrong!');
+            return Reply.edit(message, 'Something went wrong!');
         }
-        Reply.send(`**[${song}]** has been added to the queue`)
+        Reply.edit(message, `**[${song}]** has been added to the queue`)
     } catch (error) {
         console.log(error);
-        Reply.send(`something went wrong when trying to play the song!`);
+        Reply.edit(message, `something went wrong when trying to play the song!`);
     }
 }

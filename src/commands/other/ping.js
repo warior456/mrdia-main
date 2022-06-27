@@ -11,7 +11,7 @@ module.exports = {
         message.channel.send('Loading data').then(async (msg) => {
             msg.delete()
             pongMessage += `pong! : Latency is ${msg.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`
-            Reply.send(message, pongMessage, false)
+            Reply.send(message, pongMessage)
         })
         
     }
