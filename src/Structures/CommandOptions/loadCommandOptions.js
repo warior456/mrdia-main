@@ -21,13 +21,15 @@ module.exports = async function (client, message, command, isInteraction, intera
     else {
         if (isInteraction) {
             let args = []
-            for (let index = 0; index < message.options._hoistedOptions.length; index++) {
-                args[index] = `${message.options._hoistedOptions[index].value}`;
+            if (message.options) {
+                for (let index = 0; index < message.options._hoistedOptions.length; index++) {
+                    args[index] = `${message.options._hoistedOptions[index].value}`;
+                }
             }
-            command.run(message, client, container, args) 
-            
+            command.run(message, client, container, args)
+
         }
-        
+
         else {
             container.Config.prefix.forEach(prefix => {
                 if (!message.content.toLowerCase().startsWith(prefix)) return;
