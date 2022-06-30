@@ -1,6 +1,6 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const { timeToSeconds, addLeadingZeros, addTime } = require('../../Utils/utilities');
-Reply = require('../../Structures/Handlers/replyHandler')
+const Reply = require('../../Structures/Handlers/replyHandler')
 
 const show_q = async (message) => {
     let guildQueue = client.player.getQueue(message.guild.id)

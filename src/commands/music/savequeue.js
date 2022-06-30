@@ -10,7 +10,7 @@ module.exports = {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'sq' || cmd === 'savequeue') save_queue(message, client, Discord, args, cmd, guildQueue);
+        save_queue(message, client, Discord, args, cmd, guildQueue);
     }
 }
 async function save_queue(message, client, Discord, args, cmd, guildQueue) {

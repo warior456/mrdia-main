@@ -8,7 +8,7 @@ module.exports = {
     description: 'Shows all saved queues',
     category: 'music',
     run: (message, client, Discord, args, cmd, player) => {
-        if (cmd === 'listqueues' || cmd === 'listqs' || cmd === 'listq') listqs(message, client, Discord, args, cmd, player);
+        listqs(message, client, Discord, args, cmd, player);
     }
 }
 function listqs(message, client, Discord, args, cmd, player, guildQueue) {

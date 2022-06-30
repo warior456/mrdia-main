@@ -7,7 +7,7 @@ module.exports = {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
 
-        if (cmd === 'forceskip' || cmd === 'fskip' || cmd === 'fs') fskip(message, client, Discord, args, cmd, guildQueue);
+        fskip(message, client, Discord, args, cmd, guildQueue);
     }
 }
 

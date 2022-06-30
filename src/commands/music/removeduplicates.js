@@ -6,7 +6,7 @@ module.exports = {
     run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
-        if (cmd === 'removeduplicates' || cmd === 'removedupes' || cmd === 'rd') rdupes(message, client, Discord, args, cmd, guildQueue);
+        rdupes(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
