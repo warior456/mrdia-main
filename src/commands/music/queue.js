@@ -21,8 +21,8 @@ module.exports = {
         await guildQueue.setData({
             page: args[0]
         });
-        
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
         show_queue(message, guildQueue, isNewMessage);
     }, show_q
 }
@@ -30,7 +30,7 @@ module.exports = {
 
 async function show_queue(message, guildQueue, isNewMessage) {
     try {
-        if (!guildQueue) return message.channel.send(`There are no songs in the queue`)
+        if (!guildQueue) return Reply.send(`There are no songs in the queue`)
 
         let queueMessage = await makeQueueMessage(guildQueue)
         let field = makeField(guildQueue)
@@ -40,7 +40,7 @@ async function show_queue(message, guildQueue, isNewMessage) {
 
     } catch (error) {
         console.log(error);
-        message.channel.send(`Something went wrong try again!(1)`);
+        Reply.send(`Something went wrong try again!(1)`);
     }
 }
 
@@ -51,14 +51,14 @@ function totPages(guildQueue) {
 }
 
 async function makeQueueMessage(guildQueue) {
-    
+
     // try {
-        const ProgressBar = guildQueue.createProgressBar();
+    const ProgressBar = guildQueue.createProgressBar();
     // } catch (error) {
     //     const ProgressBar = 'Error'
     // }
     let req_page = guildQueue.data.page                                                  //prevents getting an error when no page is given
-    if (req_page > totPages(guildQueue)) return message.channel.send(`There are only ${totPages(guildQueue)} pages`)                       // page cap
+    if (req_page > totPages(guildQueue)) return Reply.send(`There are only ${totPages(guildQueue)} pages`)                       // page cap
 
     let queueMessage = ''
     try {
@@ -66,7 +66,8 @@ async function makeQueueMessage(guildQueue) {
     } catch (error) {
         queueMessage = '**Current song:** error: no song playing\n==========================================\n'
     }
-
+    
+    if(!guildQueue.songs[1])return queueMessage
     for (var i = req_page * 10 - 9; i < guildQueue.songs.length && i <= req_page * 10; i++) { //makes the queueMessage
         queueMessage += `\`${i}.\` [${guildQueue.songs[i].name}](${guildQueue.songs[i].url}) | \`${guildQueue.songs[i].duration} | Requested by:\` <@${guildQueue.songs[i].requestedBy}>\n\n`
     }
@@ -80,7 +81,7 @@ function makeField(guildQueue) {
     }
 
     let s = ''
-    if (guildQueue.songs.length > 1) s = 's';
+    if (guildQueue.songs.length - 1 > 1 || guildQueue.songs.length - 1 === 0 ) s = 's';
     let field = `**${guildQueue.songs.length - 1} song${s} in queue||${queueLength} Total length**`
 
     return field
@@ -135,18 +136,10 @@ function addButtons() {
 }
 
 async function send_embed(message, queEmbed, isNewMessage) {
-    try {
-        
-        if (isNewMessage) {
-            Reply.send(message, { embeds: [queEmbed], components: [addButtons()] })
-            console.log(message)
-        } else {
-            Reply.edit(message, { embeds: [queEmbed] });
-            console.log('tried edit')
-        }
-    } catch (error) {
-        console.log(error);
-        message.channel.send(`Something went wrong try again(2)!`);
+    if (isNewMessage) {
+        Reply.send(message, { embeds: [queEmbed], components: [addButtons()] })
+    } else {
+        Reply.edit(message, { embeds: [queEmbed] });
     }
 }
 

@@ -28,23 +28,38 @@ class Reply {
     static edit(message, content) {
         try {
             
-            if (message.type === 'APPLICATION_COMMAND') { 
+            if (message.type === 'APPLICATION_COMMAND' && message.options) { 
                 message.editReply(content);
-            } else {
+            }else
                 message.edit(content);
+            }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    static defer(message){
+        if (message.type === 'APPLICATION_COMMAND') {
+            message.deferReply()
+        } else {
+            return
+        }
+    }
+
+    static follow(message, content) {
+        try {
+            
+            if (message.type === 'APPLICATION_COMMAND') { 
+                message.followUp(content);
+            } else {
+                message.channel.send(content);
             }
         } catch (error) {
             console.log(error)
         }
     }
 
-    static defer(message){
-        if (message.type === 'APPLICATION_COMMAND') {    // a ternary IF statement (like on the previous line is also possible, but imo less clean)
-            message.deferReply()
-        } else {
-            return
-        }
-    }
+
 }
 
 module.exports = Reply;

@@ -1,9 +1,9 @@
 
 
-Reply = require('../../Structures/Handlers/replyHandler')
+const Reply = require('../../Structures/Handlers/replyHandler')
 module.exports = {
     name: 'play',
-    aliases: ['p', 'shuffle', 'setvolume'],
+    aliases: ['p'],
     description: 'plays a song',
     options: [{
         name: "song",

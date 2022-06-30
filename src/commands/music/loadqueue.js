@@ -1,38 +1,42 @@
 const fs = require('fs');
 const File = require('../../Utils/File');
+const Reply = require('../../Structures/Handlers/replyHandler')
 
 module.exports = {
     name: 'loadqueue',
     aliases: ['loq'],
     description: 'Loads a queue that has been saved',
+    options: [{
+        name: "name",
+        type: "STRING",
+        description: "Give the queue name",
+        required: true
+    }],
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel) return message.channel.send('Join a voice channel first!')
-
-        if (cmd === 'loq' || cmd === 'loadqueue') loadqueue(message, client, Discord, args, cmd, guildQueue);
+        if (!message.member.voice.channel) return Reply.send('Join a voice channel first!')
+        loadQueue(message, client, Discord, args, cmd, guildQueue);
     }
 }
-async function loadqueue(message, client, Discord, args, cmd, guildQueue) {
+async function loadQueue(message, client, Discord, args, cmd, guildQueue) {
 
     try {
         if (!args[0]) {
-            return message.channel.send('Please provide a name');
-        }
-        if (!guildQueue) {
-            let guildQueue = client.player.getQueue(message.guild.id);
+            return Reply.send('Please provide a name');
         }
         if (!fs.existsSync(`./src/guildData/${message.guild.id}`)) {
             fs.mkdirSync(`./src/guildData/${message.guild.id}`);
         }
         if (!fs.existsSync(`./src/guildData/${message.guild.id}/${args[0]}.csv`)) {
-            return message.channel.send(`that queue doesn't exist`)
+            return Reply.send(message, `that queue doesn't exist`)
         }
         if (!message.member.voice.channel) {
-            return message.channel.send('join a voice channel first!')
+            return Reply.send(message, 'join a voice channel first!')
         }
+        
         try {
-            message.channel.send('loading queue')
+            Reply.send(message, 'loading queue')
 
             try {
                 const loQueue = await File.read(`./src/guildData/${message.guild.id}/${args[0]}.csv`);
@@ -53,16 +57,16 @@ async function loadqueue(message, client, Discord, args, cmd, guildQueue) {
                     }
 
                 }
-                // message.channel.send(errorMessage)
-                message.channel.send(`**[${args[0]}]** has been  loaded`)
+                // Reply.send(errorMessage)
+                Reply.follow(message, `**[${args[0]}]** has been  loaded`)
             } catch (error) {
                 console.log(error);
-                message.channel.send(`something went wrong while loading the queue`);
+                Reply.follow(message, `something went wrong while loading the queue`);
             }
 
         } catch (error) {
             console.log(error)
-            message.channel.send('unable to load queue')
+            Reply.follow(message, 'unable to load queue')
         }
 
 
