@@ -27,11 +27,11 @@ class Reply {
 
     static edit(message, content) {
         try {
-            // const content = isEmbed ? { embeds: [reply] } : reply;    // better name possible
-            if (message.type === 'APPLICATION_COMMAND') {    // a ternary IF statement (like on the previous line is also possible, but imo less clean)
+            
+            if (message.type === 'APPLICATION_COMMAND') { 
                 message.editReply(content);
             } else {
-                message.channel.edit(content);
+                message.edit(content);
             }
         } catch (error) {
             console.log(error)
