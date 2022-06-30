@@ -27,53 +27,15 @@ module.exports = {
 }
 
 
-
 async function show_queue(message, guildQueue, newMessage) {
     try {
         if (!guildQueue) return message.channel.send(`There are no songs in the queue`)
 
-        let pages = Math.ceil((guildQueue.songs.length - 1) / 10)
-        if (pages == '0') pages = 1;
 
-        const ProgressBar = guildQueue.createProgressBar();
+        let footer = makeFooter()
+        let queueMessage = makeQueueMessage()
+        let field = makeField()
 
-
-        let queuelength = '00:00'
-        for (let i = 0; i < guildQueue.songs.length; i++) {
-            queuelength = addTime(queuelength, guildQueue.songs[i].duration)
-        }
-
-        let queueMessage = ''
-        try {
-            queueMessage = `**Current song:** [${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})\n\`${ProgressBar}| Requested by:\` <@${guildQueue.nowPlaying.requestedBy}> \n==========================================\n`
-        } catch (error) {
-            queueMessage = '**Current song:** error: no song playing'
-        }
-
-
-        let req_page = guildQueue.data.page                                                  //prevents getting an error when no page is given
-        if (req_page > pages) return message.channel.send(`There are only ${pages} pages`)                       // page cap
-
-        let footer = `page ${req_page}/${pages} `;   //makes the footer
-        switch (guildQueue.repeatMode) {
-            case 0:
-                footer += `| LoopQueue: ❌ | Loop: ❌`
-                break;
-            case 1:
-                footer += `| LoopQueue: ❌ | Loop: ✅`
-                break;
-            case 2:
-                footer += `| LoopQueue: ✅ | Loop: ❌`
-                break;
-        }
-
-        for (var i = req_page * 10 - 9; i < guildQueue.songs.length && i <= req_page * 10; i++) { //makes the queueMessage
-            queueMessage += `\`${i}.\` [${guildQueue.songs[i].name}](${guildQueue.songs[i].url}) | \`${guildQueue.songs[i].duration} | Requested by:\` <@${guildQueue.songs[i].requestedBy}>\n\n`
-        }
-
-        let s = ''          //makes the field
-        if (guildQueue.songs.length > 1) s = 's';
-        let field = `**${guildQueue.songs.length - 1} song${s} in queue||${queuelength} lotal length**`
         send_embed(message, queueMessage, footer, newMessage, field)
 
     } catch (error) {
@@ -82,32 +44,66 @@ async function show_queue(message, guildQueue, newMessage) {
     }
 }
 
-async function send_embed(message, queueMessage, footer, newMessage, field) {
-    try {
-
-        const queEmbed = new MessageEmbed()
-            .setTitle('Server Queue')
-            .setColor('#a20000')
-            .setDescription(queueMessage)
-            .addFields(
-                { name: field, value: footer },
-            );
-
-        console.log(2)
-        
-        if (newMessage) {
-            console.log(3)
-            Reply.send(message, { embeds: [queEmbed], components: [addButtons()] })
-        } else {
-            console.log(4)
-            Reply.edit(message, { content: [queEmbed]});
-        }
-
-
-    } catch (error) {
-        console.log(error);
-        message.channel.send(`Something went wrong try again(2)!`);
+function makeField() {
+    let queueLength = '00:00'
+    for (let i = 0; i < guildQueue.songs.length; i++) {
+        queueLength = addTime(queueLength, guildQueue.songs[i].duration)
     }
+
+    let s = ''
+    if (guildQueue.songs.length > 1) s = 's';
+    let field = `**${guildQueue.songs.length - 1} song${s} in queue||${queueLength} Total length**`
+    
+    return field
+}
+
+function makeFooter() {
+    let pages = Math.ceil((guildQueue.songs.length - 1) / 10)
+    if (pages === 0) pages = 1;
+
+    let footer = `page ${req_page}/${pages} `;   //makes the footer
+    switch (guildQueue.repeatMode) {
+        case 0:
+            footer += `| LoopQueue: ❌ | Loop: ❌`
+            break;
+        case 1:
+            footer += `| LoopQueue: ❌ | Loop: ✅`
+            break;
+        case 2:
+            footer += `| LoopQueue: ✅ | Loop: ❌`
+            break;
+    }
+    return footer
+}
+
+async function makeQueueMessage(guildQueue) {
+    const ProgressBar = guildQueue.createProgressBar();
+
+    let req_page = guildQueue.data.page                                                  //prevents getting an error when no page is given
+    if (req_page > pages) return message.channel.send(`There are only ${pages} pages`)                       // page cap
+
+    let queueMessage = ''
+    try {
+        queueMessage = `**Current song:** [${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})\n\`${ProgressBar}| Requested by:\` <@${guildQueue.nowPlaying.requestedBy}> \n==========================================\n`
+    } catch (error) {
+        queueMessage = '**Current song:** error: no song playing'
+    }
+
+    for (var i = req_page * 10 - 9; i < guildQueue.songs.length && i <= req_page * 10; i++) { //makes the queueMessage
+        queueMessage += `\`${i}.\` [${guildQueue.songs[i].name}](${guildQueue.songs[i].url}) | \`${guildQueue.songs[i].duration} | Requested by:\` <@${guildQueue.songs[i].requestedBy}>\n\n`
+    }
+    return queueMessage
+}
+
+async function makeEmbed(queueMessage, field, footer) {
+    const queEmbed = new MessageEmbed()
+        .setTitle('Server Queue')
+        .setColor('#a20000')
+        .setDescription(queueMessage)
+        .addFields(
+            { name: field, value: footer },
+        );
+    return queEmbed
 }
 
 function addButtons() {
@@ -129,3 +125,20 @@ function addButtons() {
         );
     return row
 }
+
+async function send_embed(message, queEmbed) {
+    try {
+        console.log(2)
+        if (newMessage) {
+            console.log(3)
+            Reply.send(message, { embeds: [queEmbed], components: [addButtons()] })
+        } else {
+            console.log(4)
+            Reply.edit(message, { content: [queEmbed] });
+        }
+    } catch (error) {
+        console.log(error);
+        message.channel.send(`Something went wrong try again(2)!`);
+    }
+}
+
