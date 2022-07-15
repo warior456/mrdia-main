@@ -7,6 +7,7 @@ module.exports = {
     name: "ready",
     once: true,
     run: async (client) => {
+        //client.application.commands.set([])
         client.user.setActivity("Starting...", {
             type: `PLAYING`,
         })
@@ -63,16 +64,13 @@ Client Events              ::    Initiating ${client.events.size} events.
         console.log(chalk.bold.blueBright(CommandsBox))
         console.log(`${client.user.tag} is Online`);
 
-        const activities = [`${config.prefix}help`, `${config.prefix}help`];
+        const activities = [`${config.prefix}help`, `/help`];
         const updateDelay = 20; // in seconds
         let currentIndex = 0;
 
         setInterval(() => {
             const activity = activities[currentIndex];
             client.user.setActivity(activity);
-
-            // update currentIndex
-            // if it's the last one, get back to 0
             currentIndex = currentIndex >= activities.length - 1
                 ? 0
                 : currentIndex + 1;

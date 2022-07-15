@@ -1,3 +1,4 @@
+const Reply = require('../../Structures/Handlers/replyHandler')
 const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: 'nowplaying',
@@ -6,7 +7,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
 
         now_playing(message, client, Discord, args, cmd, guildQueue);
 
@@ -17,7 +18,7 @@ module.exports = {
 async function now_playing(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
-            return message.channel.send(`There are no songs playing!`)
+            return Reply.send(`There are no songs playing!`)
         }
         const ProgressBar = guildQueue.createProgressBar();
         let queueMessage = `**Current song:** [${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})\n\`${ProgressBar}| Requested by:\` <@${guildQueue.nowPlaying.requestedBy}>`
@@ -38,11 +39,11 @@ async function now_playing(message, client, Discord, args, cmd, guildQueue) {
             .setDescription(queueMessage)
             .setFooter(footer);
 
-        message.channel.send({ embeds: [queEmbed] });
+        Reply.send({ embeds: [queEmbed] });
 
 
     } catch (error) {
         console.log(error);
-        message.channel.send(`Something went wrong try again!`);
+        Reply.send(`Something went wrong try again!`);
     }
 }

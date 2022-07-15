@@ -1,3 +1,5 @@
+const Reply = require('../../Structures/Handlers/replyHandler')
+
 module.exports = {
     name: 'skip',
     aliases: ['s'],
@@ -5,7 +7,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
 
         skip(message, client, Discord, args, cmd, guildQueue);
     }
@@ -13,13 +15,13 @@ module.exports = {
 
 async function skip(message, client, Discord, args, cmd, guildQueue) {
     try {
-        if (!guildQueue) return message.channel.send(`Nothing to skip!`);
+        if (!guildQueue) return Reply.send(`Nothing to skip!`);
 
 
         let userC = message.member.voice.channel.members.size
         let userR = Math.floor(userC / 2)
 
-        if (guildQueue.nowPlaying.data.skipVotes.includes(message.author.id)) return message.channel.send(`you already voted, ${guildQueue.nowPlaying.data.skipVotes.length}/${userR}`)
+        if (guildQueue.nowPlaying.data.skipVotes.includes(message.author.id)) return Reply.send(`you already voted, ${guildQueue.nowPlaying.data.skipVotes.length}/${userR}`)
         await guildQueue.nowPlaying.data.skipVotes.push(message.author.id)
 
         console.log(guildQueue.nowPlaying.data)
@@ -27,15 +29,15 @@ async function skip(message, client, Discord, args, cmd, guildQueue) {
         if (guildQueue.nowPlaying.data.skipVotes.length >= userR) {
             guildQueue.nowPlaying.data.skipVotes = [];
             await guildQueue.skip();
-            message.channel.send(`Song skipped!`);
+            Reply.send(`Song skipped!`);
         } else {
-            message.channel.send(`voted! ${guildQueue.nowPlaying.data.skipVotes.length}/${userR}`)
+            Reply.send(`voted! ${guildQueue.nowPlaying.data.skipVotes.length}/${userR}`)
         }
 
 
     } catch (error) {
         console.log(error);
-        message.channel.send(`Something went wrong when trying to skip the song!`);
+        Reply.send(`Something went wrong when trying to skip the song!`);
     }
 
 }

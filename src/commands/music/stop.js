@@ -1,3 +1,5 @@
+const Reply = require('../../Structures/Handlers/replyHandler')
+
 module.exports = {
     name: 'stop',
     aliases: ['leave'],
@@ -5,7 +7,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
 
         stop(message, client, Discord, args, cmd, guildQueue);
     }
@@ -14,7 +16,7 @@ module.exports = {
 async function stop(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
-            return message.channel.send('No songs playing!');
+            return Reply.send('No songs playing!');
         }
         let userC = message.member.voice.channel.members.size
         if (userC < 4) guildQueue.stop();
@@ -22,10 +24,10 @@ async function stop(message, client, Discord, args, cmd, guildQueue) {
             guildQueue.stop();
         }
         else {
-            message.channel.send(`[Dj] role required (more than 3 people in voice)`)
+            Reply.send(`[Dj] role required (more than 3 people in voice)`)
         }
     } catch (error) {
         console.log(error);
-        message.channel.send(`Something went wrong when trying to stop the music!`);
+        Reply.send(`Something went wrong when trying to stop the music!`);
     }
 }

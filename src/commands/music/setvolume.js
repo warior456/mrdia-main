@@ -1,3 +1,5 @@
+const Reply = require('../../Structures/Handlers/replyHandler')
+//todo options
 module.exports = {
     name: 'setvolume',
     aliases: ['sv'],
@@ -5,7 +7,7 @@ module.exports = {
     category: 'music',
     run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
 
         setVolume(message, client, Discord, args, cmd, guildQueue);
     }
@@ -20,7 +22,7 @@ function setVolume (message, client, Discord, args, cmd, guildQueue) {
             guildQueue.setVolume(parseInt(args[0]));
         }
         else {
-            message.channel.send(`You need [Dj] role to set the volume above 300`)
+            Reply.send(`You need [Dj] role to set the volume above 300`)
         }
 
     } catch (error) {

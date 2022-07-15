@@ -1,3 +1,4 @@
+const Reply = require('../../Structures/Handlers/replyHandler')
 const fs = require('fs');
 const File = require('../../Utils/File');
 
@@ -8,7 +9,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel) return message.channel.send('Join a voice channel first!')
+        if (!message.member.voice.channel) return Reply.send('Join a voice channel first!')
 
         save_queue(message, client, Discord, args, cmd, guildQueue);
     }
@@ -16,10 +17,10 @@ module.exports = {
 async function save_queue(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!args[0]) {
-            return message.channel.send('Please provide a name');
+            return Reply.send('Please provide a name');
         }
         if (!guildQueue) {
-            return message.channel.send(`No song's in queue!`)
+            return Reply.send(`No song's in queue!`)
         }
         if (!fs.existsSync(`./guildData/${message.guild.id}`)) {
             fs.mkdirSync(`./guildData/${message.guild.id}`);
@@ -31,7 +32,7 @@ async function save_queue(message, client, Discord, args, cmd, guildQueue) {
         }
 
         await File.save(`./guildData/${message.guild.id}/${args[0]}.csv`, savingQueue, true);
-        message.channel.send(`**[${args[0]}]** has been saved!`)
+        Reply.send(`**[${args[0]}]** has been saved!`)
     } catch (error) {
         console.log(error)
     }

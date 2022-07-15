@@ -1,7 +1,8 @@
-
+const Reply = require('../../Structures/Handlers/replyHandler')
 const axios = require("axios");
 
-
+//todo working
+//todo options
 
 module.exports = {
     name: 'lyrics',
@@ -10,7 +11,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
 
-        // if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+        // if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
 
         const searchOptions = {
             method: 'GET',
