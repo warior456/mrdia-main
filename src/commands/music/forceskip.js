@@ -7,7 +7,7 @@ module.exports = {
     category: 'music',
     run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
 
         fskip(message, client, Discord, args, cmd, guildQueue);
     }
@@ -18,8 +18,8 @@ async function fskip(message, client, Discord, args, cmd, guildQueue) {
     if (message.member.roles.cache.some(role => role.name === 'Dj') || message.author.id == process.env.OWNER || message.member.permissions.has("ADMINISTRATOR")) {
 
         await guildQueue.skip();
-        await Reply.send(`Song skipped!`);
+        await Reply.send(message, `Song skipped!`);
     } else {
-        return Reply.send(`You have to be a Dj or administrator!`);
+        return Reply.send(message, `You have to be a Dj or administrator!`);
     }
 }

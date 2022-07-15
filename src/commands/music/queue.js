@@ -7,7 +7,7 @@ const show_q = async (message) => {
     let isNewMessage = false
     show_queue(message, guildQueue, isNewMessage)
 }
-
+//todo error messages need message parameter
 
 module.exports = {
     name: 'queue',

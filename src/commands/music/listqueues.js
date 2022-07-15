@@ -24,7 +24,7 @@ function listqs(message, client, Discord, args, cmd, player, guildQueue) {
 
         let queueMessage = ''
 
-        if (req_page > pages) return Reply.send(`There are only ${pages} pages`)
+        if (req_page > pages) return Reply.send(message, `There are only ${pages} pages`)
         for (var i = req_page * 10 - 9; i <= ques.length && i <= req_page * 10; i++) {
             queueMessage += `${ques[i - 1]} \n`
         }
@@ -36,7 +36,7 @@ function listqs(message, client, Discord, args, cmd, player, guildQueue) {
                 { name: queueMessage, value: footer },
             );
 
-        Reply.send({ embeds: [queEmbed] })
+        Reply.send(message, { embeds: [queEmbed] })
     } catch (error) {
         console.log(error)
     }

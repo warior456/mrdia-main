@@ -9,7 +9,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel) return Reply.send(message, 'Join a voice channel first!')
 
         save_queue(message, client, Discord, args, cmd, guildQueue);
     }
@@ -17,10 +17,10 @@ module.exports = {
 async function save_queue(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!args[0]) {
-            return Reply.send('Please provide a name');
+            return Reply.send(message, 'Please provide a name');
         }
         if (!guildQueue) {
-            return Reply.send(`No song's in queue!`)
+            return Reply.send(message, `No song's in queue!`)
         }
         if (!fs.existsSync(`./guildData/${message.guild.id}`)) {
             fs.mkdirSync(`./guildData/${message.guild.id}`);
@@ -32,7 +32,7 @@ async function save_queue(message, client, Discord, args, cmd, guildQueue) {
         }
 
         await File.save(`./guildData/${message.guild.id}/${args[0]}.csv`, savingQueue, true);
-        Reply.send(`**[${args[0]}]** has been saved!`)
+        Reply.send(message, `**[${args[0]}]** has been saved!`)
     } catch (error) {
         console.log(error)
     }

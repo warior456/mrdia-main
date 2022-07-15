@@ -6,7 +6,7 @@ module.exports = {
     description: "list's the servers the bot is in",
     category: 'owner',
     run: (message, client, Discord, args, cmd) => {
-        if (message.author.id != process.env.OWNER) return Reply.send(`I don't think this is for you!`)
+        if (message.author.id != process.env.OWNER) return Reply.send(message, `I don't think this is for you!`)
 
         let listMessage = 'serverlist\n=========================================\n'
         client.guilds.cache.forEach(guild => {
@@ -14,7 +14,7 @@ module.exports = {
         })
 
 
-        Reply.send(listMessage);
+        Reply.send(message, listMessage);
 
     }
 

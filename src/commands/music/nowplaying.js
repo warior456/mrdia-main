@@ -7,7 +7,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
 
         now_playing(message, client, Discord, args, cmd, guildQueue);
 
@@ -18,7 +18,7 @@ module.exports = {
 async function now_playing(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
-            return Reply.send(`There are no songs playing!`)
+            return Reply.send(message, `There are no songs playing!`)
         }
         const ProgressBar = guildQueue.createProgressBar();
         let queueMessage = `**Current song:** [${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})\n\`${ProgressBar}| Requested by:\` <@${guildQueue.nowPlaying.requestedBy}>`
@@ -39,11 +39,11 @@ async function now_playing(message, client, Discord, args, cmd, guildQueue) {
             .setDescription(queueMessage)
             .setFooter(footer);
 
-        Reply.send({ embeds: [queEmbed] });
+        Reply.send(message, { embeds: [queEmbed] });
 
 
     } catch (error) {
         console.log(error);
-        Reply.send(`Something went wrong try again!`);
+        Reply.send(message, `Something went wrong try again!`);
     }
 }

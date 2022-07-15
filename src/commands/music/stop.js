@@ -7,7 +7,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
 
         stop(message, client, Discord, args, cmd, guildQueue);
     }
@@ -16,7 +16,7 @@ module.exports = {
 async function stop(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
-            return Reply.send('No songs playing!');
+            return Reply.send(message, 'No songs playing!');
         }
         let userC = message.member.voice.channel.members.size
         if (userC < 4) guildQueue.stop();
@@ -24,10 +24,10 @@ async function stop(message, client, Discord, args, cmd, guildQueue) {
             guildQueue.stop();
         }
         else {
-            Reply.send(`[Dj] role required (more than 3 people in voice)`)
+            Reply.send(message, `[Dj] role required (more than 3 people in voice)`)
         }
     } catch (error) {
         console.log(error);
-        Reply.send(`Something went wrong when trying to stop the music!`);
+        Reply.send(message, `Something went wrong when trying to stop the music!`);
     }
 }

@@ -7,7 +7,7 @@ module.exports = {
     category: 'music',
     run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
 
         loop(message, client, Discord, args, cmd, guildQueue);
     }
@@ -16,20 +16,20 @@ module.exports = {
 function loop(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
-            return Reply.send(`There are no songs in queue!`);
+            return Reply.send(message, `There are no songs in queue!`);
         }
         switch (guildQueue.repeatMode) {
             case 0:
                 guildQueue.setRepeatMode(1);
-                Reply.send(`Song is now looping!`);
+                Reply.send(message, `Song is now looping!`);
                 break;
             case 1:
                 guildQueue.setRepeatMode(0);
-                Reply.send(`Song is no longer looping!`);
+                Reply.send(message, `Song is no longer looping!`);
                 break;
             default:
                 guildQueue.setRepeatMode(0);
-                Reply.send(`Turned of loopqueue do loop again to enable song loop.`)
+                Reply.send(message, `Turned of loopqueue do loop again to enable song loop.`)
                 break;
         }
     } catch (error) {

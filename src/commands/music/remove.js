@@ -7,7 +7,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
 
         remove_song(message, client, Discord, args, cmd, guildQueue);
     }
@@ -16,14 +16,14 @@ module.exports = {
 async function remove_song(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
-            return Reply.send(`There are no songs in queue!`);
+            return Reply.send(message, `There are no songs in queue!`);
         }
         let remSongs = ''
         for (let i = 0; i < args.length; i++) {
             await guildQueue.remove(parseInt(args[i]))
             remSongs += `${args[i]} `
         }
-        Reply.send(`Removed song ${remSongs}from the queue!`);
+        Reply.send(message, `Removed song ${remSongs}from the queue!`);
     } catch (error) {
         console.log(error)
     }

@@ -23,10 +23,10 @@ async function loadQueue(message, client, Discord, args, cmd, guildQueue) {
 
     try {
         if (!args[0]) {
-            return Reply.send('Please provide a name');
+            return Reply.send(message, 'Please provide a name');
         }
-        if (!fs.existsSync(`./src/guildData/${message.guild.id}`)) {
-            fs.mkdirSync(`./src/guildData/${message.guild.id}`);
+        if (!fs.existsSync(message, `./src/guildData/${message.guild.id}`)) {
+            fs.mkdirSync(message, `./src/guildData/${message.guild.id}`);
         }
         if (!fs.existsSync(`./src/guildData/${message.guild.id}/${args[0]}.csv`)) {
             return Reply.send(message, `that queue doesn't exist`)

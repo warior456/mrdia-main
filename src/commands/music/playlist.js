@@ -7,7 +7,7 @@ module.exports = {
     run: async (message, client, Discord, args, cmd) => {
 
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
         Reply.defer
         playlist(message, client, Discord, args, cmd, guildQueue);
     }
@@ -26,11 +26,11 @@ async function playlist(message, client, Discord, args, cmd, guildQueue) {
         });
         if (song === 'undefined') {
             queue.stop();
-            return Reply.edit('Something went wrong!');
+            return Reply.edit(message,'Something went wrong!');
         }
-        Reply.edit(`**[${song}]** has been added to the queue`)
+        Reply.edit(message, `**[${song}]** has been added to the queue`)
     } catch (error) {
         console.log(error);
-        Reply.edit(`something went wrong when trying to add the queue!`);
+        Reply.edit(message ,`something went wrong when trying to add the queue!`);
     }
 }

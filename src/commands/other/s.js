@@ -1,3 +1,5 @@
+const Reply = require('../../Structures/Handlers/replyHandler')
+
 module.exports = {
     name: 'sauce',
     aliases: ['saucelink'],
@@ -6,20 +8,20 @@ module.exports = {
     run: (message, client, Discord, args, cmd)=>{
         max = 400000;
         // if (cmd === 'sauce'){
-            message.channel.send(`${Math.floor(Math.random() * max)}`);
+            Reply.send(message, `${Math.floor(Math.random() * max)}`);
         // }
         
         if (cmd === 'saucelink'){
             if (message.channel.nsfw) {
-                message.channel.send(`https://nhentai.net/g/${Math.floor(Math.random() * max)}/`);
+                Reply.send(message, `https://nhentai.net/g/${Math.floor(Math.random() * max)}/`);
             } else {
-                message.channel.send("This channel is not NSFW.");
+                Reply.send(message, "This channel is not NSFW.");
             }
             
             }
-            try {
-                message.reply({ content: 'dummy message', fetchReply: true })
-                    .then((message) => message.delete())
-            } catch (error) {console.log(error)}
+            // try {
+            //     message.reply({ content: 'dummy message', fetchReply: true })
+            //         .then((message) => message.delete())
+            // } catch (error) {console.log(error)}
     }
 }

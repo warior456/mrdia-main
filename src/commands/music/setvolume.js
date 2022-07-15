@@ -7,7 +7,7 @@ module.exports = {
     category: 'music',
     run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
 
         setVolume(message, client, Discord, args, cmd, guildQueue);
     }
@@ -22,7 +22,7 @@ function setVolume (message, client, Discord, args, cmd, guildQueue) {
             guildQueue.setVolume(parseInt(args[0]));
         }
         else {
-            Reply.send(`You need [Dj] role to set the volume above 300`)
+            Reply.send(message, `You need [Dj] role to set the volume above 300`)
         }
 
     } catch (error) {
