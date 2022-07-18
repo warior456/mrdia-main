@@ -15,7 +15,6 @@ class Reply {
     static send(message, content) {
         try {
             // const content = isEmbed ? { embeds: [reply] } : reply;    // better name possible
-            console.log(message.type)
             if (message.type === 'APPLICATION_COMMAND') {    // a ternary IF statement (like on the previous line is also possible, but imo less clean)
                 message.reply(content);
             } else {
