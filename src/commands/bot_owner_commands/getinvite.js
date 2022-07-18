@@ -1,12 +1,12 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
-
+const config = require('../../../Config');
 module.exports = {
     name: 'ginvite',
     aliases: [],
     description: "get's an invite link to all servers the bot is in",
     category: 'owner',
     run: (message, client, Discord, args, cmd) => {
-        if (message.author.id != process.env.OWNER) return Reply.send(message, `I don't think this is for you!`)
+        if (message.member.user.id != config.owner) return Reply.send(message, `I don't think this is for you!`)
 
 
         // let guild = client.guilds.get(args[0]);

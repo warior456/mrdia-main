@@ -1,12 +1,13 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
-
+const config = require('../../../Config');
+//todo option
 module.exports = {
     name: 'leaveserver',
     aliases: [],
     description: "leaves the provided server",
     category: 'owner',
     run: (message, client, Discord, args, cmd) => {
-        if (message.author.id != process.env.OWNER) return Reply.send(message, `I don't think this is for you!`)
+        if (message.member.user.id != config.owner) return Reply.send(message, `I don't think this is for you!`)
         try {
 
             client.guilds.cache.get(args[0]).leave();

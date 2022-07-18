@@ -3,6 +3,12 @@ module.exports = {
     name: 'playlist',
     aliases: ['pl'],
     description: 'Add a YouTube or Spotify playlist to the queue',
+    options: [{
+        name: "url",
+        type: "STRING",
+        description: "Give the playlist url",
+        required: true
+    }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
 

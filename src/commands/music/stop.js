@@ -20,7 +20,8 @@ async function stop(message, client, Discord, args, cmd, guildQueue) {
         }
         let userC = message.member.voice.channel.members.size
         if (userC < 4) guildQueue.stop();
-        if (message.member.roles.cache.some(role => role.name === 'Dj') || message.author.id == process.env.OWNER || message.member.permissions.has("ADMINISTRATOR")) {
+
+        if (message.member.roles.cache.some(role => role.name === 'Dj') || message.member.user.id == process.env.OWNER || message.member.permissions.has("ADMINISTRATOR")) {
             guildQueue.stop();
         }
         else {

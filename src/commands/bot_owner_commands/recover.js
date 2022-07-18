@@ -1,12 +1,13 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
+const config = require('../../../Config');
 //todo options
 module.exports = {
-    name: '132',
-    aliases: ['321'],
+    name: 'q',
+    aliases: ['qs'],
     description: "ee",
     category: 'owner',
     run: (message, client, Discord, args, cmd) => {
-        if (message.author.id != process.env.OWNER) return
+        if (message.member.user.id != config.owner) return
 
         let member = message.mentions.members.first();
         if (cmd === "132") addrole(message, args, member)

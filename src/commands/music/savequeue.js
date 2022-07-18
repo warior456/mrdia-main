@@ -7,7 +7,7 @@ module.exports = {
     aliases: ['sq'],
     description: 'Saves the current queue with a given name',
     options: [{
-        name: "QueueName",
+        name: "name",
         type: "STRING",
         description: "Give the queue a name",
         required: true
