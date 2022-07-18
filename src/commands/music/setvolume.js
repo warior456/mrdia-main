@@ -1,9 +1,14 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
-//todo options
 module.exports = {
     name: 'setvolume',
     aliases: ['sv'],
     description: 'Sets the volume of the bot',
+    options: [{
+        name: "volume",
+        type: "INTEGER",
+        description: "give a value between 1-300 (or for Dj's it can be higher)",
+        required: true
+    }],
     category: 'music',
     run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);

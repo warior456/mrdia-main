@@ -6,6 +6,12 @@ module.exports = {
     name: 'savequeue',
     aliases: ['sq'],
     description: 'Saves the current queue with a given name',
+    options: [{
+        name: "QueueName",
+        type: "STRING",
+        description: "Give the queue a name",
+        required: true
+    }],
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);

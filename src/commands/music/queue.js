@@ -7,7 +7,6 @@ const show_q = async (message) => {
     let isNewMessage = false
     show_queue(message, guildQueue, isNewMessage)
 }
-//todo error messages need message parameter
 
 module.exports = {
     name: 'queue',
@@ -22,7 +21,7 @@ module.exports = {
             page: args[0]
         });
 
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
         show_queue(message, guildQueue, isNewMessage);
     }, show_q
 }
@@ -30,7 +29,7 @@ module.exports = {
 
 async function show_queue(message, guildQueue, isNewMessage) {
     try {
-        if (!guildQueue) return Reply.send(`There are no songs in the queue`)
+        if (!guildQueue) return Reply.send(message, `There are no songs in the queue`)
 
         let queueMessage = await makeQueueMessage(guildQueue)
         let field = makeField(guildQueue)
@@ -40,7 +39,7 @@ async function show_queue(message, guildQueue, isNewMessage) {
 
     } catch (error) {
         console.log(error);
-        Reply.send(`Something went wrong try again!(1)`);
+        Reply.send(message, `Something went wrong try again!(1)`);
     }
 }
 

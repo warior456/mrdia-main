@@ -3,7 +3,13 @@ const Reply = require('../../Structures/Handlers/replyHandler')
 module.exports = {
     name: 'remove',
     aliases: [],
-    description: 'removes the given song',
+    description: 'Removes the given song',
+    options: [{
+        name: "songnumber",
+        type: "INTEGER",
+        description: "Give the song number",
+        required: true
+    }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);

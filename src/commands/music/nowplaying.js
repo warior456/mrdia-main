@@ -38,7 +38,7 @@ async function now_playing(message, client, Discord, args, cmd, guildQueue) {
             .setColor('#a20000')
             .setDescription(queueMessage)
             .setFooter(footer);
-
+        
         Reply.send(message, { embeds: [queEmbed] });
 
 
