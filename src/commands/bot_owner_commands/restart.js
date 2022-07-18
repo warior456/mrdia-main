@@ -10,7 +10,7 @@ module.exports = {
         console.log(message.member.user.id)
         console.log(config.owner)
         if (message.member.user.id != config.owner) return Reply.send(message, `I don't think this is for you!`)
-        await Reply.send(message, "stopping bot(if in right place, restarting)")
+        await message.channel.send(message, "stopping bot(if in right place, restarting)")
         process.exit()
     }
 }
