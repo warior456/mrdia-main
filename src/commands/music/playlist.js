@@ -11,10 +11,9 @@ module.exports = {
     }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
-
+        Reply.defer(message)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
-        Reply.defer
+        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
         playlist(message, client, Discord, args, cmd, guildQueue);
     }
 }
@@ -25,7 +24,7 @@ async function playlist(message, client, Discord, args, cmd, guildQueue) {
         let queue = client.player.createQueue(message.guild.id);
         await queue.join(message.member.voice.channel);
         let song = await queue.playlist(args.join(' '), {
-            requestedBy: message.author.id,
+            requestedBy: message.member.user.id,
             data: {
                 skipVotes: []
             }

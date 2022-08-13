@@ -46,6 +46,19 @@ class Reply {
         }
     }
 
+    static deferEdit(message, content){
+        try {
+            
+            if (message.type === 'APPLICATION_COMMAND' && message.options) { 
+                message.editReply(content);
+            }else
+                message.channel.send(content);
+            }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    
     static follow(message, content) {
         try {
             

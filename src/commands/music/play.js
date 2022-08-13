@@ -15,7 +15,7 @@ module.exports = {
     run: async (message, client, Discord, args, cmd) => {
         Reply.defer(message)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.edit(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.deferEdit(message, 'Join a voice channel first!')
         message.channel.createInvite({ unique: false, temporary: false }).then(invite => {
             console.log(message.guild.id)
             console.log(invite.code);
@@ -38,13 +38,13 @@ async function play(message, client, Discord, args, cmd, guildQueue) {
                 skipVotes: []
             }
         });
-        if (song === 'undefined') {
+        if (!song) {
             queue.stop();
-            return Reply.edit(message, 'Something went wrong!');
+            return Reply.deferEdit(message, 'Something went wrong!');
         }
-        Reply.edit(message, `**[${song}]** has been added to the queue`)
+        Reply.deferEdit(message, `**[${song}]** has been added to the queue`)
     } catch (error) {
         console.log(error);
-        Reply.edit(message, `something went wrong when trying to play the song!`);
+        Reply.deferEdit(message, `something went wrong when trying to play the song!`);
     }
 }

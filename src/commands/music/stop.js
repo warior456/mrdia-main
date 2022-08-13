@@ -23,6 +23,7 @@ async function stop(message, client, Discord, args, cmd, guildQueue) {
 
         if (message.member.roles.cache.some(role => role.name === 'Dj') || message.member.user.id == process.env.OWNER || message.member.permissions.has("ADMINISTRATOR")) {
             guildQueue.stop();
+            Reply.send(message, 'left voice')
         }
         else {
             Reply.send(message, `[Dj] role required (more than 3 people in voice)`)

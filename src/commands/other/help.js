@@ -1,6 +1,6 @@
-const discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const config = require("../../../Config");
-Reply = require('../../Structures/Handlers/replyHandler')
+const Reply = require('../../Structures/Handlers/replyHandler')
 
 module.exports = {
     name: 'help',
@@ -20,12 +20,13 @@ module.exports = {
     }
 }
 
-async function help(message, client, option) {
-    const helpEmbed = new discord.MessageEmbed()
+function help(message, client, option) {
+    const helpEmbed = new MessageEmbed()
         .setColor('#a5fc03')
         .setTitle(`**My prefix is: ${(config.prefix)}**`)
         .setDescription(helpMsg(client, option))
-    Reply.send(message, helpEmbed, true)
+        
+    Reply.send(message, { embeds: [helpEmbed] })
 }
 
 function helpMsg(client, option) {
