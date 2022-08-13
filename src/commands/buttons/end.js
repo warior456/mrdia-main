@@ -2,6 +2,7 @@ const Reply = require('../../Structures/Handlers/replyHandler')
 
 module.exports = {
     name: "end",
+    isButton: true,
     run: async (message, client, container) => {
         message.deferUpdate()
         let row = message.message.components[0]

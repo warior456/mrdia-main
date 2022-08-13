@@ -10,6 +10,7 @@ module.exports = async function (client, path) {
                     if (fs.statSync(file).isDirectory()) return;
                     const cmd = require(file);
                     if (cmd.ignoreFile) return;
+                    if (cmd.isButton) return;
                     client.commands.slashCommands.set(require(file).name, require(file))
                 })
                 let promise = Promise.resolve()
