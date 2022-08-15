@@ -36,9 +36,7 @@ const { Player } = require("discord-music-player");
     client.commands.buttonCommands = new Discord.Collection();
     client.commands.selectMenus = new Discord.Collection();
         
-    const Handler = require(`${path}/Src/Structures/Handlers/Handler`);
-
-
+    const Handler = require(`${path}/src/Structures/Handlers/Handler`);
 
     await Handler.loadMessageCommands(client, path);
     await Handler.loadEvents(client);

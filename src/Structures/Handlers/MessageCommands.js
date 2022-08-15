@@ -5,7 +5,7 @@ module.exports = async function (client, path) {
     readdirSync('./src/Commands/').forEach(dirs => {
 
         try {
-            Filer(`${path}/Src/Commands/${dirs}`, async function (err, res) {
+            Filer(`${path}/src/Commands/${dirs}`, async function (err, res) {
                 res.forEach(file => {
                     if (fs.statSync(file).isDirectory()) return;
                     const command = require(file)
