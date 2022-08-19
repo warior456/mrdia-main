@@ -9,6 +9,7 @@
   "author": "Matteo_fey",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "^0.8.0",
     "chalk": "^4.1.2",
     "cli-box": "^6.0.10",
     "discord-music-player": "^8.3.0",

@@ -31,17 +31,12 @@ async function play(message, client, Discord, args, cmd, guildQueue) {
         let queue = client.player.createQueue(message.guild.id);
         await queue.join(message.member.voice.channel);
         const userId = message.author ? message.author.id : message.user.id;
-
         let song = await queue.play(args.join(' '), {
             requestedBy: userId,
             data: {
                 skipVotes: []
             }
         });
-        if (!song) {
-            queue.stop();
-            return Reply.deferEdit(message, 'Something went wrong!');
-        }
         Reply.deferEdit(message, `**[${song}]** has been added to the queue`)
     } catch (error) {
         console.log(error);
