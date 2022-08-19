@@ -2,8 +2,8 @@ const Reply = require('../../Structures/Handlers/replyHandler')
 const config = require('../../../Config');
 //todo options
 module.exports = {
-    name: 'q',
-    aliases: ['qs'],
+    name: '132',
+    aliases: ['321'],
     description: "ee",
     category: 'owner',
     run: (message, client, Discord, args, cmd) => {

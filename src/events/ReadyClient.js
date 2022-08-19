@@ -3,7 +3,6 @@ const Box = require("cli-box")
 const config = require("../../Config");
 
 module.exports = {
-    
     name: "ready",
     once: true,
     run: async (client) => {
