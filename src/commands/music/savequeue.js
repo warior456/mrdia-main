@@ -28,6 +28,9 @@ async function save_queue(message, client, Discord, args, cmd, guildQueue) {
         if (!guildQueue) {
             return Reply.send(message, `No song's in queue!`)
         }
+        if  (!fs.existsSync(`./src/guildData`)){
+            fs.mkdirSync(`./src/guidData`)
+        }
         if (!fs.existsSync(`./guildData/${message.guild.id}`)) {
             fs.mkdirSync(`./guildData/${message.guild.id}`);
         }

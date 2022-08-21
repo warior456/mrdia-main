@@ -25,6 +25,9 @@ async function loadQueue(message, client, Discord, args, cmd, guildQueue) {
         if (!args[0]) {
             return Reply.send(message, 'Please provide a name');
         }
+        if  (!fs.existsSync(`./src/guildData`)){
+            fs.mkdirSync(`./src/guidData`)
+        }
         if (!fs.existsSync(`./src/guildData/${message.guild.id}`)) {
             fs.mkdirSync(`./src/guildData/${message.guild.id}`);
         }
