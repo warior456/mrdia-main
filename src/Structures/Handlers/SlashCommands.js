@@ -9,6 +9,7 @@ module.exports = async function (client, path) {
                 res.forEach(file => {
                     if (fs.statSync(file).isDirectory()) return;
                     const cmd = require(file);
+                    console.log(cmd.isButton)
                     if (cmd.ignoreFile) return;
                     if (cmd.isButton) return;
                     client.commands.slashCommands.set(require(file).name, require(file))
@@ -20,7 +21,8 @@ module.exports = async function (client, path) {
                         if (fs.statSync(file).isDirectory()) return;
                         const cmd = require(file);
                         if (cmd.ignoreFile) return;
-
+                        if (cmd.isButton) return;
+                        
                         if (cmd.guilds && Array.isArray(cmd.guilds)) cmd.guilds.forEach(guildID => {
                             (async () => {
                                 const guild = client.guilds.cache.get(guildID) ?? await client.guilds.fetch(guildID)
