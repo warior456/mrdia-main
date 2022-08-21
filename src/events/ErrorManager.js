@@ -22,12 +22,7 @@ module.exports = {
         .on('clientDisconnect', (queue) => console.log(`I was kicked from the Voice Channel, queue ended.`))
         .on('clientUndeafen', (queue) => console.log(`I got undefeanded.`))
         .on('error', (error, queue) => {
-            try {
-                console.log(`Error: ${error} in ${queue.guild.name}`);
-            } catch (error) {
-                console.log('something went very wrong');
-                console.log(error);
-            }
+                console.log(`Error: "${error}" in ${queue.guild.name}`);
         });
     }
 }
