@@ -1,7 +1,11 @@
 # mrdia-main
-WARNING BRANCH V3 IS CURRENTLY COMPLETELY BROKEN DUE TO BAD DEPENDENCIES
+This is a music bot using youtube with /command and messagecommand support
 
-to make the bot start you need to make a config.js file with the following:
+How to use:
+1: download this repository
+2: open a command shell in the same folder as the main.js file
+3: run npm install
+4: make a config.js file with the following content and fill in the token and other stuff:
 ```js
 module.exports = {
     prefix: ["prefix"],
@@ -12,3 +16,6 @@ module.exports = {
     
 }
 ```
+5: run node . to start the bot
+to make the bot start you need to make a config.js file with the following:
+
