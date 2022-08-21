@@ -1,4 +1,3 @@
-const Reply = require('../../Structures/Handlers/replyHandler')
 const wol = require('wol');
 
 module.exports = {
