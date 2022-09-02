@@ -17,5 +17,4 @@ module.exports = {
 }
 ```
 5: run node . to start the bot
-to make the bot start you need to make a config.js file with the following:
 
