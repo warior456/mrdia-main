@@ -9,7 +9,6 @@ module.exports = async function (client, path) {
                 res.forEach(file => {
                     if (fs.statSync(file).isDirectory()) return;
                     const cmd = require(file);
-                    console.log(cmd.isButton)
                     if (cmd.ignoreFile) return;
                     if (cmd.isButton) return;
                     client.commands.slashCommands.set(require(file).name, require(file))

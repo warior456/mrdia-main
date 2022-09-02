@@ -31,8 +31,8 @@ async function save_queue(message, client, Discord, args, cmd, guildQueue) {
         if  (!fs.existsSync(`./src/guildData`)){
             fs.mkdirSync(`./src/guidData`)
         }
-        if (!fs.existsSync(`./guildData/${message.guild.id}`)) {
-            fs.mkdirSync(`./guildData/${message.guild.id}`);
+        if (!fs.existsSync(`./src/guildData/${message.guild.id}`)) {
+            fs.mkdirSync(`./src/guildData/${message.guild.id}`);
         }
 
         let savingQueue = ''
@@ -40,7 +40,7 @@ async function save_queue(message, client, Discord, args, cmd, guildQueue) {
             savingQueue += `${guildQueue.songs[i].url};${guildQueue.songs[i].requestedBy}\n`
         }
 
-        await File.save(`./guildData/${message.guild.id}/${args[0]}.csv`, savingQueue, true);
+        await File.save(`./src/guildData/${message.guild.id}/${args[0]}.csv`, savingQueue, true);
         Reply.send(message, `**[${args[0]}]** has been saved!`)
     } catch (error) {
         console.log(error)

@@ -31,11 +31,11 @@ async function playlist(message, client, Discord, args, cmd, guildQueue) {
         });
         if (song === 'undefined') {
             queue.stop();
-            return Reply.edit(message,'Something went wrong!');
+            return Reply.deferEdit(message,'Something went wrong!');
         }
-        Reply.edit(message, `**[${song}]** has been added to the queue`)
+        Reply.deferEdit(message, `**[${song}]** has been added to the queue`)
     } catch (error) {
         console.log(error);
-        Reply.edit(message ,`something went wrong when trying to add the queue!`);
+        Reply.deferEdit(message ,`something went wrong when trying to add the queue!`);
     }
 }

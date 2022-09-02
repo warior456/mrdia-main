@@ -7,10 +7,10 @@ const axios = require("axios");
 module.exports = {
     name: 'lyrics',
     aliases: [],
-    description: 'gives the lyrics for a song',
+    description: 'wip',
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
-
+        return Reply.send('This feature is currently WIP')
         // if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
 
         const searchOptions = {
