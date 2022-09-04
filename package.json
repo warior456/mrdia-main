@@ -26,7 +26,6 @@
         "dotenv": "^10.0.0",
         "ffmpeg-static": "^4.4.0",
         "fs": "^0.0.1-security",
-        "genius-lyrics-api": "^3.2.0",
         "glob": "^7.2.0",
         "htmlparser2": "^7.1.2",
         "libsodium-wrappers": "^0.7.9",
