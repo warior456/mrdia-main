@@ -1,5 +1,5 @@
 const { Client } = require('discord.js');
-const { Player } = require("discord-music-player");
+const { Player } = require("@jadestudios/discord-music-player");
 
 
 

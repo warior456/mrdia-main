@@ -33,7 +33,7 @@ function helpMsg(client, option) {
     let help_msg = ''
     client.commands.messageCommands.forEach(cmd => {
         if (cmd.category != option) return
-        if (noHelp) return
+        if (cmd.noHelp) return
         help_msg += `**${config.prefix}${cmd.name}** | [${cmd.aliases}]\n ${cmd.description}\n\n`
     });
     return help_msg
