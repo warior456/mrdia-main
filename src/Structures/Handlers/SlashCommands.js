@@ -11,6 +11,7 @@ module.exports = async function (client, path) {
                     const cmd = require(file);
                     if (cmd.ignoreFile) return;
                     if (cmd.isButton) return;
+                    if (cmd.category = 'owner') return;
                     client.commands.slashCommands.set(require(file).name, require(file))
                 })
                 let promise = Promise.resolve()
@@ -21,7 +22,7 @@ module.exports = async function (client, path) {
                         const cmd = require(file);
                         if (cmd.ignoreFile) return;
                         if (cmd.isButton) return;
-                        
+                        if (cmd.category = 'owner') return;
                         if (cmd.guilds && Array.isArray(cmd.guilds)) cmd.guilds.forEach(guildID => {
                             (async () => {
                                 const guild = client.guilds.cache.get(guildID) ?? await client.guilds.fetch(guildID)
