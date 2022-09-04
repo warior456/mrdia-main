@@ -1,5 +1,6 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
 const wol = require('wol');
+const config = require('../../../Config');
 
 module.exports = {
     name: 'wolpc',
