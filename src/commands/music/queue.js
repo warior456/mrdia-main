@@ -21,7 +21,7 @@ module.exports = {
             page: args[0]
         });
 
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
         show_queue(message, guildQueue, isNewMessage);
     }, show_q
 }

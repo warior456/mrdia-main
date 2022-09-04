@@ -7,7 +7,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
 
         skip(message, client, Discord, args, cmd, guildQueue);
     }
@@ -21,8 +21,8 @@ async function skip(message, client, Discord, args, cmd, guildQueue) {
         let userC = message.member.voice.channel.members.size
         let userR = Math.floor(userC / 2)
 
-        if (guildQueue.nowPlaying.data.skipVotes.includes(message.author.id)) return Reply.send(message, `you already voted, ${guildQueue.nowPlaying.data.skipVotes.length}/${userR}`)
-        await guildQueue.nowPlaying.data.skipVotes.push(message.author.id)
+        if (guildQueue.nowPlaying.data.skipVotes.includes(message.member.user.id)) return Reply.send(message, `you already voted, ${guildQueue.nowPlaying.data.skipVotes.length}/${userR}`)
+        await guildQueue.nowPlaying.data.skipVotes.push(message.member.user.id)
 
         console.log(guildQueue.nowPlaying.data)
 

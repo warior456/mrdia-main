@@ -15,7 +15,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel) return Reply.send('Join a voice channel first!')
+        if (!message.member.voice.channel) return Reply.send(message, 'Join a voice channel first!')
         loadQueue(message, client, Discord, args, cmd, guildQueue);
     }
 }
