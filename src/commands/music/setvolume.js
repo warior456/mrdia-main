@@ -22,9 +22,11 @@ function setVolume (message, client, Discord, args, cmd, guildQueue) {
     try {
         if (message.member.roles.cache.some(role => role.name === 'Dj') || message.member.user.id == process.env.OWNER || message.member.permissions.has("ADMINISTRATOR")) {
             guildQueue.setVolume(parseInt(args[0]));
+            Reply.send(message, `Volume set to ${args[0]}`)
         }
         else if (args[0] <= 300) {
             guildQueue.setVolume(parseInt(args[0]));
+            Reply.send(message, `Volume set to ${args[0]}`)
         }
         else {
             Reply.send(message, `You need [Dj] role to set the volume above 300`)
