@@ -1,3 +1,4 @@
+const config = require('../../../Config');
 module.exports = {
     name: 'clear',
     aliases: [],
@@ -11,7 +12,7 @@ module.exports = {
     category: 'other',
     run: async (message, client, Discord, args, cmd) => {
 
-        if (message.member.permissions.has("MANAGE_MESSAGES") || message.member.user.id === process.env.OWNER) {                             //if (message.channel.permissionsFor(message.member).has("MANAGE_MESSAGES", true))
+        if (message.member.permissions.has("MANAGE_MESSAGES") || message.member.user.id === config.owner) {                             //if (message.channel.permissionsFor(message.member).has("MANAGE_MESSAGES", true))
 
             if (!args[0]) return message.reply(`usage: ${process.env.PREFIX}clear [amount 1-100]`);
             if (isNaN(args[0])) return message.reply("That is not a number!");
