@@ -1,6 +1,8 @@
 const discord = require('discord.js')
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
+//needs youtube-together
+
 module.exports = {
     name: 'party',
     aliases: [],

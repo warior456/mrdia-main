@@ -4,6 +4,12 @@ module.exports = {
     name: 'seek',
     aliases: [],
     description: 'seek to a set time in the song',
+    options: [{
+        name: "seektime",
+        type: "INTEGER",
+        description: "Give the time in the song to skip to in seconds",
+        required: true
+    }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
@@ -13,7 +19,7 @@ module.exports = {
     }
 }
 
-async function seek (message, client, Discord, args, cmd, guildQueue) {
+async function seek(message, client, Discord, args, cmd, guildQueue) {
     try {
         if (!guildQueue) {
             return Reply.send(message, `There are no songs playing!`)

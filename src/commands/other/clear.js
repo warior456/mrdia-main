@@ -2,6 +2,12 @@ module.exports = {
     name: 'clear',
     aliases: [],
     description: 'clear messages!',
+    options: [{
+        name: "amount",
+        type: "INTEGER",
+        description: "Give the amount of messages to clear (max 100)",
+        required: true
+    }],
     category: 'other',
     run: async (message, client, Discord, args, cmd) => {
 

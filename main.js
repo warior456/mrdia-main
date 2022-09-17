@@ -62,7 +62,8 @@ const player = new Player(client, {
     leaveOnEmpty: false,            //optional
 });
 client.player = player;
-
+const Genius = require("genius-lyrics");
+global.LyricsClient = new Genius.Client();
 // const Discord = require('discord.js');
 // import('node-fetch')
 
