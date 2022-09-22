@@ -4,9 +4,6 @@ const axios = require("axios");
 
 const Genius = require("genius-lyrics");
 
-//todo working
-//todo options
-
 module.exports = {
     name: 'lyrics',
     aliases: [],
