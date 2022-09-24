@@ -12,7 +12,7 @@
         "@discordjs/opus": "^0.8.0",
         "@discordjs/rest": "^0.5.0",
         "@discordjs/voice": "^0.6.0",
-        "@jadestudios/discord-music-player": "^9.0.2-az19",
+        "@jadestudios/discord-music-player": "^9.1.1-az20",
         "@types/node": "^18.0.0",
         "axios": "^0.22.0",
         "axios-retry": "^3.2.0",
