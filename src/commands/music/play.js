@@ -1,5 +1,3 @@
-
-
 const Reply = require('../../Structures/Handlers/replyHandler')
 module.exports = {
     name: 'play',
@@ -15,7 +13,7 @@ module.exports = {
     run: async (message, client, Discord, args, cmd) => {
         Reply.defer(message)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.deferEdit(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel) return Reply.deferEdit(message, 'Join a voice channel first!')
         message.channel.createInvite({ unique: false, temporary: false }).then(invite => {
             console.log(message.guild.id)
             console.log(invite.code);

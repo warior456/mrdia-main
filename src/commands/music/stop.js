@@ -1,4 +1,5 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
+const config = require('../../../Config');
 
 module.exports = {
     name: 'stop',
@@ -7,7 +8,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel && message.member.user.id != config.owner) return Reply.send(message, 'Join a voice channel first!')
 
         stop(message, client, Discord, args, cmd, guildQueue);
     }
@@ -19,9 +20,11 @@ async function stop(message, client, Discord, args, cmd, guildQueue) {
             return Reply.send(message, 'No songs playing!');
         }
         let userC = message.member.voice.channel.members.size
-        if (userC < 4) guildQueue.stop();
-
-        if (message.member.roles.cache.some(role => role.name === 'Dj') || message.member.user.id == process.env.OWNER || message.member.permissions.has("ADMINISTRATOR")) {
+        if (userC < 4) {
+            guildQueue.stop();
+            return
+        }
+        else if (message.member.roles.cache.some(role => role.name === 'Dj') || message.member.user.id == config.owner || message.member.permissions.has("ADMINISTRATOR")) {
             guildQueue.stop();
             Reply.send(message, 'left voice')
         }
