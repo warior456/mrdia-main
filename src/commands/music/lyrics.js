@@ -11,6 +11,7 @@ module.exports = {
     name: 'lyrics',
     aliases: [],
     description: 'Gives the lyrics to a song',
+    cooldown: 15000,
     options: [{
         name: "name",
         type: "STRING",

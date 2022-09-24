@@ -11,8 +11,10 @@ module.exports = {
         if (message.member.user.id != config.owner) return Reply.send(message, `I don't think this is for you!`)
 
         let listMessage = 'serverlist\n=========================================\n'
+        let i = 0
         client.guilds.cache.forEach(guild => {
-            listMessage += (`${guild.name} | ${guild.id}\n`);
+            i++
+            listMessage += (`${i} -${guild.name} | ${guild.id}\n`);
         })
 
 
