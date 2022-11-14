@@ -47,3 +47,14 @@ async function now_playing(message, client, Discord, args, cmd, guildQueue) {
         Reply.send(message, `Something went wrong try again!`);
     }
 }
+
+function addButtons() {
+    const row = new MessageActionRow()
+        .addComponents(
+            new MessageButton()
+                .setCustomId('end')
+                .setLabel('end interaction')
+                .setStyle('SECONDARY')
+        );
+    return row
+}

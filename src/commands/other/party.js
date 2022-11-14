@@ -50,9 +50,9 @@ module.exports = {
                 party_type = 'Chess dev.'
                 break;
 
-            case 'doodlecrew':
+            case 'sketchheads':
                 party_ID = '878067389634314250'
-                party_type = 'doodlecrew'
+                party_type = 'Sketch Heads'
                 break;
 
             default:

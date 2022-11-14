@@ -13,7 +13,7 @@ module.exports = {
     run: async (message, client, Discord, args, cmd) => {
         Reply.defer(message)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.deferEdit(message, 'Join a voice channel first!')
         playlist(message, client, Discord, args, cmd, guildQueue);
     }
 }
