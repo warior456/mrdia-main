@@ -1,6 +1,6 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
 const config = require('../../../Config');
-//todo options
+
 module.exports = {
     name: '132',
     aliases: ['321'],
