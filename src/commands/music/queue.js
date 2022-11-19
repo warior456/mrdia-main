@@ -50,12 +50,13 @@ function totPages(guildQueue) {
 }
 
 async function makeQueueMessage(guildQueue) {
+    let ProgressBar = ''
+    try {
+        ProgressBar = guildQueue.createProgressBar();
+    } catch (error) {
+        ProgressBar = 'Error-No song playing'
+    }
 
-    // try {
-    const ProgressBar = guildQueue.createProgressBar();
-    // } catch (error) {
-    //     const ProgressBar = 'Error'
-    // }
     let req_page = guildQueue.data.page                                                  //prevents getting an error when no page is given
     if (req_page > totPages(guildQueue)) return Reply.send(`There are only ${totPages(guildQueue)} pages`)                       // page cap
 

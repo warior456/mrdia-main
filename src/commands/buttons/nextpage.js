@@ -10,6 +10,7 @@ module.exports = {
         if (!guildQueue) return
         guildQueue.data.page++
         if (guildQueue.data.page > pages) guildQueue.data.page = pages;
+        if (guildQueue.data.page <= 0) guildQueue.data.page = 1
         show_q(message.message)
         message.deferUpdate()
     }

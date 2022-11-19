@@ -21,12 +21,12 @@ async function stop(message, client, Discord, args, cmd, guildQueue) {
         }
         let userC = message.member.voice.channel.members.size
         if (userC < 4) {
-            guildQueue.stop();
+            leave(guildQueue, message)
             return
         }
         else if (message.member.roles.cache.some(role => role.name === 'Dj') || message.member.user.id == config.owner || message.member.permissions.has("ADMINISTRATOR")) {
-            guildQueue.stop();
-            Reply.send(message, 'left voice')
+            leave(guildQueue, message)
+            return
         }
         else {
             Reply.send(message, `[Dj] role required (more than 3 people in voice)`)
@@ -35,4 +35,9 @@ async function stop(message, client, Discord, args, cmd, guildQueue) {
         console.log(error);
         Reply.send(message, `Something went wrong when trying to stop the music!`);
     }
+}
+
+function leave(guildQueue, message) {
+    guildQueue.stop();
+    Reply.send(message, 'left voice')
 }
