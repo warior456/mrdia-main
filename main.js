@@ -1,8 +1,7 @@
 const { Client } = require('discord.js');
 const { Player } = require("@jadestudios/discord-music-player");
 
-
-
+require('dotenv').config();
 
 (async () => {
     const Discord = require("discord.js");
