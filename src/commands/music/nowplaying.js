@@ -1,5 +1,12 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js')
+
+function refreshnp(message) {
+    let guildQueue = client.player.getQueue(message.guild.id)
+    let isNewMessage = false
+    now_playing(message, guildQueue, isNewMessage)
+}
+
 module.exports = {
     name: 'nowplaying',
     aliases: ['np'],
@@ -8,14 +15,14 @@ module.exports = {
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
+        let isNewMessage = true
+        now_playing(message, guildQueue, isNewMessage);
 
-        now_playing(message, client, Discord, args, cmd, guildQueue);
-
-    }
+    }, refreshnp
 }
 
 
-async function now_playing(message, client, Discord, args, cmd, guildQueue) {
+async function now_playing(message, guildQueue, isNewMessage) {
     try {
         if (!guildQueue) {
             return Reply.send(message, `There are no songs playing!`)
@@ -38,8 +45,13 @@ async function now_playing(message, client, Discord, args, cmd, guildQueue) {
             .setColor('#a20000')
             .setDescription(queueMessage)
             .setFooter(footer);
+
+        if (isNewMessage) {
+            Reply.send(message, { embeds: [queEmbed], components: [addButtons()] });
+        } else {
+            Reply.edit(message, { embeds: [queEmbed]})
+        }
         
-        Reply.send(message, { embeds: [queEmbed] });
 
 
     } catch (error) {
@@ -52,9 +64,18 @@ function addButtons() {
     const row = new MessageActionRow()
         .addComponents(
             new MessageButton()
+                .setCustomId('refreshnp')
+                .setLabel('refresh')
+                .setStyle('PRIMARY'),
+            new MessageButton()
+                .setCustomId('savedm')
+                .setLabel('save song in dm')
+                .setStyle('PRIMARY'),
+            new MessageButton()
                 .setCustomId('end')
                 .setLabel('end interaction')
                 .setStyle('SECONDARY')
+
         );
     return row
 }

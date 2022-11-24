@@ -5,6 +5,7 @@ module.exports = {
     name: "nextpage",
     isButton: true,
     run: async (message, client, container) => {
+        message.deferUpdate()
         let guildQueue = client.player.getQueue(message.guild.id);
         let pages = Math.ceil((guildQueue.songs.length - 1) / 10)
         if (!guildQueue) return
@@ -12,6 +13,5 @@ module.exports = {
         if (guildQueue.data.page > pages) guildQueue.data.page = pages;
         if (guildQueue.data.page <= 0) guildQueue.data.page = 1
         show_q(message.message)
-        message.deferUpdate()
     }
 }

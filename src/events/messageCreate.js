@@ -1,6 +1,6 @@
 module.exports = {
     name: "messageCreate",
-    run: async(message, client, container) => {
+    run: async (message, client, container) => {
         const loadCommandOptions = require("../Structures/CommandOptions/loadCommandOptions")
         container.Config.prefix.forEach(prefix => {
             if (!message.content.toLowerCase().startsWith(prefix)) return;

@@ -10,7 +10,7 @@ module.exports = {
         name: "type",
         type: "STRING",
         description: "other, music",
-        choices: [{ name: 'other', value: 'other' },{ name: 'music', value: 'music' }],
+        choices: [{ name: 'other', value: 'other' }, { name: 'music', value: 'music' }],
         required: true
     }],
     category: 'other',
@@ -25,7 +25,7 @@ function help(message, client, option) {
         .setColor('#a5fc03')
         .setTitle(`**My prefix is: ${(config.prefix)}**`)
         .setDescription(helpMsg(client, option))
-        
+
     Reply.send(message, { embeds: [helpEmbed] })
 }
 
