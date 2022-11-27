@@ -72,6 +72,13 @@ class Reply {
         }
     }
 
+    static dm(message, content) {
+        try {
+            message.member.user.send(content)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 }
 
