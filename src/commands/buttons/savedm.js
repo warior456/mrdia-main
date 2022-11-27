@@ -1,5 +1,5 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
-
+const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "savedm",
     isButton: true,
@@ -7,21 +7,26 @@ module.exports = {
         message.deferUpdate()
         let guildQueue = await client.player.getQueue(message.guild.id);
         if (!guildQueue) return Reply.send(message, "no song playing")
-        Reply.dm(message , { embeds: [makeEmbed(makeDescription())] })
+        Reply.dm(message, { embeds: [makeEmbed(guildQueue, message)] })
 
     }
 }
 
-function makeDescription (guildQueue){
-    console.log(guildQueue)
-    let description = `[${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})}`
+function makeDescription(guildQueue) {
+    let description = `[${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})\n\n\`Length:\` ${guildQueue.nowPlaying.duration}\n\n\`Requested by:\` <@${guildQueue.nowPlaying.requestedBy}>`
     return description
-} 
+}
 
-function makeEmbed (description) {
+function makeFooter(guildQueue, message) {
+    let footer = `Saved from ${message.guild.name}`
+    return footer
+}
+
+function makeEmbed(guildQueue, message) {
     const queEmbed = new MessageEmbed()
-        .setTitle('Server Queue')
+        .setTitle('Song saved 🎵')
         .setColor('#a20000')
-        .setDescription(description)
+        .setDescription(makeDescription(guildQueue))
+        .setFooter(makeFooter(guildQueue, message))
     return queEmbed
 } 

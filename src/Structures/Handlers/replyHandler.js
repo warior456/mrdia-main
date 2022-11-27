@@ -76,6 +76,7 @@ class Reply {
         try {
             message.member.user.send(content)
         } catch (error) {
+            message.channel.send("Couldn't dm you. Are your dm's enabled?")
             console.log(error)
         }
     }
