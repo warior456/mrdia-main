@@ -4,7 +4,7 @@ This is a music bot using youtube with /command and messagecommand support
 How to use:
 1: download this repository
 2: open a command shell in the same folder as the main.js file
-3: run npm install
+3: run npm install \n
 4: make a .env file with the following content and fill in the token and other stuff:
 ```
 PREFIX = your prefix here
