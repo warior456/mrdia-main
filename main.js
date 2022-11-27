@@ -1,6 +1,6 @@
 const { Client } = require('discord.js');
 const { Player } = require("@jadestudios/discord-music-player");
-
+const { connect } = require("mongoose")
 require('dotenv').config();
 
 (async () => {
@@ -42,6 +42,12 @@ require('dotenv').config();
 
     await client.login(config.token);
 
+    try {
+        await connect(config.dbtoken).then(console.log("connected"))
+    } catch (error) {
+        console.log (error)
+    }
+
     await Handler.loadSlashCommands(client, path);
     await Handler.loadContextMenus(client, path);
     await Handler.loadButtonCommands(client, path);
@@ -56,6 +62,7 @@ const player = new Player(client, {
 });
 client.player = player;
 const Genius = require("genius-lyrics");
+const err = require('./src/events/mongo/err');
 global.LyricsClient = new Genius.Client();
 // const Discord = require('discord.js');
 // import('node-fetch')
