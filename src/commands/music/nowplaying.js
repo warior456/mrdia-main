@@ -33,7 +33,7 @@ async function now_playing(message, guildQueue, isNewMessage) {
         } catch (error) {
             ProgressBar = 'Error-No song playing'
         }
-        let queueMessage = `**Current song:** [${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})\n\`${ProgressBar}| Requested by:\` <@${guildQueue.nowPlaying.requestedBy}>`
+        let queueMessage = `**[${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})**\n\`${ProgressBar}| Requested by:\` <@${guildQueue.nowPlaying.requestedBy}>`
         switch (guildQueue.repeatMode) {
             case 0:
                 footer = `Loopqueue: ❌ | loop: ❌`

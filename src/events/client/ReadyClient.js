@@ -1,4 +1,5 @@
 const config = require("../../../Config");
+const chalk = require ('chalk')
 
 module.exports = {
     name: "ready",
@@ -24,7 +25,7 @@ module.exports = {
         ButtonCommands             ::    Initiating ${client.commands.buttonCommands.size} buttonCommands.
         Client Events              ::    Initiating ${client.events.size} events.
         `)
-        console.log(`${client.user.tag} is Online`);
+        console.log(chalk.green(`${client.user.tag} is Online`));
 
         const activities = [`${config.prefix}help`, `/help`];
         const updateDelay = 20; // in seconds

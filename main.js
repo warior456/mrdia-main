@@ -43,7 +43,7 @@ require('dotenv').config();
     await client.login(config.token);
 
     try {
-        await connect(config.dbtoken).then(console.log("connected"))
+        await connect(config.dbtoken).catch("Database error")
     } catch (error) {
         console.log (error)
     }
