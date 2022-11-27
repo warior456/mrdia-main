@@ -27,7 +27,12 @@ async function now_playing(message, guildQueue, isNewMessage) {
         if (!guildQueue) {
             return Reply.send(message, `There are no songs playing!`)
         }
-        const ProgressBar = guildQueue.createProgressBar();
+        let ProgressBar = ''
+        try {
+            ProgressBar = guildQueue.createProgressBar();
+        } catch (error) {
+            ProgressBar = 'Error-No song playing'
+        }
         let queueMessage = `**Current song:** [${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})\n\`${ProgressBar}| Requested by:\` <@${guildQueue.nowPlaying.requestedBy}>`
         switch (guildQueue.repeatMode) {
             case 0:
@@ -69,11 +74,11 @@ function addButtons() {
                 .setStyle('PRIMARY'),
             new MessageButton()
                 .setCustomId('savedm')
-                .setLabel('Save song to dm')
+                .setLabel('Save in dm')
                 .setStyle('PRIMARY'),
             new MessageButton()
                 .setCustomId('savefavorite')
-                .setLabel('save song to favorites')
+                .setLabel('Save to favorites')
                 .setStyle('PRIMARY'),
             new MessageButton()
                 .setCustomId('end')
