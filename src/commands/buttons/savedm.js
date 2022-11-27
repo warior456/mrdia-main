@@ -5,7 +5,7 @@ module.exports = {
     isButton: true,
     run: async (message, client, container) => {
         message.deferUpdate()
-        let guildQueue = client.player.getQueue(message.guild.id);
+        let guildQueue = await client.player.getQueue(message.guild.id);
         if (!guildQueue) return Reply.send(message, "no song playing")
         Reply.dm(message , { embeds: [makeEmbed(makeDescription())] })
 
@@ -13,6 +13,7 @@ module.exports = {
 }
 
 function makeDescription (guildQueue){
+    console.log(guildQueue)
     let description = `[${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})}`
     return description
 } 
