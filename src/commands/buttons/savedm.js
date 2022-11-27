@@ -14,7 +14,8 @@ module.exports = {
 
 function makeDescription (guildQueue){
     let description = `[${guildQueue.nowPlaying.name}](${guildQueue.nowPlaying.url})}`
-} return description
+    return description
+} 
 
 function makeEmbed (description) {
     const queEmbed = new MessageEmbed()
