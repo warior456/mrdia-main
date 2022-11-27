@@ -69,7 +69,11 @@ function addButtons() {
                 .setStyle('PRIMARY'),
             new MessageButton()
                 .setCustomId('savedm')
-                .setLabel('save song in dm')
+                .setLabel('Save song to dm')
+                .setStyle('PRIMARY'),
+            new MessageButton()
+                .setCustomId('savefavorite')
+                .setLabel('save song to favorites')
                 .setStyle('PRIMARY'),
             new MessageButton()
                 .setCustomId('end')

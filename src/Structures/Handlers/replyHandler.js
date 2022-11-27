@@ -27,18 +27,18 @@ class Reply {
 
     static edit(message, content) {
         try {
-            
-            if (message.type === 'APPLICATION_COMMAND' && message.options) { 
+
+            if (message.type === 'APPLICATION_COMMAND' && message.options) {
                 message.editReply(content);
-            }else
+            } else
                 message.edit(content);
-            }
+        }
         catch (error) {
             console.log(error)
         }
     }
 
-    static defer(message){
+    static defer(message) {
         if (message.type === 'APPLICATION_COMMAND') {
             message.deferReply()
         } else {
@@ -46,23 +46,29 @@ class Reply {
         }
     }
 
-    static deferEdit(message, content){
+    static deferEdit(message, content) {
         try {
-            
-            if (message.type === 'APPLICATION_COMMAND' && message.options) { 
+
+            if (message.type === 'APPLICATION_COMMAND' && message.options) {
                 message.editReply(content);
-            }else
+            } else
                 message.channel.send(content);
-            }
+        }
         catch (error) {
             console.log(error)
         }
     }
-    
+
+    static replySend(message, content) {
+        try {
+            message.reply(content)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     static follow(message, content) {
         try {
-            
-            if (message.type === 'APPLICATION_COMMAND') { 
+            if (message.type === 'APPLICATION_COMMAND' || message.message.type === 'APPLICATION_COMMAND') {
                 message.followUp(content);
             } else {
                 message.channel.send(content);
@@ -74,13 +80,11 @@ class Reply {
 
     static dm(message, content) {
         try {
-            message.member.user.send(content)
+            message.member.user.send(content).catch(() => message.followUp({ content: "Couldn't dm you. Are your dm's enabled?", ephemeral: true }));
         } catch (error) {
-            message.channel.send("Couldn't dm you. Are your dm's enabled?")
             console.log(error)
         }
     }
-
 }
 
 module.exports = Reply;
