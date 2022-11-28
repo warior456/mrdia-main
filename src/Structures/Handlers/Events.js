@@ -34,8 +34,8 @@ module.exports = async function (client) {
                 for (const file of eventFiles) {
                     const event = require(`../../events/${folder}/${file}`)
                     if (event.ignoreFile) return;
-                    if (event.once) client.once(event.name, (...args) => event.run(...args, client));
-                    else client.on(event.name, (...args) => event.run(...args, client));
+                    if (event.once) client.once(event.name, (...args) => event.run(...args, client, config));
+                    else client.on(event.name, (...args) => event.run(...args, client, config));
                 }
                 break;
             case "mongo":

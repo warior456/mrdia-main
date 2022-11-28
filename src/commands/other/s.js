@@ -15,19 +15,19 @@ module.exports = {
     run: (message, client, Discord, args, cmd) => {
         
         let option = args[0]
-        max = 418554;
-        if (option == 'number') sauce(max)
-        if (option == 'link') saucelink(max)
+        max = 429554;
+        if (option == 'number') sauce(message, max)
+        if (option == 'link') saucelink(message, max)
         if (cmd === 'saucelink') {
         }
     }
 }
 
-function sauce(max) {
+function sauce(message ,max) {
     Reply.send(message, `${Math.floor(Math.random() * max)}`);
 }
 
-function saucelink(max) {
+function saucelink(message, max) {
     if (message.channel.nsfw) {
         Reply.send(message, `https://nhentai.net/g/${Math.floor(Math.random() * max)}/`);
     } else {
