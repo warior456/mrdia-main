@@ -14,8 +14,7 @@ class Reply {
      */
     static send(message, content) {
         try {
-            // const content = isEmbed ? { embeds: [reply] } : reply;    // better name possible
-            if (message.type === 'APPLICATION_COMMAND') {    // a ternary IF statement (like on the previous line is also possible, but imo less clean)
+            if (message.type === 'APPLICATION_COMMAND'|| message.message.type === 'APPLICATION_COMMAND') {
                 message.reply(content);
             } else {
                 message.channel.send(content);
@@ -38,12 +37,13 @@ class Reply {
         }
     }
 
-    static defer(message) {
-        if (message.type === 'APPLICATION_COMMAND') {
-            message.deferReply()
-        } else {
-            return
-        }
+    static defer(message) { //fix
+        message.deferReply()
+        // if (message.type === 'APPLICATION_COMMAND'|| message.message.type === 'APPLICATION_COMMAND') {// fix some potential problems with using this
+        //     message.deferReply()
+        // } else {
+        //     return
+        // }
     }
 
     static deferEdit(message, content) {
@@ -59,7 +59,7 @@ class Reply {
         }
     }
 
-    static replySend(message, content) {
+    static replySend(message, content) { //todo remove this
         try {
             message.reply(content)
         } catch (error) {
