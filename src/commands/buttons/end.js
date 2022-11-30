@@ -4,7 +4,7 @@ module.exports = {
     name: "end",
     isButton: true,
     run: async (message, client, container) => {
-        Reply.defer(message)
+        Reply.defer(message, false)
         let row = message.message.components[0]
         let Embed = message.message.embeds[0]
         for (let i = 0; i < row.components.length; i++) {

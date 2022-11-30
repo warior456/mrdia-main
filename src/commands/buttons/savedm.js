@@ -4,7 +4,6 @@ module.exports = {
     name: "savedm",
     isButton: true,
     run: async (message, client, container) => {
-        Reply.defer(message)
         let guildQueue = await client.player.getQueue(message.guild.id);
         if (!guildQueue) return Reply.editReply(message ,{ content: 'No song playing!', ephemeral: true })
         Reply.dm(message, { embeds: [makeEmbed(guildQueue, message)] })

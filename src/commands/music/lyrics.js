@@ -17,7 +17,7 @@ module.exports = {
     }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
-        Reply.defer(message)
+        Reply.defer(message, false)
         //return Reply.send('This feature is currently WIP')
         // if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
 
