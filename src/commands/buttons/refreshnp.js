@@ -7,7 +7,7 @@ module.exports = {
     run: async (message, client, container) => {
         message.deferUpdate()
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!guildQueue) return Reply.send(message, "no songs in queue")
+        if (!guildQueue) return Reply.send(message, { content: 'Error- no songs in queue!', ephemeral: true})
         refreshnp(message.message)
 
     }

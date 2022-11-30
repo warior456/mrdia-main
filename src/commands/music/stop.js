@@ -8,7 +8,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != config.owner) return Reply.send(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel && message.member.user.id != config.owner) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
 
         stop(message, client, Discord, args, cmd, guildQueue);
     }

@@ -13,7 +13,7 @@ module.exports = {
     run: async (message, client, Discord, args, cmd) => {
         Reply.defer(message)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.deferEdit(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.editReply(message, { content: 'Join a voice channel first!', ephemeral: true })
         playlist(message, client, Discord, args, cmd, guildQueue);
     }
 }
@@ -31,11 +31,11 @@ async function playlist(message, client, Discord, args, cmd, guildQueue) {
         });
         if (song === 'undefined') {
             queue.stop();
-            return Reply.deferEdit(message,'Something went wrong!');
+            return Reply.editReply(message,'Something went wrong!');
         }
-        Reply.deferEdit(message, `**[${song}]** has been added to the queue`)
+        Reply.editReply(message, `**[${song}]** has been added to the queue`)
     } catch (error) {
         console.log(error);
-        Reply.deferEdit(message ,`something went wrong when trying to add the queue!`);
+        Reply.editReply(message ,`something went wrong when trying to add the queue!`);
     }
 }

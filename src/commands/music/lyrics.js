@@ -32,7 +32,7 @@ module.exports = {
             .setTitle(`**Lyrics of the Song:**`)
             .setDescription(lyrics)
 
-        Reply.deferEdit(message, { embeds: [embed] })
+        Reply.editReply(message, { embeds: [embed] })
 
 
     }

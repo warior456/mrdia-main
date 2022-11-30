@@ -32,10 +32,10 @@ async function loadQueue(message, client, Discord, args, cmd, guildQueue) {
             fs.mkdirSync(`./src/guildData/${message.guild.id}`);
         }
         if (!fs.existsSync(`./src/guildData/${message.guild.id}/${args[0]}.csv`)) {
-            return Reply.send(message, `that queue doesn't exist`)
+            return Reply.send(message, { content: `Error- That queue doesn't exist!` , ephemeral: true})
         }
         if (!message.member.voice.channel) {
-            return Reply.send(message, 'join a voice channel first!')
+            return Reply.send(message, {content: 'Error- Join a voice channel first!', ephemeral: true})
         }
         
         try {

@@ -7,7 +7,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel) return Reply.send(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
 
         skip(message, client, Discord, args, cmd, guildQueue);
     }

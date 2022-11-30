@@ -1,0 +1,375 @@
+ButtonInteraction {
+    type: 'MESSAGE_COMPONENT',
+    id: '1047474757651681301',
+    applicationId: '916665664037617705',
+    channelId: '989970555149123764',
+    guildId: '829467609523159080',
+    user: User {
+      id: '522741254434455554',
+      bot: false,
+      system: false,
+      flags: UserFlags { bitfield: 4194368
+        },
+      username: 'Matteo_fey',
+      discriminator: '9611',
+      avatar: 'ca8dcc5409d67335477b43352eee9104',
+      banner: undefined,
+      accentColor: undefined
+    },
+    member: GuildMember {
+      guild: Guild {
+        id: '829467609523159080',
+        name: 'bottest',
+        icon: null,
+        features: [Array
+            ],
+        commands: [GuildApplicationCommandManager
+            ],
+        members: [GuildMemberManager
+            ],
+        channels: [GuildChannelManager
+            ],
+        bans: [GuildBanManager
+            ],
+        roles: [RoleManager
+            ],
+        presences: PresenceManager {},
+        voiceStates: [VoiceStateManager
+            ],
+        stageInstances: [StageInstanceManager
+            ],
+        invites: [GuildInviteManager
+            ],
+        scheduledEvents: [GuildScheduledEventManager
+            ],
+        available: true,
+        shardId: 0,
+        splash: null,
+        banner: null,
+        description: null,
+        verificationLevel: 'NONE',
+        vanityURLCode: null,
+        nsfwLevel: 'DEFAULT',
+        premiumSubscriptionCount: 0,
+        discoverySplash: null,
+        memberCount: 14,
+        large: false,
+        premiumProgressBarEnabled: false,
+        applicationId: null,
+        afkTimeout: 300,
+        afkChannelId: null,
+        systemChannelId: '829467609523159083',
+        premiumTier: 'NONE',
+        explicitContentFilter: 'DISABLED',
+        mfaLevel: 'NONE',
+        joinedTimestamp: 1656105643387,
+        defaultMessageNotifications: 'ALL_MESSAGES',
+        systemChannelFlags: [SystemChannelFlags
+            ],
+        maximumMembers: 500000,
+        maximumPresences: null,
+        maxVideoChannelUsers: 25,
+        approximateMemberCount: null,
+        approximatePresenceCount: null,
+        vanityURLUses: null,
+        rulesChannelId: null,
+        publicUpdatesChannelId: null,
+        preferredLocale: 'en-US',
+        ownerId: '522741254434455554',
+        emojis: [GuildEmojiManager
+            ],
+        stickers: [GuildStickerManager
+            ]
+        },
+      joinedTimestamp: 1617830888880,
+      premiumSinceTimestamp: null,
+      nickname: null,
+      pending: false,
+      communicationDisabledUntilTimestamp: null,
+      _roles: [ '854636991618744331'
+        ],
+      user: User {
+        id: '522741254434455554',
+        bot: false,
+        system: false,
+        flags: [UserFlags
+            ],
+        username: 'Matteo_fey',
+        discriminator: '9611',
+        avatar: 'ca8dcc5409d67335477b43352eee9104',
+        banner: undefined,
+        accentColor: undefined
+        },
+      avatar: null
+    },
+    version: 1,
+    appPermissions: Permissions { bitfield: 4398046511103n
+    },
+    memberPermissions: Permissions { bitfield: 4398046511103n
+    },
+    locale: 'en-GB',
+    guildLocale: 'en-US',
+    message: <ref *1> Message {
+      channelId: '989970555149123764',
+      guildId: '829467609523159080',
+      id: '1047269287242518718',
+      createdTimestamp: 1669758855401,
+      type: 'APPLICATION_COMMAND',
+      system: false,
+      content: '',
+      author: ClientUser {
+        id: '916665664037617705',
+        bot: true,
+        system: false,
+        flags: [UserFlags
+            ],
+        username: 'mrdia_wip',
+        discriminator: '3752',
+        avatar: null,
+        banner: undefined,
+        accentColor: undefined,
+        verified: true,
+        mfaEnabled: true
+        },
+      pinned: false,
+      tts: false,
+      nonce: null,
+      embeds: [
+            [MessageEmbed
+            ]
+        ],
+      components: [
+            [MessageActionRow
+            ]
+        ],
+      attachments: Collection(0) [Map
+        ] {},
+      stickers: Collection(0) [Map
+        ] {},
+      editedTimestamp: null,
+      reactions: ReactionManager { message: [Circular *1
+            ]
+        },
+      mentions: MessageMentions {
+        everyone: false,
+        users: Collection(0) [Map
+            ] {},
+        roles: Collection(0) [Map
+            ] {},
+        _members: null,
+        _channels: null,
+        _parsedUsers: null,
+        crosspostedChannels: Collection(0) [Map
+            ] {},
+        repliedUser: null
+        },
+      webhookId: '916665664037617705',
+      groupActivityApplication: null,
+      applicationId: '916665664037617705',
+      activity: null,
+      flags: MessageFlags { bitfield: 0
+        },
+      reference: null,
+      interaction: {
+        id: '1047269286189740042',
+        type: 'APPLICATION_COMMAND',
+        commandName: 'nowplaying',
+        user: [User
+            ]
+        }
+    },
+    customId: 'savefavorite',
+    componentType: 'BUTTON',
+    deferred: false,
+    ephemeral: null,
+    replied: false,
+    webhook: InteractionWebhook { id: '916665664037617705'
+    }
+}
+  
+  
+  
+  
+  <ref *1> Message {
+    channelId: '989970555149123764',
+    guildId: '829467609523159080',
+    id: '1047475126188376144',
+    createdTimestamp: 1669807931230,
+    type: 'DEFAULT',
+    system: false,
+    content: 'w(ping',
+    author: User {
+      id: '522741254434455554',
+      bot: false,
+      system: false,
+      flags: UserFlags { bitfield: 4194368
+        },
+      username: 'Matteo_fey',
+      discriminator: '9611',
+      avatar: 'ca8dcc5409d67335477b43352eee9104',
+      banner: undefined,
+      accentColor: undefined
+    },
+    pinned: false,
+    tts: false,
+    nonce: '1047475124065796096',
+    embeds: [],
+    components: [],
+    attachments: Collection(0) [Map
+    ] {},
+    stickers: Collection(0) [Map
+    ] {},
+    editedTimestamp: null,
+    reactions: ReactionManager { message: [Circular *1
+        ]
+    },
+    mentions: MessageMentions {
+      everyone: false,
+      users: Collection(0) [Map
+        ] {},
+      roles: Collection(0) [Map
+        ] {},
+      _members: null,
+      _channels: null,
+      _parsedUsers: null,
+      crosspostedChannels: Collection(0) [Map
+        ] {},
+      repliedUser: null
+    },
+    webhookId: null,
+    groupActivityApplication: null,
+    applicationId: null,
+    activity: null,
+    flags: MessageFlags { bitfield: 0
+    },
+    reference: null,
+    interaction: null
+}
+  
+  
+  
+  
+  CommandInteraction {
+    type: 'APPLICATION_COMMAND',
+    id: '1047475333789667358',
+    applicationId: '916665664037617705',
+    channelId: '989970555149123764',
+    guildId: '829467609523159080',
+    user: User {
+      id: '522741254434455554',
+      bot: false,
+      system: false,
+      flags: UserFlags { bitfield: 4194368
+        },
+      username: 'Matteo_fey',
+      discriminator: '9611',
+      avatar: 'ca8dcc5409d67335477b43352eee9104',
+      banner: undefined,
+      accentColor: undefined
+    },
+    member: GuildMember {
+      guild: Guild {
+        id: '829467609523159080',
+        name: 'bottest',
+        icon: null,
+        features: [Array
+            ],
+        commands: [GuildApplicationCommandManager
+            ],
+        members: [GuildMemberManager
+            ],
+        channels: [GuildChannelManager
+            ],
+        bans: [GuildBanManager
+            ],
+        roles: [RoleManager
+            ],
+        presences: PresenceManager {},
+        voiceStates: [VoiceStateManager
+            ],
+        stageInstances: [StageInstanceManager
+            ],
+        invites: [GuildInviteManager
+            ],
+        scheduledEvents: [GuildScheduledEventManager
+            ],
+        available: true,
+        shardId: 0,
+        splash: null,
+        banner: null,
+        description: null,
+        verificationLevel: 'NONE',
+        vanityURLCode: null,
+        nsfwLevel: 'DEFAULT',
+        premiumSubscriptionCount: 0,
+        discoverySplash: null,
+        memberCount: 14,
+        large: false,
+        premiumProgressBarEnabled: false,
+        applicationId: null,
+        afkTimeout: 300,
+        afkChannelId: null,
+        systemChannelId: '829467609523159083',
+        premiumTier: 'NONE',
+        explicitContentFilter: 'DISABLED',
+        mfaLevel: 'NONE',
+        joinedTimestamp: 1656105643387,
+        defaultMessageNotifications: 'ALL_MESSAGES',
+        systemChannelFlags: [SystemChannelFlags
+            ],
+        maximumMembers: 500000,
+        maximumPresences: null,
+        maxVideoChannelUsers: 25,
+        approximateMemberCount: null,
+        approximatePresenceCount: null,
+        vanityURLUses: null,
+        rulesChannelId: null,
+        publicUpdatesChannelId: null,
+        preferredLocale: 'en-US',
+        ownerId: '522741254434455554',
+        emojis: [GuildEmojiManager
+            ],
+        stickers: [GuildStickerManager
+            ]
+        },
+      joinedTimestamp: 1617830888880,
+      premiumSinceTimestamp: null,
+      nickname: null,
+      pending: false,
+      communicationDisabledUntilTimestamp: null,
+      _roles: [ '854636991618744331'
+        ],
+      user: User {
+        id: '522741254434455554',
+        bot: false,
+        system: false,
+        flags: [UserFlags
+            ],
+        username: 'Matteo_fey',
+        discriminator: '9611',
+        avatar: 'ca8dcc5409d67335477b43352eee9104',
+        banner: undefined,
+        accentColor: undefined
+        },
+      avatar: null
+    },
+    version: 1,
+    appPermissions: Permissions { bitfield: 4398046511103n
+    },
+    memberPermissions: Permissions { bitfield: 4398046511103n
+    },
+    locale: 'en-GB',
+    guildLocale: 'en-US',
+    commandId: '992426853828677763',
+    commandName: 'ping2',
+    deferred: false,
+    replied: false,
+    ephemeral: null,
+    webhook: InteractionWebhook { id: '916665664037617705'
+    },
+    options: CommandInteractionOptionResolver {
+      _group: null,
+      _subcommand: null,
+      _hoistedOptions: []
+    }
+}

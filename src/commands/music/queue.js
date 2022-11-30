@@ -2,7 +2,7 @@ const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const { timeToSeconds, addLeadingZeros, addTime } = require('../../Utils/utilities');
 const Reply = require('../../Structures/Handlers/replyHandler')
 
-function show_q (message) {
+function show_q(message) {
     let guildQueue = client.player.getQueue(message.guild.id)
     let isNewMessage = false
     show_queue(message, guildQueue, isNewMessage)
@@ -21,26 +21,21 @@ module.exports = {
             page: args[0]
         });
 
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
+        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
         show_queue(message, guildQueue, isNewMessage);
     }, show_q
 }
 
 
 async function show_queue(message, guildQueue, isNewMessage) {
-    try {
-        if (!guildQueue) return Reply.send(message, `There are no songs in the queue`)
+    if (!guildQueue) return Reply.send(message, `There are no songs in the queue`)
 
-        let queueMessage = await makeQueueMessage(guildQueue)
-        let field = makeField(guildQueue)
-        let footer = makeFooter(guildQueue)
-        let embed = await makeEmbed(queueMessage, field, footer)
-        send_embed(message, embed, isNewMessage)
+    let queueMessage = await makeQueueMessage(guildQueue)
+    let field = makeField(guildQueue)
+    let footer = makeFooter(guildQueue)
+    let embed = await makeEmbed(queueMessage, field, footer)
+    send_embed(message, embed, isNewMessage)
 
-    } catch (error) {
-        console.log(error);
-        Reply.send(message, `Something went wrong try again!(1)`);
-    }
 }
 
 function totPages(guildQueue) {
@@ -66,8 +61,8 @@ async function makeQueueMessage(guildQueue) {
     } catch (error) {
         queueMessage = '**Current song:** error: no song playing\n==========================================\n'
     }
-    
-    if(!guildQueue.songs[1])return queueMessage
+
+    if (!guildQueue.songs[1]) return queueMessage
     for (var i = req_page * 10 - 9; i < guildQueue.songs.length && i <= req_page * 10; i++) { //makes the queueMessage
         queueMessage += `\`${i}.\` [${guildQueue.songs[i].name}](${guildQueue.songs[i].url}) | \`${guildQueue.songs[i].duration} | Requested by:\` <@${guildQueue.songs[i].requestedBy}>\n\n`
     }
@@ -81,7 +76,7 @@ function makeField(guildQueue) {
     }
 
     let s = ''
-    if (guildQueue.songs.length - 1 > 1 || guildQueue.songs.length - 1 === 0 ) s = 's';
+    if (guildQueue.songs.length - 1 > 1 || guildQueue.songs.length - 1 === 0) s = 's';
     let field = `**${guildQueue.songs.length - 1} song${s} in queue||${queueLength} Total length**`
 
     return field
