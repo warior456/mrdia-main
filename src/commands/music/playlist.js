@@ -11,9 +11,9 @@ module.exports = {
     }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
-        Reply.defer(message)
+        if (!message.member.voice.channel&& message.member.user.id != config.owner) return Reply.Reply(message, { content: 'Join a voice channel first!', ephemeral: true })
+        await Reply.defer(message, false)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.editReply(message, { content: 'Join a voice channel first!', ephemeral: true })
         playlist(message, client, Discord, args, cmd, guildQueue);
     }
 }

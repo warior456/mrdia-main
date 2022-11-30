@@ -11,9 +11,9 @@ module.exports = {
     }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
-        Reply.defer(message, false)
+        if (!message.member.voice.channel) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
+        await Reply.defer(message, false)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel) return Reply.editReply(message, { content: 'Join a voice channel first!', ephemeral: true })
         message.channel.createInvite({ unique: false, temporary: false }).then(invite => {
             console.log(message.guild.id)
             console.log(invite.code);

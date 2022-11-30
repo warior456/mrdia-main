@@ -5,10 +5,9 @@ module.exports = {
     aliases: ['l'],
     description: 'Loops the current song',
     category: 'music',
-    run: (message, client, Discord, args, cmd) => {
+    run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true})
-
+        if (!message.member.voice.channel&& message.member.user.id != config.owner) return Reply.Reply(message, { content: 'Join a voice channel first!', ephemeral: true })
         loop(message, client, Discord, args, cmd, guildQueue);
     }
 }

@@ -6,9 +6,10 @@ module.exports = {
     aliases: ['fskip', 'fs'],
     description: 'Force skips the current song',
     category: 'music',
-    run: (message, client, Discord, args, cmd) => {
+    run: async (message, client, Discord, args, cmd) => {
+        if (!message.member.voice.channel&& message.member.user.id != config.owner) return Reply.Reply(message, { content: 'Join a voice channel first!', ephemeral: true })
+        await Reply.defer(message, false)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != config.owner) return Reply.send(message, 'Join a voice channel first!')
 
         fskip(message, client, Discord, args, cmd, guildQueue);
     }

@@ -14,8 +14,9 @@ module.exports = {
     }],
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
+        if (!message.member.voice.channel) return Reply.Reply(message, { content: 'Join a voice channel first!', ephemeral: true })
+        await Reply.defer(message, false)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel) return Reply.send(message, 'Join a voice channel first!')
         loadQueue(message, client, Discord, args, cmd, guildQueue);
     }
 }
@@ -25,19 +26,19 @@ async function loadQueue(message, client, Discord, args, cmd, guildQueue) {
         if (!args[0]) {
             return Reply.send(message, 'Please provide a name');
         }
-        if  (!fs.existsSync(`./src/guildData`)){
+        if (!fs.existsSync(`./src/guildData`)) {
             fs.mkdirSync(`./src/guidData`)
         }
         if (!fs.existsSync(`./src/guildData/${message.guild.id}`)) {
             fs.mkdirSync(`./src/guildData/${message.guild.id}`);
         }
         if (!fs.existsSync(`./src/guildData/${message.guild.id}/${args[0]}.csv`)) {
-            return Reply.send(message, { content: `Error- That queue doesn't exist!` , ephemeral: true})
+            return Reply.send(message, { content: `Error- That queue doesn't exist!`, ephemeral: true })
         }
         if (!message.member.voice.channel) {
-            return Reply.send(message, {content: 'Error- Join a voice channel first!', ephemeral: true})
+            return Reply.send(message, { content: 'Error- Join a voice channel first!', ephemeral: true })
         }
-        
+
         try {
             Reply.send(message, 'loading queue')
 

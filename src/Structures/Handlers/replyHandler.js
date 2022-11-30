@@ -33,11 +33,10 @@ class Reply {
         }
     }
 
-    static defer(message, visible) {
+    static async defer(message, visible) {
         console.log(message.type)
         if (message.type === 'APPLICATION_COMMAND' || message.type === 'MESSAGE_COMPONENT') {
-            message.deferReply({ephemeral: visible})
-            console.log("should defer")
+            await message.deferReply({ephemeral: visible})
         } else {
             return
         }
