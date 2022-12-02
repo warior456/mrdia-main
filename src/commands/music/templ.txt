@@ -1,10 +1,18 @@
+const Reply = require('../../Structures/Handlers/replyHandler')
+
 module.exports = {
-    name: 'clear',
+    name: 'name',
     aliases: [],
-    description: 'clear messages!',
-    category: '',
-    run: async(message, client, Discord, args, cmd) => {
+    description: 'description',
+    // options: [{
+    //     name: "argname",
+    //     type: "TYPE",
+    //     description: "Argument description",
+    //     required: true
+    // }],
+    category: 'command category',
+    run: async (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if(!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
+        if (!message.member.voice.channel && message.author.id != process.env.OWNER) return message.channel.send('Join a voice channel first!')
     }
 }

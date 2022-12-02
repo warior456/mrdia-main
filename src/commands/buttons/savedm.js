@@ -26,6 +26,6 @@ function makeEmbed(guildQueue, message) {
         .setTitle('Song saved 🎵')
         .setColor('#a20000')
         .setDescription(makeDescription(guildQueue))
-        .setFooter(makeFooter(guildQueue, message))
+        .setFooter({text: makeFooter(guildQueue, message)})
     return queEmbed
 } 
