@@ -13,24 +13,22 @@ module.exports = {
     run: async (message, client, Discord, args, cmd) => {
         if (!message.member.voice.channel) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
         await Reply.defer(message, false)
-        let guildQueue = client.player.getQueue(message.guild.id);
         message.channel.createInvite({ unique: false, temporary: false }).then(invite => {
             console.log(message.guild.id)
             console.log(invite.code);
         });
 
-        play(message, client, Discord, args, cmd, guildQueue);
+        play(message, client, Discord, args, cmd);
     }
 }
 
 
-async function play(message, client, Discord, args, cmd, guildQueue) {
+async function play(message, client, Discord, args, cmd) {
     try {
         let queue = client.player.createQueue(message.guild.id);
         await queue.join(message.member.voice.channel);
-        const userId = message.author ? message.member.user.id : message.user.id;
         let song = await queue.play(args.join(' '), {
-            requestedBy: userId,
+            requestedBy: message.member.user.id,
             data: {
                 skipVotes: []
             }
