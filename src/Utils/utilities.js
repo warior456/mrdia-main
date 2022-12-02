@@ -61,6 +61,8 @@ async function guildPrefix(message) {
     return prefix;
 }
 
+function isNatural(number) {
+    return number >= 0 && Math.floor(number) === +number;
+}
 
-
-module.exports = {addLeadingZeros,timeToSeconds,addTime,guildPrefix};
+module.exports = {addLeadingZeros,timeToSeconds,addTime,guildPrefix, isNatural};
