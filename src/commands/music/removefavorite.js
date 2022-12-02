@@ -29,7 +29,7 @@ module.exports = {
 }
 
 async function removeFavorite(args, userProfile) {
-    if (isNatural(args[0]) && userProfile.userFavoriteLinks.length >= args[0]){
+    if (isNatural(args[0]) && userProfile.userFavoriteLinks.length >= args[0] && args[0] > 0){
         return await removeValue(userProfile, args[0] - 1)
     } else{
         return 'nothing, please provide a valid input!'
@@ -41,7 +41,9 @@ async function removeFavorite(args, userProfile) {
 
 async function removeValue(userProfile, index) {
     await userProfile.userFavoriteLinks.splice(index, 1)
-    return await userProfile.userFavoriteNames.splice(index, 1)
+    const removed = await userProfile.userFavoriteNames.splice(index, 1)
+    await userProfile.save().catch(console.error)
+    return removed
 }
 
 

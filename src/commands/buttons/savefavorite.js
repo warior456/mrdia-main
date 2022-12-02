@@ -9,7 +9,7 @@ module.exports = {
         await Reply.defer(message, true)
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!guildQueue) {
-            return Reply.editReply(message, { content: `There is no song playing!`, ephemeral: true })
+            return Reply.editReply(message, { content: `There is no song playing!`})
         }
         let userProfile = await User.findOne({ userId: message.member.user.id })
         if (!userProfile) {

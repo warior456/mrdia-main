@@ -33,9 +33,9 @@ class Reply {
         }
     }
 
-    static async defer(message, visible) {
+    static async defer(message, invisible) {
         if (message.type === 'APPLICATION_COMMAND' || message.type === 'MESSAGE_COMPONENT') {
-            await message.deferReply({ephemeral: visible})
+            await message.deferReply({ephemeral: invisible})
         } else {
             return
         }
@@ -43,8 +43,7 @@ class Reply {
 
     static editReply(message, content) { //used in lyrics.js play.js playlist.js , should be used for editing a reply sent by the bot or when sending a message after defer
         try {
-
-            if (message.type === 'APPLICATION_COMMAND' && message.options) {
+            if (message.type === 'APPLICATION_COMMAND' || message.type === 'MESSAGE_COMPONENT') { //removed && message.options don't know what it did
                 message.editReply(content);
             } else
                 message.channel.send(content);
