@@ -55,7 +55,7 @@ class Reply {
 
     static follow(message, content) { //sends a message , should use editReply when possible
         try {
-            if (message.type === 'APPLICATION_COMMAND' || message.message.type === 'APPLICATION_COMMAND') {
+            if (message.type === 'APPLICATION_COMMAND' || message.type === 'MESSAGE_COMPONENT') {
                 message.followUp(content);
             } else {
                 message.channel.send(content);

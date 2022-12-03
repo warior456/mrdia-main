@@ -8,7 +8,7 @@ module.exports = {
     description: 'Loads your personal favorite list to the queue',
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
-        if (!message.member.voice.channel) return Reply.Reply(message, { content: 'Join a voice channel first!', ephemeral: true })
+        if (!message.member.voice.channel) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
         await Reply.defer(message, false)
         let userProfile = await User.findOne({ userId: message.member.user.id })
         loadFavorites(message, client, userProfile);

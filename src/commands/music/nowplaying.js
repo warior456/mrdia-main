@@ -74,11 +74,11 @@ function addButtons() {
                 .setStyle('PRIMARY'),
             new MessageButton()
                 .setCustomId('savedm')
-                .setLabel('Save in dm')
+                .setLabel('Send in dm')
                 .setStyle('PRIMARY'),
             new MessageButton()
                 .setCustomId('savefavorite')
-                .setLabel('Save to favorites')
+                .setLabel('Add to favorites')
                 .setStyle('PRIMARY'),
             new MessageButton()
                 .setCustomId('end')
