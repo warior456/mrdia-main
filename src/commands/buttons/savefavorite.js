@@ -6,7 +6,7 @@ module.exports = {
     name: "savefavorite",
     isButton: true,
     run: async (message, client, container) => {
-        await Reply.defer(message, true)
+        await Reply.deferReply(message, true)
         let guildQueue = client.player.getQueue(message.guild.id);
         if (!guildQueue) {
             return Reply.editReply(message, { content: `There is no song playing!`})

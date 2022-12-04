@@ -70,7 +70,7 @@ function addButtons() {
         .addComponents(
             new MessageButton()
                 .setCustomId('refreshnp')
-                .setLabel('refresh')
+                .setLabel('Refresh')
                 .setStyle('PRIMARY'),
             new MessageButton()
                 .setCustomId('savedm')

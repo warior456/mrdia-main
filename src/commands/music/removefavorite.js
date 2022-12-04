@@ -16,7 +16,7 @@ module.exports = {
     }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
-        await Reply.defer(message, true)
+        await Reply.deferReply(message, true)
         let userProfile = await User.findOne({ userId: message.member.user.id })
         if (!userProfile.userFavoriteLinks[0]) {
             return Reply.editReply(message, { content: `You don't have any favorites!`, ephemeral: true })

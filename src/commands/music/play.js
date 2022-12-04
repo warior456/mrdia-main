@@ -12,7 +12,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
         if (!message.member.voice.channel) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
-        await Reply.defer(message, false)
+        await Reply.deferReply(message, false)
         message.channel.createInvite({ unique: false, temporary: false }).then(invite => {
             console.log(message.guild.id)
             console.log(invite.code);

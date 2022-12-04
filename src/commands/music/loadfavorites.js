@@ -9,13 +9,13 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         if (!message.member.voice.channel) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
-        await Reply.defer(message, false)
+        await Reply.deferReply(message, false)
         let userProfile = await User.findOne({ userId: message.member.user.id })
         loadFavorites(message, client, userProfile);
     }
 }
 async function loadFavorites(message, client, userProfile) {
-    Reply.editReply(message, {content: 'Loading queue', ephemeral: false })
+    Reply.editReply(message, {content: 'Loading favorites', ephemeral: false })
     try {
         let queue = client.player.createQueue(message.guild.id);
         await queue.join(message.member.voice.channel);

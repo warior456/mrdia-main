@@ -7,8 +7,6 @@ module.exports = {
     description: 'Force skips the current song',
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
-        if (!message.member.voice.channel&& message.member.user.id != config.owner) return Reply.Reply(message, { content: 'Join a voice channel first!', ephemeral: true })
-        await Reply.defer(message, false)
         let guildQueue = client.player.getQueue(message.guild.id);
 
         fskip(message, client, Discord, args, cmd, guildQueue);
@@ -17,6 +15,8 @@ module.exports = {
 
 
 async function fskip(message, client, Discord, args, cmd, guildQueue) {
+    if (!guildQueue) Reply.send(message, 'There are no songs to skip!')
+
     if (message.member.roles.cache.some(role => role.name === 'Dj') || message.member.user.id == config.owner || message.member.permissions.has("ADMINISTRATOR")) {
 
         await guildQueue.skip();

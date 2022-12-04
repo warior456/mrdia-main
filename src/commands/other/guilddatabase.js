@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 const Guild = require('../../schemas/guild')
-Reply = require('../../Structures/Handlers/replyHandler')
+const Reply = require('../../Structures/Handlers/replyHandler')
 
 module.exports = {
     name: 'guilddatabase',
     aliases: [],
-    description: "guilddatabase",
+    description: "guilddatabase test command",
     category: 'other',
     run: async (message, client, Discord, args, cmd) => {
         let guildProfile = await Guild.findOne({ guildId: message.guild.id })

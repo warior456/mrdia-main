@@ -32,10 +32,19 @@ class Reply {
             console.log(error)
         }
     }
+    
 
-    static async defer(message, invisible) {
+    static async deferReply(message, invisible) {
         if (message.type === 'APPLICATION_COMMAND' || message.type === 'MESSAGE_COMPONENT') {
             await message.deferReply({ephemeral: invisible})
+        } else {
+            return
+        }
+    }
+
+    static async deferUpdate(message) {
+        if (message.type === 'MESSAGE_COMPONENT') {
+            await message.deferUpdate({ephemeral: invisible})
         } else {
             return
         }

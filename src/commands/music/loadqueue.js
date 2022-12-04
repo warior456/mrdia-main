@@ -15,7 +15,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         if (!message.member.voice.channel) return Reply.Reply(message, { content: 'Join a voice channel first!', ephemeral: true })
-        await Reply.defer(message, false)
+        await Reply.deferReply(message, false)
         let guildQueue = client.player.getQueue(message.guild.id);
         loadQueue(message, client, Discord, args, cmd, guildQueue);
     }

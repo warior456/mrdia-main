@@ -1,5 +1,5 @@
 const discord = require('discord.js');
-Reply = require('../../Structures/Handlers/replyHandler')
+const Reply = require('../../Structures/Handlers/replyHandler')
 
 module.exports = {
 	name: "ping2",

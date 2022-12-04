@@ -16,8 +16,8 @@ module.exports = {
         
         let option = args[0]
         max = 429554;
-        if (option == 'number') sauce(message, max)
-        if (option == 'link') saucelink(message, max)
+        if (option === 'number'|| !args[0]) sauce(message, max)
+        if (option === 'link') saucelink(message, max)
         if (cmd === 'saucelink') {
         }
     }
