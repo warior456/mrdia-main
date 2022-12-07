@@ -44,7 +44,7 @@ class Reply {
 
     static async deferUpdate(message) {
         if (message.type === 'MESSAGE_COMPONENT') {
-            await message.deferUpdate({ephemeral: invisible})
+            await message.deferUpdate()
         } else {
             return
         }

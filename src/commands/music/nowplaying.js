@@ -1,5 +1,6 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
 const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js')
+const config = require('../../../Config');
 
 function refreshnp(message) {
     let guildQueue = client.player.getQueue(message.guild.id)
@@ -14,7 +15,7 @@ module.exports = {
     category: 'music',
     run: async (message, client, Discord, args, cmd, player) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
+        if (!message.member.voice.channel && message.member.user.id != config.owner) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
         let isNewMessage = true
         now_playing(message, guildQueue, isNewMessage);
 

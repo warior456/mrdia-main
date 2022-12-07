@@ -6,7 +6,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: 'favorites',
-    aliases: [],
+    aliases: ['favs'],
     description: 'Shows you the list of your favorites',
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {

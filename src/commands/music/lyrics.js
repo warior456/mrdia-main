@@ -13,19 +13,28 @@ module.exports = {
         name: "name",
         type: "STRING",
         description: "Give the song name",
-        required: true
+        required: false
     }],
     category: 'music',
     run: async (message, client, Discord, args, cmd) => {
-        Reply.deferReply(message, false)
+        await Reply.deferReply(message, false)
         //return Reply.send('This feature is currently WIP')
         // if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
+        console.log(args)
+        if (!args[0]) {
+            let guildQueue = client.player.getQueue(message.guild.id);
+            if (guildQueue) {
+                args = guildQueue.nowPlaying.name
+            } else return Reply.editReply(message, `There is no song playing please provide a song to search for`)
+        }
 
         const searches = await LyricsClient.songs.search(args.join(' '));
 
         //Pick first one
         const firstSong = searches[0];
-
+        if (!firstSong) {
+            return Reply.editReply(message, `Couldn't find any lyrics matching your search`)
+        }
         const lyrics = await firstSong.lyrics();
         const embed = new MessageEmbed()
             .setColor('#FFFF00')
@@ -37,3 +46,5 @@ module.exports = {
 
     }
 }
+
+

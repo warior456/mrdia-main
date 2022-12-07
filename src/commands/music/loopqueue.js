@@ -1,5 +1,6 @@
 const Reply = require('../../Structures/Handlers/replyHandler')
-//todo options
+const config = require('../../../Config');
+//todo remove and replace with loop current and loop queue with default loop current
 module.exports = {
     name: 'loopqueue',
     aliases: ['lq'],
@@ -7,7 +8,7 @@ module.exports = {
     category: 'music',
     run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
+        if (!message.member.voice.channel && message.member.user.id != config.owner) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
 
         loop_queue(message, client, Discord, args, cmd, guildQueue);
     }
