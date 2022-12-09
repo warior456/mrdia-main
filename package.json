@@ -1,0 +1,26 @@
+{
+  "name": "mrdia",
+  "version": "4.0.0",
+  "description": "A discord bot with a great and unique music system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/warior456/mrdia-main.git"
+  },
+  "author": "Matteo_fey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/warior456/mrdia-main/issues"
+  },
+  "homepage": "https://github.com/warior456/mrdia-main#readme",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "distube": "^4.0.4",
+    "dotenv": "^16.0.3",
+    "genius-lyrics": "^4.4.0",
+    "mongoose": "^6.8.0"
+  }
+}
