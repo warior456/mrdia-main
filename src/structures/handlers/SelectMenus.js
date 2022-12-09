@@ -2,7 +2,7 @@ const fs = require("fs");
 const FileScanner = require('node-recursive-directory');
 
 module.exports = async (DiscordClient, RootPath) => {
-    const ScannedFiles = await FileScanner(`${RootPath}/Src/Interactions/SelectMenus`)
+    const ScannedFiles = await FileScanner(`${RootPath}/src/commands/selectMenus`)
         ScannedFiles.forEach(File => {
             if (fs.statSync(File).isDirectory()) return;
             const SelectMenu = require(File)

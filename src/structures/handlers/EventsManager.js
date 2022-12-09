@@ -2,7 +2,7 @@ const fs = require("fs");
 const FileScanner = require('node-recursive-directory');
 
 module.exports = async (DiscordClient, RootPath) => {
-    const ScannedFiles = await FileScanner(`${RootPath}/Src/Events`)
+    const ScannedFiles = await FileScanner(`${RootPath}/src/events`)
         ScannedFiles.forEach(File => {
             if (fs.statSync(File).isDirectory()) return;
             const Event = require(File);

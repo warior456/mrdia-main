@@ -40,7 +40,7 @@ module.exports = {
 			}
 
 			contextMenuCollection.get(interaction.commandName).run(DiscordClient, interaction);
-		} else if (interaction.isSelectMenu()) {
+		} else if (interaction.isStringSelectMenu()) {
 			if (selectMenuCollection.get(interaction.values[0])) {
 				Command = selectMenuCollection.get(interaction.values[0]);
 				if (!Command) return;
