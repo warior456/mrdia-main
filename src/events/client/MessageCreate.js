@@ -1,5 +1,5 @@
 const config = require("../../../Config");
-const CommandOptionsVerifier = require("../Structures/CommandOptions/LoadCommandOptions");
+const CommandOptionsVerifier = require('../../structures/commandOptions/LoadCommandOptions');
 module.exports = {
 	name: "messageCreate",
 	run: async (message, DiscordClient) => {

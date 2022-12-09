@@ -1,5 +1,6 @@
 const { ActivityType } = require("discord.js");
 const chalk = require("chalk");
+const config = require('../../../Config');
 module.exports = {
 	name: "ready",
 	runOnce: true,
@@ -24,7 +25,7 @@ module.exports = {
 		if (DiscordClient.modalForms.size > 0)
 			console.log(chalk.hex("#067A00").bold("[ModalForms]", `Loading ${DiscordClient.modalForms.size} Modal Forms.`));
 
-		console.log(chalk.green(`${client.user.tag} is Online`));
+		console.log(chalk.green(`${DiscordClient.user.tag} is Online`));
 
 		const activities = [`${config.prefix}help`, `/help`];
 		const updateDelay = 20; // in seconds

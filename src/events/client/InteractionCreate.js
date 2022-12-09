@@ -1,4 +1,4 @@
-const CommandOptionsVerifier = require("../Structures/CommandOptions/LoadCommandOptions");
+const CommandOptionsVerifier = require('../../structures/commandOptions/LoadCommandOptions');
 module.exports = {
 	name: "interactionCreate",
 	run: async (interaction, DiscordClient) => {

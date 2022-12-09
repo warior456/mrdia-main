@@ -1,6 +1,6 @@
 (async () => {
 	require("dotenv").config();
-	const { Client, GatewayIntentBits, Partials, Collection } = require("discord.js");
+	const { Client, GatewayIntentBits, Partials, Collection, ActivityType } = require("discord.js");
 	const config = require("./Config");
 	const fs = require("fs");
 	const {
@@ -11,8 +11,9 @@
 		SlashCommandsHandler,
 		ContextMenuHandler,
 		ModalFormsHandler,
-	} = require("./Src/Structures/Handlers/HandlersManager");
-	const { connect } = require("mongoose");
+	} = require("./src/structures/handlers/HandlersManager");
+	const { connect, mongoose } = require("mongoose");
+	mongoose.set("strictQuery", true);
 	const Genius = require("genius-lyrics");
 	const DirPath = __dirname;
 	const err = require("./src/events/mongo/err");
@@ -52,18 +53,18 @@
 	global.LyricsClient = new Genius.Client();
 
 	connect(config.dbtoken).catch("Database error");
-	await MessageCommandHandler(DiscordClient, DirPath);
-	await EventManager(DiscordClient, DirPath);
-	await ButtonCommandHandler(DiscordClient, DirPath);
-	await SelectMenuHandler(DiscordClient, DirPath);
-	await ModalFormsHandler(DiscordClient, DirPath);
+	await MessageCommandHandler(client, DirPath);
+	await EventManager(client, DirPath);
+	await ButtonCommandHandler(client, DirPath);
+	await SelectMenuHandler(client, DirPath);
+	await ModalFormsHandler(client, DirPath);
 
 	await client.login(config.token);
 
-	DiscordClient.user.setActivity("Starting", {
+	client.user.setActivity("Starting", {
 		type: ActivityType.Playing,
 	});
 
-	await SlashCommandsHandler(DiscordClient, DirPath);
-	await ContextMenuHandler(DiscordClient, DirPath);
+	await SlashCommandsHandler(client, DirPath);
+	await ContextMenuHandler(client, DirPath);
 })();
