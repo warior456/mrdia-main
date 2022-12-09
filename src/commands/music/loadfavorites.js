@@ -15,7 +15,7 @@ module.exports = {
     }
 }
 async function loadFavorites(message, client, userProfile) {
-    Reply.editReply(message, {content: 'Loading favorites', ephemeral: false })
+    Reply.editReply(message, {content: 'Loading favorites...', ephemeral: false })
     try {
         let queue = client.player.createQueue(message.guild.id);
         await queue.join(message.member.voice.channel);
@@ -31,6 +31,6 @@ async function loadFavorites(message, client, userProfile) {
         Reply.follow(message, `**${message.member.user.username}'s** favorites have been loaded`)
     } catch (error) {
         console.log(error);
-        Reply.editReply(message, `Something went wrong when trying to load **${message.member.user.username}'s** favorites`);
+        Reply.follow(message, `Something went wrong when trying to load **${message.member.user.username}'s** favorites`);
     }
 }

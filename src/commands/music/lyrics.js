@@ -24,10 +24,10 @@ module.exports = {
         if (!args[0]) {
             let guildQueue = client.player.getQueue(message.guild.id);
             if (guildQueue) {
-                args = guildQueue.nowPlaying.name
+                args = [guildQueue.nowPlaying.name]
             } else return Reply.editReply(message, `There is no song playing please provide a song to search for`)
         }
-
+        console.log(args)
         const searches = await LyricsClient.songs.search(args.join(' '));
 
         //Pick first one

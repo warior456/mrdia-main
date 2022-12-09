@@ -7,27 +7,27 @@ module.exports = {
     category: 'music',
     run: (message, client, Discord, args, cmd) => {
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!message.member.voice.channel && message.member.user.id != process.env.OWNER) return Reply.send(message, { content: 'Join a voice channel first!', ephemeral: true })
+        return Reply.send(message, { content: 'This command is disabled due to multiple issues', ephemeral: true })
 
-        if (cmd === 'pause') pause(message, client, Discord, args, cmd, guildQueue);
+        // if (cmd === 'pause') pause(message, client, Discord, args, cmd, guildQueue);
 
-        else if (cmd === 'resume') resume(message, client, Discord, args, cmd, guildQueue);
+        // else if (cmd === 'resume') resume(message, client, Discord, args, cmd, guildQueue);
     }
 }
 
-function pause(message, client, Discord, args, cmd, guildQueue) {
-    try {
-        guildQueue.setPaused(true);
-    } catch (error) {
-        Reply.send(message, `Something went wrong when trying to pause the song!`);
-    }
+// function pause(message, client, Discord, args, cmd, guildQueue) {
+//     try {
+//         guildQueue.setPaused(true);
+//     } catch (error) {
+//         Reply.send(message, `Something went wrong when trying to pause the song!`);
+//     }
 
-}
+// }
 
-function resume(message, client, Discord, args, cmd, guildQueue) {
-    try {
-        guildQueue.setPaused(false);
-    } catch (error) {
-        Reply.send(message, `Something went wrong when trying to resume the song!`);
-    }
-}
+// function resume(message, client, Discord, args, cmd, guildQueue) {
+//     try {
+//         guildQueue.setPaused(false);
+//     } catch (error) {
+//         Reply.send(message, `Something went wrong when trying to resume the song!`);
+//     }
+// }

@@ -29,7 +29,7 @@ async function prepareFavorite(message, userProfile, guildQueue) {
     }
 }
 
-async function createUser(message, guildQueue) {
+async function createUser(message, guildQueue) { //should be in functions folder
     userProfile = await new User({
         _id: mongoose.Types.ObjectId(),
         userId: message.member.user.id,

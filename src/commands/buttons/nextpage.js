@@ -8,7 +8,7 @@ module.exports = {
     run: async (message, client, container) => {
         Reply.deferUpdate(message)
         let guildQueue = client.player.getQueue(message.guild.id);
-        if (!guildQueue) return
+        if (!guildQueue) return Reply.follow(message, {content: `Error- There are no song's in queue`, ephemeral: true})
         let pages = Math.ceil((guildQueue.songs.length - 1) / 10)
         guildQueue.data.page++
         if (guildQueue.data.page > pages) guildQueue.data.page = pages;

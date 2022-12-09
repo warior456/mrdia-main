@@ -24,11 +24,11 @@ async function remove_song(message, client, Discord, args, cmd, guildQueue) {
         if (!guildQueue) {
             return Reply.send(message, `There are no songs in queue!`);
         }
-        let remSongs = ''
-        for (let i = 0; i < args.length; i++) {
-            await guildQueue.remove(parseInt(args[i]))
-            remSongs += `${args[i]} `
-        }
+        let remSongs = args[0]
+        // for (let i = 0; i < args.length; i++) {
+        //     await guildQueue.remove(parseInt(args[i]))
+        //     remSongs += `${args[i]} `
+        // }
         Reply.send(message, `Removed song ${remSongs}from the queue!`);
     } catch (error) {
         console.log(error)
