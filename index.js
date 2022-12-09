@@ -3,6 +3,7 @@
 	const { Client, GatewayIntentBits, Partials, Collection, ActivityType } = require("discord.js");
 	const config = require("./Config");
 	const fs = require("fs");
+	const DirPath = __dirname;
 	const {
 		MessageCommandHandler,
 		EventManager,
@@ -12,11 +13,19 @@
 		ContextMenuHandler,
 		ModalFormsHandler,
 	} = require("./src/structures/handlers/HandlersManager");
+
 	const { connect, mongoose } = require("mongoose");
 	mongoose.set("strictQuery", true);
+
 	const Genius = require("genius-lyrics");
-	const DirPath = __dirname;
+
 	const err = require("./src/events/mongo/err");
+
+	const { DisTube } = require("distube");
+	const { DeezerPlugin } = require("@distube/deezer");
+	const { SpotifyPlugin } = require("@distube/spotify");
+	const { SoundCloudPlugin } = require("@distube/soundcloud");
+	const { YtDlpPlugin } = require("@distube/yt-dlp");
 
 	const client = new Client({
 		intents: [
@@ -51,6 +60,15 @@
 	exports.rootPath = DirPath;
 
 	global.LyricsClient = new Genius.Client();
+
+	const distube = new DisTube(client, {
+		searchSongs: 5,
+		searchCooldown: 30,
+		leaveOnEmpty: true,
+		leaveOnFinish: true,
+		leaveOnStop: true,
+		plugins: [new DeezerPlugin(), new SpotifyPlugin(), new SoundCloudPlugin(), new YtDlpPlugin({ update: true })],
+	});
 
 	connect(config.dbtoken).catch("Database error");
 	await MessageCommandHandler(client, DirPath);

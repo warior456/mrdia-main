@@ -52,8 +52,8 @@ class Reply {
 		}
 	}
 
-	static editReply(message, content) {
-		//used in lyrics.js play.js playlist.js , should be used for editing a reply sent by the bot or when sending a message after defer
+	static editReply(message, content) { 
+		//edits a deferred message or sends a message if it's a messageCommand
 		try {
 			if (message.type === InteractionType.ApplicationCommand || message.type === InteractionType.MessageComponent) {
 				//removed && message.options don't know what it did
@@ -65,7 +65,7 @@ class Reply {
 	}
 
 	static follow(message, content) {
-		//sends a message , should use editReply when possible
+		//sends a message after a deferred message (must first use editReply after deferReply)
 		try {
 			if (message.type === InteractionType.ApplicationCommand || message.type === InteractionType.MessageComponent) {
 				message.followUp(content);
