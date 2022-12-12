@@ -24,6 +24,7 @@ class Reply {
 	 * @param {object} content - the reply content
 	 * @returns {Promise<void>}
 	 */
+
 	static send(message, content) {
 		try {
 			if (message.type === InteractionType.ApplicationCommand || message.type === InteractionType.MessageComponent) {
@@ -36,6 +37,10 @@ class Reply {
 		}
 	}
 
+	/**
+	 * @description Used when a reply will take longer than 3 seconds
+	 * @description Do not use in buttons
+	 */
 	static async deferReply(message, invisible) {
 		if (message.type === InteractionType.ApplicationCommand || message.type === InteractionType.MessageComponent) {
 			await message.deferReply({ ephemeral: invisible });
@@ -44,6 +49,11 @@ class Reply {
 		}
 	}
 
+	/**
+	 * @description Used to acknowledge buttons
+	 * @description To send a message after this use follow
+	 * @description To edit the message with the button use editReply
+	 */
 	static async deferUpdate(message) {
 		if (message.type === InteractionType.MessageComponent) {
 			await message.deferUpdate();
@@ -52,8 +62,10 @@ class Reply {
 		}
 	}
 
-	static editReply(message, content) { 
-		//edits a deferred message or sends a message if it's a messageCommand
+	/**
+	 * @description edits a deferred message or sends a message if it's a messageCommand
+	 */
+	static editReply(message, content) {
 		try {
 			if (message.type === InteractionType.ApplicationCommand || message.type === InteractionType.MessageComponent) {
 				//removed && message.options don't know what it did
@@ -64,8 +76,10 @@ class Reply {
 		}
 	}
 
+	/**
+	 * @description sends a message after a deferred message (must first use editReply after deferReply)
+	 */
 	static follow(message, content) {
-		//sends a message after a deferred message (must first use editReply after deferReply)
 		try {
 			if (message.type === InteractionType.ApplicationCommand || message.type === InteractionType.MessageComponent) {
 				message.followUp(content);
@@ -77,20 +91,10 @@ class Reply {
 		}
 	}
 
-	static edit(message, content) {
-		//edits , i should check this further
-		try {
-			if (message.type === InteractionType.ApplicationCommand && message.options) {
-				//messsage.options is a way of checking if there was already a message (i think)
-				message.editReply(content);
-			} else message.edit(content);
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
+	/**
+	 * @description dms the user in the messageObject
+	 */
 	static dm(message, content) {
-		//dms a user
 		try {
 			message.member.user.send(content).catch(() => message.followUp({ content: "Couldn't dm you. Are your dm's enabled?", ephemeral: true }));
 		} catch (error) {

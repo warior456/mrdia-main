@@ -1,0 +1,48 @@
+const Reply = require("../../../structures/handlers/replyHandler");
+const { ButtonBuilder, ActionRowBuilder, ButtonStyle, ApplicationCommandOptionType } = require("discord.js");
+module.exports = {
+	name: "command", //extras: commandOptions
+	aliases: [],
+	options: [//optional
+		{
+			name: "option",
+			type: ApplicationCommandOptionType.String ,
+			description: "option description",
+			required: true,
+			choices: [{ name: "Funny", value: "gif_funny" }, { name: "Meme", value: "gif_meme" }, { name: "Movie", value: "gif_movie" }], //optional
+		},
+		{
+			name: "option2",
+			type: ApplicationCommandOptionType.String ,
+			description: "option description",
+			required: true,
+			choices: [{ name: "Funny2", value: "gif_funny" }, { name: "Meme2", value: "gif_meme" }, { name: "Movie2", value: "gif_movie" }], //optional
+		}//todo subcommands (not needed atm)
+	],
+	description: "a normal command template",
+	category: "template",
+	run: async (client, message, args) => {
+		//async only if deferring
+		await Reply.deferReply(message, false); //only use if command can take long
+	},
+};
+
+function addButtons() {
+	//always at the bottom of a file
+	const row = new ActionRowBuilder().addComponents(
+		new ButtonBuilder().setCustomId("button").setLabel("Refresh").setStyle(ButtonStyle.Primary), //blue
+		new ButtonBuilder().setCustomId("button_2").setLabel("Send in dm").setStyle(ButtonStyle.Secondary), //gray
+		new ButtonBuilder().setCustomId("button_3").setLabel("Add to favorites").setStyle(ButtonStyle.Success), // green
+		new ButtonBuilder().setCustomId("button_4").setLabel("end interaction").setStyle(ButtonStyle.Link), //gray with hyperlink
+		new ButtonBuilder().setCustomId("end").setLabel("End interaction").setStyle(ButtonStyle.Danger) //red
+	);
+	const row2 = new ActionRowBuilder().addComponents(
+		new ButtonBuilder().setCustomId("button_6").setLabel("Refresh").setStyle("Primary"),
+		new ButtonBuilder().setCustomId("button_7").setLabel("Send in dm").setStyle("Primary"),
+		new ButtonBuilder().setCustomId("button_8").setLabel("Add to favorites").setStyle("Primary"),
+		new ButtonBuilder().setCustomId("button_9").setLabel("end interaction").setStyle("Secondary"),
+		new ButtonBuilder().setCustomId("end").setLabel("End interaction").setStyle("Secondary")
+	);
+	//can have up to 5 rows
+	return [row, row2];
+}

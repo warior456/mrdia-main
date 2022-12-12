@@ -10,7 +10,7 @@ module.exports = {
 		message.channel.send("Loading data").then(async (msg) => {
 			msg.delete();
 			pongMessage += `pong! : Latency is ${msg.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`;
-			Reply.send(message, { content: pongMessage, components: [addButtons()] });
+			Reply.send(message, { content: pongMessage, components: addButtons() });
 		});
 	},
 };
@@ -22,6 +22,12 @@ function addButtons() {
 		new ButtonBuilder().setCustomId("savefavorite").setLabel("Add to favorites").setStyle("Primary"),
 		new ButtonBuilder().setCustomId("end").setLabel("end interaction").setStyle("Secondary")
 	);
-	return row;
+	const row2 = new ActionRowBuilder().addComponents(
+		new ButtonBuilder().setCustomId("rereshnp").setLabel("Reresh").setStyle("Primary"),
+		new ButtonBuilder().setCustomId("saedm").setLabel("Send n dm").setStyle("Primary"),
+		new ButtonBuilder().setCustomId("saefavorite").setLabel("Addto favorites").setStyle("Primary"),
+		new ButtonBuilder().setCustomId("ed").setLabel("end interction").setStyle("Secondary")
+	);
+	return [row, row2];
 }
 async function pong(message) {}
