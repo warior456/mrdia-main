@@ -1,5 +1,5 @@
 const Reply = require("../../structures/handlers/replyHandler")
-const { skipSong } = require('../../functions/music/skipSong')
+const { skipSong } = require('../../functions/music/skipFunction')
 
 module.exports = {
     name : 'skip',

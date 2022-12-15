@@ -1,5 +1,5 @@
 const Reply = require("../../../structures/handlers/replyHandler");
-const { ButtonBuilder, ActionRowBuilder, ButtonStyle, ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
+const { ButtonBuilder, ActionRowBuilder, ButtonStyle, EmbedBuilder } = require("discord.js");
 module.exports = {
 	name: "nowplaying", //extras: commandOptions
 	aliases: ["np"],
