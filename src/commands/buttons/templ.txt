@@ -4,7 +4,7 @@ module.exports = {
     name : 'button',
     returnErrors: false, //commandOptions
     //ownerOnly: true,
-    run : async(client, interaction) => {
+    run : async(client, message) => {
         await Reply.deferUpdate(message) //Reply.follow to send messages and Reply.editReply to edit current message
         
     }

@@ -1,3 +1,4 @@
+
 (async () => {
 	require("dotenv").config();
 	const { Client, GatewayIntentBits, Partials, Collection, ActivityType } = require("discord.js");
@@ -61,15 +62,23 @@
 
 	global.LyricsClient = new Genius.Client();
 
-	const distube = new DisTube(client, {
+
+	client.distube = new DisTube(client, {
 		searchSongs: 5,
 		searchCooldown: 30,
-		leaveOnEmpty: true,
+		leaveOnEmpty: false,
 		leaveOnFinish: true,
 		leaveOnStop: true,
-		plugins: [new DeezerPlugin(), new SpotifyPlugin(), new SoundCloudPlugin(), new YtDlpPlugin({ update: true })],
+		youtubeCookie: config.youtubecookie,
+		plugins: [
+			new DeezerPlugin(),
+			new SpotifyPlugin({ emitEventsAfterFetching: true }),
+			new SoundCloudPlugin(),
+			new YtDlpPlugin({ update: true }),
+		],
 	});
 
+	client.config = require('./Config')
 	connect(config.dbtoken).catch("Database error");
 	await MessageCommandHandler(client, DirPath);
 	await EventManager(client, DirPath);

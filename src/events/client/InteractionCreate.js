@@ -24,7 +24,14 @@ module.exports = {
 				if (!expireAfterCollection.get(`${Command.name}_SlashCommand`)) expireAfterCollection.set(`${Command.name}_SlashCommand`, Date.now());
 			}
 
-			Command.run(DiscordClient, interaction);
+			let args = [] //makes sure args are also there for /commands
+			if (interaction.options) {
+                for (let index = 0; index < interaction.options._hoistedOptions.length; index++) {
+                    args[index] = `${interaction.options._hoistedOptions[index].value}`;
+                }
+            }
+
+			Command.run(DiscordClient, interaction, args);
 		} else if (interaction.isContextMenuCommand()) {
 			Command = contextMenuCollection.get(interaction.commandName);
 			if (!Command) return;
