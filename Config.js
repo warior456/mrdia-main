@@ -11,5 +11,6 @@ module.exports = {
     invite: botinvite,
     dbtoken: botdbtoken,
     youtubecookie: botyoutubecookie,
-    musicCommandColor: '#a20000'
+    musicCommandColor: '#a20000',
+    otherCommandColor: '#a5fc03'
 };

@@ -17,7 +17,7 @@ module.exports = (message, command, IsInteraction) => {
                 name: user.tag,
                 iconURL: user.displayAvatarURL({ dynamic: true })
             })
-            .setDescription("You are not authorized to run this command as this command is reserved for the developers of this bot.");
+            .setDescription("You are not authorized to run this command as this command is reserved for the owner of this bot.");
             message.reply({
                 embeds: [errorEmbed],
                 allowedMentions: {

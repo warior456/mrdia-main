@@ -7,6 +7,7 @@ module.exports = async (DiscordClient, RootPath) => {
         if (fs.statSync(File).isDirectory()) return;
         const SlashCommand = require(File);
         if (SlashCommand.ignore) return;
+        if (SlashCommand.ignoreSlash) return;
         DiscordClient.slashCommands.set(SlashCommand.name, SlashCommand)
     })
     let promise = Promise.resolve()
@@ -16,7 +17,7 @@ module.exports = async (DiscordClient, RootPath) => {
             if (fs.statSync(File).isDirectory()) return;
             const slashCommand = require(File);
             if (slashCommand.ignore) return;
-            
+            if (slashCommand.ignoreSlash) return;
             if (slashCommand.guilds && Array.isArray(slashCommand.guilds)) slashCommand.guilds.forEach(guildID => {
                 (async () => {
                 const guild = DiscordClient.guilds.cache.get(guildID) ?? await DiscordClient.guilds.fetch(guildID)
