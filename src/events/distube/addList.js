@@ -5,7 +5,7 @@ module.exports = {
 	isCustom: true,
 	run: async (client) => {
 		client.distube.on("addList", (queue, playlist) =>
-			Reply.editReply(song.metadata.messageObject, `Added \`${playlist.name}\` playlist (${playlist.songs.length} songs to queue)`)
+			Reply.editReply(queue.songs[0].metadata.messageObject, `Added \`${playlist.name}\` playlist (${playlist.songs.length} songs to queue)`)
 		);
 	},
 };

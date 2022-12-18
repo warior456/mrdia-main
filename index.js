@@ -62,7 +62,6 @@
 
 	global.LyricsClient = new Genius.Client();
 
-
 	client.distube = new DisTube(client, {
 		searchSongs: 5,
 		searchCooldown: 30,

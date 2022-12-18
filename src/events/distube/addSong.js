@@ -10,6 +10,7 @@ module.exports = {
 	},
 };
 async function addSongReply(queue, song) {
+	if(song.url == "https://www.youtube.com/watch?v=g-OF7KGyDis") return 
 	await Reply.editReply(song.metadata.messageObject, `Added **${song.name}** - \`${song.formattedDuration}\` to the queue by ${song.user}`)
 	delete song.metadata.messageObject //ram optimize?
 }

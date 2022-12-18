@@ -11,8 +11,13 @@ async function skipSong(userId, queue) {
 
 
 	if (song.metadata.skipVotes.length >= userR) {
+		if(!queue.songs[1]){
+			queue.stop()
+			return 'Skipped song'
+		} 
 		skippedTo = await queue.skip();
 		skipMsg = `Skipped song, Now playing: **${skippedTo.name}**`;
+		song.metadata.skipVotes = []
 		return skipMsg;
 	} else {
 		skipMsg = `Voted: ${song.metadata.skipVotes.length}/${userR}`;
