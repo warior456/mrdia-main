@@ -18,14 +18,14 @@ module.exports = {
 function addButtons() {
 	const row = new ActionRowBuilder().addComponents(
 		new ButtonBuilder().setCustomId("refresh_np").setLabel("Refresh").setStyle(ButtonStyle.Primary), //blue
-		new ButtonBuilder().setCustomId("senddm").setLabel("Send in dm").setStyle(ButtonStyle.Success), //gray
+		new ButtonBuilder().setCustomId("save_dm").setLabel("Send in dm").setStyle(ButtonStyle.Success), //gray
 		new ButtonBuilder().setCustomId("savefavorite").setLabel("Add to favorites").setStyle(ButtonStyle.Success), // green
 		new ButtonBuilder().setCustomId("end").setLabel("End interaction").setStyle(ButtonStyle.Danger) //red
 	);
 
 	const row2 = new ActionRowBuilder().addComponents(
 		new ButtonBuilder().setCustomId("previous").setLabel("Previous").setStyle(ButtonStyle.Primary),
-		new ButtonBuilder().setCustomId("pauseresume").setLabel("Pause/Resume song").setStyle(ButtonStyle.Secondary),
+		new ButtonBuilder().setCustomId("pause_resume").setLabel("Pause/Resume song").setStyle(ButtonStyle.Secondary),
 		new ButtonBuilder().setCustomId("skip").setLabel("Skip").setStyle(ButtonStyle.Primary)
 	);
 	return [row, row2];
