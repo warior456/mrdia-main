@@ -1,9 +1,9 @@
 const { Schema, model } = require('mongoose');
 const queueSchema = new Schema({
     _id: Schema.Types.ObjectId,
-    queueId: String,
     queueName: String,
     serverId: String,
+    queueOwner: String,
     songUrl: [String],
 })
 
