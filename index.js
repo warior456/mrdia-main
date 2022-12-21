@@ -68,6 +68,7 @@
 		leaveOnEmpty: false,
 		leaveOnFinish: true,
 		leaveOnStop: true,
+		nsfw: true,
 		youtubeCookie: config.youtubecookie,
 		plugins: [
 			new DeezerPlugin(),

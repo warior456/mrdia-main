@@ -1,5 +1,6 @@
 const Reply = require("../../../structures/handlers/replyHandler");
 const { ApplicationCommandOptionType, PermissionsBitField } = require("discord.js");
+
 module.exports = {
 	name: "clear", //extras: commandOptions
 	aliases: [],

@@ -16,7 +16,7 @@ function nowPlaying(client, queue) {
 		.addFields(
 			{ name: `Requested by:`, value: `${song.user}`, inline: true },
 			{ name: `Repeat:`, value: `${loopMode(queue)}`, inline: true },
-			{ name: `\u200B`, value: `\u200B`, inline: true }
+			{ name: `Filters:`, value: `[${queue.filters.names.join(', ') || 'Off'}]`, inline: true }
 		)
 		.setTimestamp();
 	return [nowPlayingEmbed];

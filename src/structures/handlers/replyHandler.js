@@ -95,9 +95,13 @@ class Reply {
 	 * @description dms the user in the messageObject
 	 */
 	static dm(message, content) {
-		message.member.user.send(content).then(()=> message.followUp({ content: "Check your DMs!", ephemeral: true })).catch((err) =>{
-		console.log(err)
-		message.followUp({ content: "Couldn't DM you, are your DMs enabled?", ephemeral: true })});
+		message.member.user
+			.send(content)
+			.then(() => this.follow(message, { content: "Check your DMs!", ephemeral: true }))
+			.catch((err) => {
+				console.log(err);
+				this.follow(message, { content: "Couldn't DM you, are your DMs enabled?", ephemeral: true });
+			});
 	}
 }
 

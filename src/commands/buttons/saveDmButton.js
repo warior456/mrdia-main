@@ -9,7 +9,7 @@ module.exports = {
         await Reply.deferUpdate(message)
         const queue = client.distube.getQueue(message);
         if (!queue) return Reply.follow(message ,{ content: 'There is no song playing right now!', ephemeral: true })
-        await Reply.dm(message, { embeds: saveDm(client, queue, message), components: saveDmButton() })
+        Reply.dm(message, { embeds: saveDm(client, queue, message), components: saveDmButton() })
     }
 }
 
