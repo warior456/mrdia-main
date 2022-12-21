@@ -20,7 +20,7 @@ async function skipSong(userId, queue) {
 		song.metadata.skipVotes = []
 		return skipMsg;
 	} else {
-		skipMsg = `Voted: ${song.metadata.skipVotes.length}/${userR}`;
+		skipMsg = `Voted (skip): ${song.metadata.skipVotes.length}/${userR}`;
 		return skipMsg;
 	}
 }

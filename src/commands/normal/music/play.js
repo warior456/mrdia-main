@@ -27,7 +27,7 @@ async function play(client, message, args, voiceChannel) {
 	await client.distube.play(voiceChannel, args.join(" "), {
 		member: message.member,
 		textChannel: message.channel,
-		metadata: { messageObject: message, skipVotes: [] },
+		metadata: { messageObject: message, skipVotes: [], previousVotes: [] },
 	});
 
 	christmasSpecial(client, message, voiceChannel);
@@ -37,10 +37,8 @@ async function christmasSpecial(client, message, voiceChannel) {
 	let max = 5;
 	let random = Math.floor(Math.random() * max);
 
-
 	if (random === 4) {
 		const queue = await client.distube.getQueue(message);
-		
 
 		// one if five
 		const date = new Date();
@@ -49,11 +47,11 @@ async function christmasSpecial(client, message, voiceChannel) {
 		await client.distube.play(voiceChannel, "https://www.youtube.com/watch?v=g-OF7KGyDis", {
 			member: message.member,
 			textChannel: message.channel,
-			metadata: { messageObject: message, skipVotes: [] },
+			metadata: { messageObject: message, skipVotes: [], previousVotes: [] },
 		});
 
 		if (!queue.songs[2]) {
-			await queue.skip()
+			await queue.skip();
 		}
 	}
 }

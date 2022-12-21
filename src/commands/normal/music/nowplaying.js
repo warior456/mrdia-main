@@ -24,9 +24,9 @@ function addButtons() {
 	);
 
 	const row2 = new ActionRowBuilder().addComponents(
-		new ButtonBuilder().setCustomId("previous").setLabel("Previous").setStyle(ButtonStyle.Primary),
+		new ButtonBuilder().setCustomId("previous").setLabel("Previous song").setStyle(ButtonStyle.Primary),
 		new ButtonBuilder().setCustomId("pause_resume").setLabel("Pause/Resume song").setStyle(ButtonStyle.Secondary),
-		new ButtonBuilder().setCustomId("skip").setLabel("Skip").setStyle(ButtonStyle.Primary)
+		new ButtonBuilder().setCustomId("skip").setLabel("Next song").setStyle(ButtonStyle.Primary)
 	);
 	return [row, row2];
 }
