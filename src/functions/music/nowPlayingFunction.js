@@ -22,6 +22,10 @@ function nowPlaying(client, queue) {
 	return [nowPlayingEmbed];
 }
 
+module.exports={
+    nowPlaying
+}
+
 function loopMode(queue) {
 	let textloopmode = "";
 	switch (queue.repeatMode) {
@@ -36,8 +40,4 @@ function loopMode(queue) {
 			break;
 	}
 	return textloopmode;
-}
-
-module.exports={
-    nowPlaying
 }

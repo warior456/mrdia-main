@@ -5,6 +5,8 @@ module.exports = {
 	name: "ready",
 	runOnce: true,
 	run: async (DiscordClient) => {
+		//reset application commands
+		//DiscordClient.application.commands.set([])
 		console.log(chalk.bold.green(`Logging into ${DiscordClient.user.tag}.`));
 		if (DiscordClient.messageCommands.size > 0)
 			console.log(

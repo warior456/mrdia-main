@@ -27,7 +27,7 @@ module.exports = {
 
 		await message.channel.messages.fetch({ limit: args[0] }).then((messages) => {
 			message.channel.bulkDelete(messages);
-			Reply.send(message, { content: `Removed ${args[0]} messages!`, ephemeral: true });
+			Reply.send(message, { content: `Removed ${args[0]} messages!`, ephemeral: true }); //bug this even shows when failed
 		});
 	},
 };
