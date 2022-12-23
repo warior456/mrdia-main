@@ -27,19 +27,24 @@ module.exports = {
 	description: "Enable or disable filters",
 	category: "template",
 	run: async (client, message, args) => {
-		//async only if deferring
-		await Reply.deferReply(message, false); //only use if command can take long
 		const queue = client.distube.getQueue(message);
-		if (!queue) return Reply.editReply(message, { content: "There is no song playing right now!", ephemeral: true });
-
-		Reply.editReply(message, setFilter(args, queue));
+		if (!queue) return Reply.send(message, { content: "There is no song playing right now!", ephemeral: true });
+		content = await toggleFilter(args, queue);
+		Reply.send(message, content);
 	},
 };
-function setFilter(args, queue) {
+async function toggleFilter(args, queue) {
 	if (args[0] === "clear") {
 		queue.filters.clear();
 		return "Disabled all filters";
 	}
-	queue.filters.add(args[0]);
+	if (queue.filters.names.includes(args.join(" "))) {
+		await queue.filters.remove(args.join(" "))
+		return `Disabled:  ${args[0]}`
+	}
+	await queue.filters.add(args.join(" "))
+	// 	.catch((error) => {
+	// 	return "Unknown or invalid filter";
+	// });
 	return `Enabled: ${args[0]}`;
 }

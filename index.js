@@ -76,6 +76,7 @@
 			new SoundCloudPlugin(),
 			new YtDlpPlugin({ update: true }),
 		],
+		customFilters: {"subboost": "asubboost"}
 	});
 
 	client.config = require('./Config')

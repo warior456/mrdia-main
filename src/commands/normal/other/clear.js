@@ -16,7 +16,7 @@ module.exports = {
 	description: "clear messages!",
 	category: "other",
 	run: async (client, message, args) => {
-		if (!message.member.permissions.has(PermissionsBitField.Flags.ManageMessages) || !message.member.user.id === client.config.owner) {
+		if (!message.member.permissions.has(PermissionsBitField.Flags.ManageMessages) && !message.member.user.id === client.config.owner) {
 			return Reply.send(message, { content: "I don't think this is for you!", ephemeral: true });
 		}
 
