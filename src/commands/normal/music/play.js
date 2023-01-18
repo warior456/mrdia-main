@@ -42,7 +42,7 @@ async function christmasSpecial(client, message, voiceChannel) {
 
 		// one if five
 		const date = new Date();
-		if (date.getMonth() != 11 || date.getDate() != 25) return console.log("returned back from Christmas special"); //only on this date reason for this order is speed
+		if (date.getMonth() != 11 || (date.getDate() != 25 && date.getDate() != 24)) return console.log("returned back from Christmas special"); //only on this date reason for this order is speed
 
 		await client.distube.play(voiceChannel, "https://www.youtube.com/watch?v=g-OF7KGyDis", {
 			member: message.member,

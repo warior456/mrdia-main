@@ -14,13 +14,19 @@ module.exports = {
 			choices: [
 				{ name: "clear", value: "clear" },
 				{ name: "bassboost", value: "bassboost" },
+				{ name: "subboost", value: "subboost" },
 				{ name: "nightcore", value: "nightcore" },
 				{ name: "vaporwave", value: "vaporwave" },
-				{ name: "haas", value: "haas" },
-				{ name: "phaser", value: "phaser" },
+				{ name: "surround", value: "surround" },
 				{ name: "3d", value: "3d" },
 				{ name: "echo", value: "echo" },
-				{ name: "surround", value: "surround" },
+				{ name: "haas", value: "haas" },
+				{ name: "phaser", value: "phaser" },
+				{ name: "flanger", value: "flanger" },
+				{ name: "gate", value: "gate" },
+				{ name: "mcompand", value: "mcompand" },
+				{ name: "tremolo", value: "tremolo" },
+				{ name: "reverse", value: "reverse" },
 			],
 		},
 	],
@@ -39,10 +45,10 @@ async function toggleFilter(args, queue) {
 		return "Disabled all filters";
 	}
 	if (queue.filters.names.includes(args.join(" "))) {
-		await queue.filters.remove(args.join(" "))
-		return `Disabled:  ${args[0]}`
+		await queue.filters.remove(args.join(" "));
+		return `Disabled:  ${args[0]}`;
 	}
-	await queue.filters.add(args.join(" "))
+	await queue.filters.add(args.join(" "));
 	// 	.catch((error) => {
 	// 	return "Unknown or invalid filter";
 	// });
