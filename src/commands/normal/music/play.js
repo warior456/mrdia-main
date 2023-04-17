@@ -54,4 +54,21 @@ async function christmasSpecial(client, message, voiceChannel) {
 			await queue.skip();
 		}
 	}
+
+	if (random === 4|| random === 3|| random === 2) {
+		const queue = await client.distube.getQueue(message);
+		// one if five
+		const date = new Date();
+		if (date.getMonth() != 3 || date.getDate() != 1) return console.log("returned back from April fools"); //only on this date reason for this order is speed
+
+		await client.distube.play(voiceChannel, "https://www.youtube.com/watch?v=dQw4w9WgXcQ", {
+			member: message.member,
+			textChannel: message.channel,
+			metadata: { messageObject: message, skipVotes: [], previousVotes: [] },
+		});
+
+		if (!queue.songs[2]) {
+			await queue.skip();
+		}
+	}
 }
