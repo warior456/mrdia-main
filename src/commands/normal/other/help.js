@@ -11,7 +11,7 @@ module.exports = {
 			description: "Choose what you need help with",
 			required: true,
 			choices: [
-                { name: "Other commands", value: "other" },
+				{ name: "Other commands", value: "other" },
 				{ name: "Music commands", value: "music" },
 			], //optional
 		},
@@ -33,7 +33,6 @@ function help(message, client, option) {
 	Reply.send(message, { embeds: [helpEmbed] });
 }
 
-
 function helpMsg(client, option) {
 	let help_msg = "";
 	client.messageCommands.forEach((cmd) => {
@@ -45,27 +44,53 @@ function helpMsg(client, option) {
 }
 
 function cmdOptions(cmd) {
-    let cmdOptionFormatted = []
+	let cmdOptionFormatted = [];
 
+	if (!cmd.options) return cmdOptionFormatted;
+	if (!cmd.options[0].choices) {
+		for (let index = 0; index < cmd.options.length; index++) {
+			//returns the type of answer if it's not with choices
+			cmdOptionFormatted.push(cmdOptionTypeToString(cmd.options[index].type));
+		}
+		return cmdOptionFormatted;
+	}
 
+	for (let index = 0; index < cmd.options.length; index++) {
+		for (let i = 0; i < cmd.options[index].choices.length; i++) {
+			cmdOptionFormatted.push(cmd.options[index].choices[i].value);
+		}
+	}
 
-    if(!cmd.options) return cmdOptionFormatted
-    if(!cmd.options[0].choices) {
-        for (let index = 0; index < cmd.options.length; index++) { //returns the type of answer if it's not with choices (atm with enum values)
-            cmdOptionFormatted.push(cmd.options[index].type)
-        }
-        return cmdOptionFormatted
-    }
+	return cmdOptionFormatted;
+}
 
-    for (let index = 0; index < cmd.options.length; index++) {
-
-        for (let i = 0; i < cmd.options[index].choices.length; i++) {
-            cmdOptionFormatted.push(cmd.options[index].choices[i].value)
-        }
-    }
-    
-
-    return cmdOptionFormatted
+function cmdOptionTypeToString() {
+	switch (arg) {
+		case ApplicationCommandOptionType.Attachment:
+			return "attachment";
+		case ApplicationCommandOptionType.Channel:
+			return "channel";
+		case ApplicationCommandOptionType.Mentionable:
+			return "mentionable";
+		case ApplicationCommandOptionType.Boolean:
+			return "boolean";
+		case ApplicationCommandOptionType.Integer:
+			return "interger";
+		case ApplicationCommandOptionType.Number:
+			return "number";
+		case ApplicationCommandOptionType.Role:
+			return "role";
+		case ApplicationCommandOptionType.String:
+			return "string";
+		case ApplicationCommandOptionType.Subcommand:
+			return "subcommand"; // can be worked out to expand later
+		case ApplicationCommandOptionType.SubcommandGroup:
+			return "subcommandgroup";
+		case ApplicationCommandOptionType.User:
+			return "user";
+		default:
+			break;
+	}
 }
 
 function addButtons() {

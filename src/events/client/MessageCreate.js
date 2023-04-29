@@ -1,11 +1,11 @@
 const config = require("../../../Config");
-const CommandOptionsVerifier = require('../../structures/commandOptions/LoadCommandOptions');
+const CommandOptionsVerifier = require("../../structures/commandOptions/LoadCommandOptions");
 module.exports = {
 	name: "messageCreate",
 	run: async (message, DiscordClient) => {
 		config.prefix.forEach((Prefix) => {
 			if (!message.content.startsWith(Prefix)) return;
-			const CommandName = message.content.toString().slice(Prefix.length).trim().split(" ")[0];
+			const CommandName = message.content.toString().toLowerCase().slice(Prefix.length).trim().split(" ")[0];
 			const Command =
 				DiscordClient.messageCommands.get(CommandName) ??
 				DiscordClient.messageCommands.get(DiscordClient.messageCommands_Aliases.get(CommandName));
