@@ -37,7 +37,7 @@ module.exports = {
 };
 
 function toNumeric(arg) {
-	arg.toLowercase;
+	arg.toLowerCase;
 	switch (arg) {
 		case "disabled":
 			return RepeatMode.DISABLED;
