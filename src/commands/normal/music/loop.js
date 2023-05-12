@@ -3,10 +3,9 @@ const Reply = require("../../../structures/handlers/replyHandler");
 const { ApplicationCommandOptionType } = require("discord.js");
 
 module.exports = {
-	name: "loop", //extras: commandOptions
+	name: "loop", 
 	aliases: ["l", "repeat"],
 	options: [
-		//optional
 		{
 			name: "repeatmode",
 			type: ApplicationCommandOptionType.String,
@@ -19,6 +18,7 @@ module.exports = {
 				{ name: "Song", value: "song" },
 				{ name: "Current", value: "current" },
 				{ name: "Queue", value: "queue" },
+                { name: "Q", value: "q" },
 				{ name: "All", value: "all" }
 			],
 		},
@@ -37,7 +37,7 @@ module.exports = {
 };
 
 function toNumeric(arg) {
-	arg.toLowercase();
+	arg.toLowercase;
 	switch (arg) {
 		case "disabled":
 			return RepeatMode.DISABLED;
@@ -51,6 +51,8 @@ function toNumeric(arg) {
 			return RepeatMode.SONG;
 		case "queue":
 			return RepeatMode.QUEUE;
+        case "q":
+            return RepeatMode.QUEUE
 		case "all":
 			return RepeatMode.QUEUE;
 		default:
