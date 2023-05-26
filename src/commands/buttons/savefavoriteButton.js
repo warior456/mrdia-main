@@ -1,4 +1,4 @@
-const { saveFavorite } = require("../../functions/music/FavoriteFunction");
+const { saveFavorite } = require("../../functions/music/manageFavoritesFunction");
 const Reply = require("../../structures/handlers/replyHandler")
 
 module.exports = {
