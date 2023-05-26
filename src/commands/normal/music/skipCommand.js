@@ -11,7 +11,7 @@ module.exports = {
 		await Reply.deferReply(message, false); //only use if command can take long
         const queue = client.distube.getQueue(message);
         if(!queue) return Reply.editReply(message, {content: 'There is nothing in the queue right now!', ephemeral: true})
-        content = await skipSong(message.member.user.id, queue, message)
+        content = await skipSong(message.member.user.id, queue, message, client)
         Reply.editReply(message, content)
 	},
 };

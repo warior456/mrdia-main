@@ -1,4 +1,4 @@
-async function skipSong(userId, queue, message) {
+async function skipSong(userId, queue, message, client) {
 	song = queue.songs[0];
 
 	let userCount = queue.voiceChannel.members.size;
