@@ -1,11 +1,11 @@
-async function skipSong(userId, queue) {
+async function skipSong(userId, queue, message) {
 	song = queue.songs[0];
 
 	let userCount = queue.voiceChannel.members.size;
 	let userR = Math.floor(userCount / 2);
 
 	if (message.member.user.id == client.config.owner) return skip(queue, song);
-	
+
 	if (song.metadata.skipVotes.includes(userId))
 		return { content: `you already voted, ${song.metadata.skipVotes.length}/${userR}`, ephemeral: true };
 
