@@ -64,7 +64,7 @@ function cmdOptions(cmd) {
 	return cmdOptionFormatted;
 }
 
-function cmdOptionTypeToString() {
+function cmdOptionTypeToString(arg) {
 	switch (arg) {
 		case ApplicationCommandOptionType.Attachment:
 			return "attachment";
