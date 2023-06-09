@@ -18,14 +18,12 @@ module.exports = {
 		await Reply.deferReply(message, false)
         //return Reply.send('This feature is currently WIP')
         // if (!message.member.voice.channel && message.author.id != process.env.OWNER) return Reply.send(message, 'Join a voice channel first!')
-        console.log(args)
         if (!args[0]) {
 			const queue = client.distube.getQueue(message);
             if (queue) {
                 args = [queue.songs[0].name]
             } else return Reply.editReply(message, `There is no song playing please provide a song to search for`)
         }
-        console.log(args)
         const searches = await LyricsClient.songs.search(args.join(' '));
 
         //Pick first one

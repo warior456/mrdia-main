@@ -39,7 +39,7 @@ module.exports = {
 function makeDescription(userProfile) {
 	let description = "";
 	for (let i = 0; i < userProfile.userFavoriteLinks.length; i++) {
-		description += `[${userProfile.userFavoriteNames[i]}](${userProfile.userFavoriteLinks[i]})\n`
+		description += `\`${i + 1}.\` [${userProfile.userFavoriteNames[i]}](${userProfile.userFavoriteLinks[i]})\n \n`
 	}
     return description
 }
