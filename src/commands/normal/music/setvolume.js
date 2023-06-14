@@ -2,8 +2,8 @@ const { parseNumber } = require("distube");
 const Reply = require("../../../structures/handlers/replyHandler");
 const { ButtonBuilder, ActionRowBuilder, ButtonStyle, ApplicationCommandOptionType } = require("discord.js");
 module.exports = {
-	name: "setvolume",
-	aliases: ["sv"],
+	name: "volume",
+	aliases: ["setvolume, sv"],
 	description: "sets the volume of the bot",
 	options: [
 		{
@@ -18,6 +18,7 @@ module.exports = {
 		const queue = client.distube.getQueue(message);
 		if (!queue) return Reply.send(message, { content: `There is nothing playing right now!`, ephemeral: true });
 
+		if (args[0] == 'default' || args[0] == 'reset')
 		content = await setVolume(message, client, args, queue);
 		Reply.send(message, content);
 	},
