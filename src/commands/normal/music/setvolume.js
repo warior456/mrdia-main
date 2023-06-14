@@ -1,6 +1,6 @@
 const { parseNumber } = require("distube");
 const Reply = require("../../../structures/handlers/replyHandler");
-const { ButtonBuilder, ActionRowBuilder, ButtonStyle, ApplicationCommandOptionType } = require("discord.js");
+const { ApplicationCommandOptionType, PermissionsBitField } = require("discord.js");
 module.exports = {
 	name: "volume",
 	aliases: ["setvolume, sv"],
@@ -29,7 +29,7 @@ async function setVolume(message, client, args, queue) {
 		if (
 			message.member.roles.cache.some((role) => role.name === "Dj") ||
 			message.member.user.id == client.config.owner ||
-			message.member.permissions.has("ADMINISTRATOR")
+			message.member.permissions.has(PermissionsBitField.Flags.Administrator)
 		) {
 			await queue.setVolume(parseNumber(args[0]));
 			return `Volume set to ${args[0]}`;
