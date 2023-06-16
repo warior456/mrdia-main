@@ -4,8 +4,13 @@ async function skipSong(userId, queue, message, client) {
 	let userCount = queue.voiceChannel.members.size;
 	let userR = Math.floor(userCount / 2);
 
-	if (message.member.user.id == client.config.owner) return skip(queue, song);
-
+	if (
+		message.member.roles.cache.some((role) => role.name === "Dj") ||
+		message.member.user.id == client.config.owner ||
+		message.member.permissions.has(PermissionsBitField.Flags.Administrator)
+	){
+		return skip(queue, song);
+	}
 	if (song.metadata.skipVotes.includes(userId))
 		return { content: `you already voted, ${song.metadata.skipVotes.length}/${userR}`, ephemeral: true };
 
