@@ -34,7 +34,7 @@ async function setVolume(message, client, args, queue) {
 			await queue.setVolume(parseNumber(args[0]));
 			return `Volume set to ${args[0]}`;
 		} else if (args[0] <= 300) {
-			queue.setVolume(parseNumber(args[0]));
+			await queue.setVolume(parseNumber(args[0]));
 			return `Volume set to ${args[0]}`;
 		} else {
 			return `You need [Dj] role to set the volume above 300`;
