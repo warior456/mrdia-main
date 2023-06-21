@@ -18,7 +18,7 @@ module.exports = {
 		const queue = client.distube.getQueue(message);
 		if (!queue) return Reply.send(message, { content: `There is nothing playing right now!`, ephemeral: true });
 
-		if (args[0] == 'default' || args[0] == 'reset')
+		//if (args[0] == 'default' || args[0] == 'reset') args[0] = 50
 		content = await setVolume(message, client, args, queue);
 		Reply.send(message, content);
 	},
