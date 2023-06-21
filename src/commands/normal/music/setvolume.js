@@ -3,7 +3,7 @@ const Reply = require("../../../structures/handlers/replyHandler");
 const { ApplicationCommandOptionType, PermissionsBitField } = require("discord.js");
 module.exports = {
 	name: "volume",
-	aliases: ["setvolume, sv"],
+	aliases: ["setvolume", "sv"],
 	description: "sets the volume of the bot",
 	options: [
 		{
