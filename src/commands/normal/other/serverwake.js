@@ -1,4 +1,5 @@
 const Reply = require("../../../structures/handlers/replyHandler");
+const fetch = require("node-fetch");
 
 module.exports = {
 	name: "wake", //extras: commandOptions
@@ -11,7 +12,6 @@ module.exports = {
 			return Reply.send(message, "Wrong channel! (go to: Not a Discord Community But Rather a Discord Server #serverwake)");
 		}
 		Reply.send(message, "Waking server...")
-		var i = document.createElement("img");
-		i.src = client.config.serverwakeapilink;
-	},
-};
+		fetch(client.config.serverwakeapilink)
+	}
+}
