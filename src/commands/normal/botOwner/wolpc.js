@@ -1,5 +1,5 @@
 const Reply = require('../../../structures/handlers/replyHandler');
-const wol = require('wol')
+const wol = require('wake_on_lan')
 
 module.exports = {
     name: 'wolpc',
@@ -9,9 +9,9 @@ module.exports = {
     ownerOnly: true,
     ignoreSlash: true,
     run: async (client, message, args) => {
-        wol.wake('94:C6:91:9A:73:E0', function(err, res){
-            console.log(err);
-        });
-        await Reply.send(message, "Waking pc...")
+        //94:C6:91:9A:73:E0
+        let i = document.createElement("img")
+		i.src = client.config.pcwakeapilink
+        Reply.send(message, "Waking pc...")
     }
 }
