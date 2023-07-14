@@ -1,5 +1,5 @@
 const Reply = require('../../../structures/handlers/replyHandler');
-const wol = require('wake_on_lan')
+
 
 module.exports = {
     name: 'wolpc',
