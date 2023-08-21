@@ -29,7 +29,7 @@ module.exports = {
         if(!userProfile.userFavoriteLinks[0]) return "User has no favorited songs"
 
         footer = requesteduserid
-		description = await makeDescription(userProfile);
+		description = makeDescription(userProfile);
 
 		favoritesEmbed = await makeFavoritesEmbed(client, description, footer, requestedUserName);
 		Reply.editReply(message, { embeds: [favoritesEmbed], components: addButtons() });

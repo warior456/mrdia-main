@@ -11,7 +11,7 @@ async function previousSong(userId, queue) {
 		return { content: "No previous song", ephemeral: true };
 	}
 	
-	await song.metadata.previousVotes.push(userId);
+	song.metadata.previousVotes.push(userId);
 
 	if (song.metadata.previousVotes.length >= userR) {
 		revertedTo = await queue.previous();

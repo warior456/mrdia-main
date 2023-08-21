@@ -14,7 +14,7 @@ module.exports = (DiscordClient, message, Command, IsInteraction, InteractionTyp
 
     if (Math.floor(Date.now() - Time) < Command.expireAfter) return true;
     else {
-        if (Command.returnErrors == false || Command.returnExpireAfterError == false) return false;
+        if (Command.returnErrors === false || Command.returnExpireAfterError === false) return false;
         else {
             const errorEmbed = new EmbedBuilder()
                 .setAuthor({

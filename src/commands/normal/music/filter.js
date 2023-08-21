@@ -36,7 +36,7 @@ module.exports = {
 		const queue = client.distube.getQueue(message);
 		if (!queue) return Reply.send(message, { content: "There is no song playing right now!", ephemeral: true });
 		content = await toggleFilter(args, queue);
-		Reply.send(message, content);
+		await Reply.send(message, content);
 	},
 };
 async function toggleFilter(args, queue) {

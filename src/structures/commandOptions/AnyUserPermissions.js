@@ -10,9 +10,9 @@ module.exports = (message, Command, InteractionType) => {
         console.log(bold.blue(`[WARN] Guild object not found in AnyUserPermissions option of ${Command.name} of ${InteractionType}.`))
         return true;
     }
-    if (message.member.permissions.toArray().some(I => Command.anyUserPermissions.some(i => i.toUpperCase() == I.toUpperCase()))) return true;
+    if (message.member.permissions.toArray().some(I => Command.anyUserPermissions.some(i => i.toUpperCase() === I.toUpperCase()))) return true;
     else {
-        if (Command.returnErrors == false || Command.returnAnyUserPermissionsError == false) return false;
+        if (Command.returnErrors === false || Command.returnAnyUserPermissionsError === false) return false;
         else {
             const errorEmbed = new EmbedBuilder()
                 .setColor('#FF0000')

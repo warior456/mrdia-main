@@ -55,8 +55,8 @@ async function save(userProfile) {
 }
 
 async function removeNameAndUrl(userProfile, index) {
-	await userProfile.userFavoriteLinks.splice(index, 1);
-	const removed = await userProfile.userFavoriteNames.splice(index, 1);
+	userProfile.userFavoriteLinks.splice(index, 1);
+	const removed = userProfile.userFavoriteNames.splice(index, 1);
 	await userProfile.save().catch(console.error);
 	return removed;
 }

@@ -15,9 +15,9 @@ module.exports = (message, Command, InteractionType) => {
     Command.allClientPermissions.forEach(Permission => {
         if (!message.guild.members.me.permissions.has(Permission)) MissingPermissions.push(Permission)
     })
-    if (MissingPermissions.length == 0) return true;
+    if (MissingPermissions.length === 0) return true;
     else {
-        if (Command.returnErrors == false || Command.returnAllClientPermissionsError == false) return false;
+        if (Command.returnErrors === false || Command.returnAllClientPermissionsError === false) return false;
         else {
             const errorEmbed = new EmbedBuilder()
                 .setColor('#FF0000')

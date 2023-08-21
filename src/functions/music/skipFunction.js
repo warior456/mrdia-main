@@ -14,7 +14,7 @@ async function skipSong(userId, queue, message, client) {
 	if (song.metadata.skipVotes.includes(userId))
 		return { content: `you already voted, ${song.metadata.skipVotes.length}/${userR}`, ephemeral: true };
 
-	await song.metadata.skipVotes.push(userId);
+	song.metadata.skipVotes.push(userId);
 
 	if (song.metadata.skipVotes.length >= userR) {
 		return skip(queue, song);

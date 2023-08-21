@@ -15,9 +15,9 @@ module.exports = (message, Command, InteractionType) => {
     Command.allUserPermissions.forEach(Permission => {
         if (!message.member.permissions.has(Permission)) MissingPermissions.push(Permission)
     })
-    if (MissingPermissions.length == 0) return true;
+    if (MissingPermissions.length === 0) return true;
     else {
-        if (Command.returnErrors == false || Command.returnAllUserPermissionsError == false) return false;
+        if (Command.returnErrors === false || Command.returnAllUserPermissionsError === false) return false;
         else {
             const errorEmbed = new EmbedBuilder()
                 .setColor('#FF0000')

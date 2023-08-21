@@ -10,7 +10,7 @@ module.exports = {
 	},
 };
 async function addSongReply(queue, song) {
-	if(song.metadata.ignoremessage == true) return 
+	if(song.metadata.ignoremessage === true) return
 	await Reply.editReply(song.metadata.messageObject, `Added **${song.name}** - \`${song.formattedDuration}\` to the queue by ${song.user}`)
 	delete song.metadata.messageObject
 	delete song.metadata.ignoremessage //ram optimize?

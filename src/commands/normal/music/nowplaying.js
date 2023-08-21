@@ -10,7 +10,7 @@ module.exports = {
 		const queue = client.distube.getQueue(message);
 		if (!queue) return Reply.send(message, {content: `There is nothing playing right now!`, ephemeral: true});
 		await Reply.deferReply(message, false); //only use if command can take long
-		embed = await nowPlaying(client, queue)
+		embed = nowPlaying(client, queue)
 		Reply.editReply(message, { embeds: embed, components: addButtons() });
 	},
 };
