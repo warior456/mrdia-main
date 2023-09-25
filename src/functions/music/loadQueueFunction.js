@@ -32,15 +32,12 @@ async function loadQueueLegacy(message, client, args) {
 			try {
 				const loQueue = await File.read(`./guildData/${message.guild.id}/${args[0]}.csv`);
 				let loSongs = loQueue.split(/\n|;/g).filter((s) => s);
-				console.log(loSongs)
 				await client.distube.play(message.member.voice.channel, loSongs[0], {
 					member: message.member,
 					textChannel: message.channel,
 					metadata: { messageObject: message, skipVotes: [], previousVotes: [], ignoremessage: true },
 				});
-				console.log(2)
 				for (var i = 2; i < loSongs.length - 1; i = i + 2) {
-					console.log(3)
 					try {
 						client.distube.play(message.member.voice.channel, loSongs[i], {
 							member: message.member,
