@@ -43,7 +43,7 @@ async function loadQueueLegacy(message, client, args) {
 					console.log(3)
 					try {
 						client.distube.play(message.member.voice.channel, loSongs[i], {
-							member: loSongs[i + 1],
+							member: message.member,
 							textChannel: message.channel,
 							metadata: { messageObject: message, skipVotes: [], previousVotes: [], ignoremessage: true },
 						});
