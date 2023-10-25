@@ -1,3 +1,5 @@
+const { PermissionsBitField } = require("discord.js");
+
 async function skipSong(userId, queue, message, client) {
 	song = queue.songs[0];
 
