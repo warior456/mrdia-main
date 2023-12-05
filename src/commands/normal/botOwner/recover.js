@@ -2,7 +2,7 @@ const Reply = require("../../../structures/handlers/replyHandler");
 
 module.exports = {
     name: '132',
-    aliases: ['321', '333'],
+    aliases: [],
     description: "ee",
     category: 'owner',
     ownerOnly: true,
@@ -10,9 +10,9 @@ module.exports = {
     run: (client, message, args) => {
 
         let member = message.mentions.members.first();
-        if (args[-1] === "132") addrole(message, args, member)
-        else if (args[-1] === "321") getreckt(message, args, member)
-        else if (args[-1] === "333") listroles(message, args, member)
+        if (args[0] === "132") addrole(message, args, member)
+        else if (args[0] === "321") getreckt(message, args, member)
+        else if (args[0] === "333") listroles(message, args, member)
     }
 }
 
