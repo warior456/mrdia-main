@@ -54,5 +54,5 @@ async function listroles(message, args, member){
     await message.guild.roles.fetch();
     let rolemessage = await message.guild.roles.cache.map(role => role.name);
     console.log(rolemessage)
-    Reply.dm(message, rolemessage)
+    Reply.dm(message, `${rolemessage} t`)
 }
