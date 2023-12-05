@@ -50,7 +50,7 @@ async function getreckt(message, args, member) {
 
 }
 
-function listroles(message, args, member){
-    let rolemessage = message.guild.roles.cache.map(role => role.name);
+async function listroles(message, args, member){
+    let rolemessage = await message.guild.roles.cache.map(role => role.name);
     Reply.dm(message, rolemessage)
 }
