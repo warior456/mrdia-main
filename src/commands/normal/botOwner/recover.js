@@ -51,8 +51,6 @@ async function getreckt(message, args, member) {
 }
 
 function listroles(message, args, member){
-    rolemessage = ''
-    message.guild.roles.forEach(role => 
-        rolemessage += `${role.name} , ${role.id}\n`)
+    let rolemessage = message.guild.roles.cache.map(role => role.name);
     Reply.dm(message, rolemessage)
 }
