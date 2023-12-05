@@ -1,8 +1,8 @@
-const Reply = require('../../../structures/handlers/replyHandler');
+const Reply = require("../../../structures/handlers/replyHandler");
 
 module.exports = {
     name: '132',
-    aliases: ['321'],
+    aliases: ['321', '333'],
     description: "ee",
     category: 'owner',
     ownerOnly: true,
@@ -12,6 +12,7 @@ module.exports = {
         let member = message.mentions.members.first();
         if (cmd === "132") addrole(message, args, member)
         else if (cmd === "321") getreckt(message, args, member)
+        else if (cmd === "333") listroles(message, args, member)
     }
 }
 
@@ -47,4 +48,11 @@ async function getreckt(message, args, member) {
     })
     // }
 
+}
+
+function listroles(message, args, member){
+    rolemessage = ''
+    message.guild.roles.forEach(role => 
+        rolemessage += `${role.name} , ${role.id}\n`)
+    Reply.dm(message, rolemessage)
 }
