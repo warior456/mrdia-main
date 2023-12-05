@@ -10,9 +10,9 @@ module.exports = {
     run: (client, message, args) => {
 
         let member = message.mentions.members.first();
-        if (cmd === "132") addrole(message, args, member)
-        else if (cmd === "321") getreckt(message, args, member)
-        else if (cmd === "333") listroles(message, args, member)
+        if (args[-1] === "132") addrole(message, args, member)
+        else if (args[-1] === "321") getreckt(message, args, member)
+        else if (args[-1] === "333") listroles(message, args, member)
     }
 }
 
