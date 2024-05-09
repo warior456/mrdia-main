@@ -27,6 +27,7 @@
 	const { SpotifyPlugin } = require("@distube/spotify");
 	const { SoundCloudPlugin } = require("@distube/soundcloud");
 	const { YtDlpPlugin } = require("@distube/yt-dlp");
+	const ytdl = require("@distube/ytdl-core");
 
 	const client = new Client({
 		intents: [
@@ -62,6 +63,19 @@
 
 	global.LyricsClient = new Genius.Client();
 
+	const cookies = [
+		{ name: "cookie1", value: config.youtubecookie },
+		{ name: "cookie2", value: "COOKIE2_HERE" },
+	  ];
+
+	  const agentOptions = {
+		pipelining: 5,
+		maxRedirections: 0,
+		localAddress: "127.0.0.1",
+	  };
+
+	const agent = ytdl.createAgent(cookies, agentOptions);
+
 	client.distube = new DisTube(client, {
 		searchSongs: 5,
 		searchCooldown: 30,
@@ -69,7 +83,6 @@
 		leaveOnFinish: true,
 		leaveOnStop: true,
 		nsfw: true,
-		youtubeCookie: config.youtubecookie,
 		plugins: [
 			new DeezerPlugin(),
 			new SpotifyPlugin({ emitEventsAfterFetching: true }),
