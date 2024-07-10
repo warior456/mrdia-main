@@ -23,6 +23,8 @@
     "@distube/soundcloud": "^1.3.3",
     "@distube/spotify": "^1.6.1",
     "@distube/yt-dlp": "^1.1.3",
+    "@distube/ytdl-core": "^4.13.4",
+    "@distube/ytsr": "^2.0.4",
     "chalk": "^4.1.2",
     "discord.js": "^14.15.2",
     "distube": "^4.2.2",
