@@ -8,8 +8,8 @@ module.exports = {
 	category: "other",
 	noHelp: true,
 	run: (client, message, args) => {
-		if (message.channel.id != "998168141911822376") {
-			return Reply.send(message, "Wrong channel! (go to: Not a Discord Community But Rather a Discord Server #serverwake)");
+		if ((message.channel.id != "998168141911822376")&&(message.channel.id != "1273971416966103124")) {
+			return Reply.send(message, "Wrong channel!, this is a private command and can only be used in the #serverwake channel in some servers");
 		}
 		Reply.send(message, "Waking server...")
 		fetch(client.config.serverwakeapilink)
