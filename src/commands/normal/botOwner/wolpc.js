@@ -10,8 +10,8 @@ module.exports = {
     ignoreSlash: true,
     run: async (client, message, args) => {
         //94:C6:91:9A:73:E0
-        let i = document.createElement("img")
-		i.src = client.config.pcwakeapilink
-        Reply.send(message, "Waking pc...")
+        console.log("hi")
+		Reply.send(message, "Waking pc...")
+		fetch(client.config.serverwakeapilink)
     }
 }
