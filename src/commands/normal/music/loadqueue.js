@@ -15,27 +15,30 @@ module.exports = {
 		{
 			name: "serverid",
 			type: ApplicationCommandOptionType.Integer ,
-			description: "give a server id",
+			description: "give a server id (optional)",
 			required: false,
 		},
 		{
 			name: "legacy",
 			type: ApplicationCommandOptionType.Boolean ,
-			description: "load a legacy queue",
+			description: "load a legacy queue (optional)",
 			required: false,
 		},
 
 	],
 	category: "music",
 	run: async (client, message, args) => {
+		if(args[0]) Reply.send(message, `Error- no name provided`)
+		if(message.options._hoistedOptions != null) {
+			//todo
+			await Reply.deferReply(message, false);
+		}else{
+			await Reply.deferReply(message, false); //only use if command can take long
+
+			loadQueue(queueName, client, message, args)
+		}
 		//async only if deferring
-		await Reply.deferReply(message, false); //only use if command can take long
-		queueName = args[0]
-		if(!args[1]) args[1] = message.guild.id
-		serverId = args[1]
-		if(!args[2]) args[2] = false
-		legacy = args[2]
-		loadQueue(queueName, serverId, legacy, client, message, args)
+		
         
 	},
 };

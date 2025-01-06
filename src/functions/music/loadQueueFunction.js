@@ -1,9 +1,21 @@
 const Reply = require("../../structures/handlers/replyHandler");
 const fs = require('fs');
 const File = require("../File")
-function loadQueue(queueName, serverId, legacy, client, message, args) {
-	if ((legacy = true)) loadQueueLegacy(message, client, args);
-	if ((legacy = false)) loadQueueNew(queueName, serverId, message);
+function loadQueue(queueName, client, message, args) {
+
+	queueName = args[0]
+	if(!args[1]) args[1] = message.guild.id
+	serverId = args[1]
+	if(args[1] === true || args[1] === false){//todo test this
+		if(args[2]) serverId = args[2]
+		args[2] = args[1]
+		args[1] = message.guid.id
+	} 
+	if(!args[2]) args[2] = false
+	legacy = args[2]
+
+	if ((legacy === true)) loadQueueLegacy(message, client, args);
+	if ((legacy === false)) loadQueueNew(queueName, guildId, message);
 }
 
 module.exports = {
@@ -61,8 +73,24 @@ async function loadQueueLegacy(message, client, args) {
 		console.log(error);
 	}
 }
-async function loadQueueNew(queueName, serverId, message) {
-	//WIP
+async function loadQueueNew(queueName, guildId, message) {
+	try {
+		const queue = await Queue.findOne({ serverId: guildId, queueName });
+		if(!queue) return 'Queue not found!'
+
+		for (let i = 0; i < queue.songUrls.length(); i++) {
+			song = songUrls[i];
+			await client.distube.play(voiceChannel, song, {
+				member: message.member,
+				textChannel: message.channel,
+				metadata: { messageObject: message, skipVotes: [], previousVotes: [], ignoremessage: true },
+			});
+		return `${queueName} loaded`
+	  }
+	}	catch (error) {
+		console.log(error)
+		return 'error while loading queue'
+	  }
 }
 
 

@@ -6,5 +6,5 @@ const guildSchema = new Schema({
     guildQueues: [String],
     guildIcon: { type: String, required: false }
 })
-
+guildSchema.index({ guildId: 1 }, { unique: true });
 module.exports = model("Guild", guildSchema, "guilds");
