@@ -1,6 +1,7 @@
 const Reply = require("../../structures/handlers/replyHandler");
 const fs = require('fs');
-const File = require("../File")
+const File = require("../File");
+const queue_schema = require("../../schemas/queue");
 function loadQueue(queueName, client, message, args) {
 
 	queueName = args[0]
@@ -14,6 +15,9 @@ function loadQueue(queueName, client, message, args) {
 	if(!args[2]) args[2] = false
 	legacy = args[2]
 
+	guildId = args[1]
+	console.log(legacy)
+	legacy = true
 	if ((legacy === true)) loadQueueLegacy(message, client, args);
 	if ((legacy === false)) loadQueueNew(queueName, guildId, message);
 }
@@ -75,7 +79,7 @@ async function loadQueueLegacy(message, client, args) {
 }
 async function loadQueueNew(queueName, guildId, message) {
 	try {
-		const queue = await Queue.findOne({ serverId: guildId, queueName });
+		const queue = await queue_schema.findOne({ serverId: guildId, queueName });
 		if(!queue) return 'Queue not found!'
 
 		for (let i = 0; i < queue.songUrls.length(); i++) {

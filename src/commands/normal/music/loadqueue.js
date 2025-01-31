@@ -28,10 +28,12 @@ module.exports = {
 	],
 	category: "music",
 	run: async (client, message, args) => {
-		if(args[0]) Reply.send(message, `Error- no name provided`)
+		if(!args[0]) Reply.send(message, `Error- no name provided`)
 		if(message.options._hoistedOptions != null) {
 			//todo
 			await Reply.deferReply(message, false);
+			queueName = message.options._hoistedOptions.name
+			loadQueue(queueName, client, message, args)
 		}else{
 			await Reply.deferReply(message, false); //only use if command can take long
 

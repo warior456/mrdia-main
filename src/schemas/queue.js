@@ -6,6 +6,6 @@ const queueSchema = new Schema({
     queueOwnerId: String,
     songUrls: [String],
 })
-queueSchema.index({ serverId: 1, queueName: 1, queueOwnerId }, { unique: true });
+queueSchema.index({ serverId: 1, queueName: 1, queueOwnerId:1 }, { unique: true });
 
 module.exports = model("Queue", queueSchema, "savedQueues");
