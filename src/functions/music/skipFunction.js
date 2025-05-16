@@ -7,7 +7,7 @@ async function skipSong(userId, queue, message, client) {
 	let userR = Math.floor(userCount / 2);
 
 	if (
-		message.member.roles.cache.some((role) => role.name === "Dj") ||
+		message.member.roles.cache.some((role) => role.name.toLowerCase() == "dj") ||
 		message.member.user.id == client.config.owner ||
 		message.member.permissions.has(PermissionsBitField.Flags.Administrator)
 	){
