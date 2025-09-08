@@ -2,7 +2,7 @@ const { ActivityType } = require("discord.js");
 const chalk = require("chalk");
 const config = require('../../../Config');
 module.exports = {
-	name: "ready",
+	name: "clientReady",
 	runOnce: true,
 	run: async (DiscordClient) => {
 		//reset application commands
