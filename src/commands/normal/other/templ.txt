@@ -1,5 +1,5 @@
 const Reply = require("../../../structures/handlers/replyHandler");
-const { ButtonBuilder, ActionRowBuilder, ButtonStyle, ApplicationCommandOptionType } = require("discord.js");
+const { ButtonBuilder, ActionRowBuilder, ButtonStyle, ApplicationCommandOptionType, MessageFlags } = require("discord.js");
 module.exports = {
 	ignore: true, //remove
 	name: "command", //extras: commandOptions

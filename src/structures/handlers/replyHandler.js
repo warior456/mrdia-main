@@ -1,6 +1,6 @@
 "use strict";
 
-const { MessageType, InteractionType } = require("discord.js");
+const { MessageType, InteractionType, MessageFlags } = require("discord.js");
 
 //type of message: message.type === 'APPLICATION_COMMAND' can be defered .followed and .replied
 //                 message.type === 'MESSAGE_COMPONENT'   can be defered .followed and .replied
@@ -97,10 +97,10 @@ class Reply {
 	static dm(message, content) {
 		message.member.user
 			.send(content)
-			.then(() => this.follow(message, { content: "Check your DMs!", ephemeral: true }))
+			.then(() => this.follow(message, { content: "Check your DMs!", flags: MessageFlags.Ephemeral }))
 			.catch((err) => {
 				console.log(err);
-				this.follow(message, { content: "Couldn't DM you, are your DMs enabled?", ephemeral: true });
+				this.follow(message, { content: "Couldn't DM you, are your DMs enabled?", flags: MessageFlags.Ephemeral });
 			});
 	}
 }

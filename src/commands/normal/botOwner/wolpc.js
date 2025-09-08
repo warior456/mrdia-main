@@ -9,7 +9,6 @@ module.exports = {
     ownerOnly: true,
     ignoreSlash: true,
     run: async (client, message, args) => {
-        //94:C6:91:9A:73:E0
         console.log("hi")
 		Reply.send(message, "Waking pc...")
 		fetch(client.config.serverwakeapilink)

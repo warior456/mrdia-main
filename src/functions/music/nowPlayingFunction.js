@@ -22,8 +22,8 @@ function nowPlaying(client, queue) {
 	return [nowPlayingEmbed];
 }
 
-module.exports={
-    nowPlaying
+module.exports = {
+	nowPlaying
 }
 
 function loopMode(queue) {
