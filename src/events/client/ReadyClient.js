@@ -1,6 +1,6 @@
 const { ActivityType } = require("discord.js");
 const chalk = require("chalk");
-const config = require('../../../Config');
+const { default: Config } = require("../../../Config.js");
 module.exports = {
 	name: "clientReady",
 	runOnce: true,
@@ -29,7 +29,7 @@ module.exports = {
 
 		console.log(chalk.green(`${DiscordClient.user.tag} is Online`));
 
-		const activities = [`${config.prefix}help`, `/help`];
+		const activities = [`${Config.prefix}help`, `/help`];
 		const updateDelay = 20; // in seconds
 		let currentIndex = 0;
 
