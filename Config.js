@@ -6,7 +6,7 @@ const botdbtoken = process.env.DBTOKEN;
 const botyoutubecookie = process.env.YOUTUBECOOKIE
 const botserverwakeapilink = process.env.SERVERWAKE_API_LINK
 const botpcwakeapilink = process.env.PCWAKE_API_LINK
-module.exports = {
+export default {
     prefix: [botprefix],
     owner: botowner,
     token: botdctoken,

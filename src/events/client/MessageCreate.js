@@ -1,9 +1,9 @@
-const config = require("../../../Config");
+const { default: Config } = require("../../../Config.js");
 const CommandOptionsVerifier = require("../../structures/commandOptions/LoadCommandOptions");
 module.exports = {
 	name: "messageCreate",
 	run: async (message, DiscordClient) => {
-		config.prefix.forEach((Prefix) => {
+		Config.prefix.forEach((Prefix) => {
 			if (!message.content.startsWith(Prefix)) return;
 			const CommandName = message.content.toString().toLowerCase().slice(Prefix.length).trim().split(" ")[0];
 			const Command =

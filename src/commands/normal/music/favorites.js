@@ -22,9 +22,9 @@ module.exports = {
 		requesteduserid = args[0];
 
 		if (!requesteduserid) requesteduserid = message.member.user.id;
-        requestedUserName = requesteduserid;
 
 		let userProfile = await User.findOne({ userId: requesteduserid });
+		requestedUserName = userProfile.userName;
         if(!userProfile) return "User not found"
         if(!userProfile.userFavoriteLinks[0]) return "User has no favorited songs"
 

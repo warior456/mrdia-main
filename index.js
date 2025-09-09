@@ -1,111 +1,131 @@
+// index.js
+import "dotenv/config";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+import { readdirSync } from "fs";
+import { Client, GatewayIntentBits, Partials, Collection, ActivityType } from "discord.js";
+import { connect, mongoose } from "mongoose";
+import Genius from "genius-lyrics";
+import config from "./Config.js";
+
+// Handlers
+import HandlersManager from "./src/structures/handlers/HandlersManager.js";
+const {
+  MessageCommandHandler,
+  EventManager,
+  ButtonCommandHandler,
+  SelectMenuHandler,
+  SlashCommandsHandler,
+  ContextMenuHandler,
+  ModalFormsHandler,
+} = HandlersManager;
+
+// DisTube & plugins
+import { DisTube } from "distube";
+import { YouTubePlugin } from "@distube/youtube";
+import { SpotifyPlugin } from "@distube/spotify";
+import SoundCloudPlugin from "@distube/soundcloud";
+import { DeezerPlugin } from "@distube/deezer";
+import { DirectLinkPlugin } from "@distube/direct-link";
+
+// Paths
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+global.rootPath = __dirname;
+
+// Mongoose setup
+mongoose.set("strictQuery", true);
+
+// Genius lyrics
+global.LyricsClient = new Genius.Client();
+
+class DisTubeClient extends Client {
+  constructor(options) {
+    super(options);
+
+    // Initialize DisTube
+    this.distube = new DisTube(this, {
+      plugins: [
+        new YouTubePlugin(),
+        new SoundCloudPlugin(),
+        new SpotifyPlugin(),
+        new DeezerPlugin(),
+        new DirectLinkPlugin(),
+      ],
+      emitAddListWhenCreatingQueue: true,
+      emitAddSongWhenCreatingQueue: true,
+      customFilters: { subboost: "asubboost" },
+    });
+
+    this.commands = new Collection();
+    this.limitCommandUses = new Collection();
+    this.expireAfter = new Collection();
+    this.messageCommands = new Collection();
+    this.messageCommands_Aliases = new Collection();
+    this.events = new Collection();
+    this.slashCommands = new Collection();
+    this.contextMenus = new Collection();
+    this.selectMenus = new Collection();
+    this.buttonCommands = new Collection();
+    this.modalForms = new Collection();
+
+    // Load DisTube events
+    const distubeEvents = readdirSync(join(__dirname, "src", "events", "distube"));
+    distubeEvents.forEach((name) => this.loadDisTubeEvent(name));
+  }
+
+  async loadDisTubeEvent(name) {
+    try {
+      const E = await import(`./src/events/distube/${name}`);
+      const EventClass = E.default || E;
+      const event = new EventClass(this);
+      this.distube.on(event.name, event.run.bind(event));
+      console.log(`Listening to DisTube event: ${event.name}`);
+    } catch (err) {
+      console.error(`Failed to load DisTube event "${name}": ${err.stack || err}`);
+    }
+  }
+}
 
 (async () => {
-	require("dotenv").config();
-	const { Client, GatewayIntentBits, Partials, Collection, ActivityType } = require("discord.js");
-	const config = require("./Config");
-	const fs = require("fs");
-	const DirPath = __dirname;
-	const {
-		MessageCommandHandler,
-		EventManager,
-		ButtonCommandHandler,
-		SelectMenuHandler,
-		SlashCommandsHandler,
-		ContextMenuHandler,
-		ModalFormsHandler,
-	} = require("./src/structures/handlers/HandlersManager");
+  const client = new DisTubeClient({
+    intents: [
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildPresences,
+      GatewayIntentBits.DirectMessages,
+      GatewayIntentBits.MessageContent,
+      GatewayIntentBits.DirectMessageReactions,
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildMessageReactions,
+      GatewayIntentBits.GuildWebhooks,
+      GatewayIntentBits.GuildVoiceStates,
+      GatewayIntentBits.GuildInvites,
+      GatewayIntentBits.GuildModeration,
+    ],
+    partials: [Partials.Channel],
+  });
 
-	const { connect, mongoose } = require("mongoose");
-	mongoose.set("strictQuery", true);
+  // Attach config
+  client.config = config;
 
-	const Genius = require("genius-lyrics");
+  // Connect to MongoDB
+  connect(config.dbtoken).catch((err) => console.error("Database connection error:", err));
 
-	const err = require("./src/events/mongo/err");
+  // Load handlers
+  await MessageCommandHandler(client, __dirname);
+  await EventManager(client, __dirname);
+  await ButtonCommandHandler(client, __dirname);
+  await SelectMenuHandler(client, __dirname);
+  await ModalFormsHandler(client, __dirname);
+  await SlashCommandsHandler(client, __dirname);
+  await ContextMenuHandler(client, __dirname);
 
-	const { DisTube } = require("distube");
-	const { DeezerPlugin } = require("@distube/deezer");
-	const { SpotifyPlugin } = require("@distube/spotify");
-	const { SoundCloudPlugin } = require("@distube/soundcloud");
-	const { YtDlpPlugin } = require("@distube/yt-dlp");
-	const ytdl = require("@distube/ytdl-core");
+  // Login
+  await client.login(config.token);
 
-	const client = new Client({
-		intents: [
-			GatewayIntentBits.Guilds,
-			GatewayIntentBits.GuildMessages,
-			GatewayIntentBits.GuildPresences,
-			GatewayIntentBits.DirectMessages,
-			GatewayIntentBits.MessageContent,
-			GatewayIntentBits.DirectMessageReactions,
-			GatewayIntentBits.GuildMembers,
-			GatewayIntentBits.GuildMessageReactions,
-			GatewayIntentBits.GuildWebhooks,
-			GatewayIntentBits.GuildVoiceStates,
-			GatewayIntentBits.GuildInvites,
-			GatewayIntentBits.GuildBans,
-		],
-		partials: [Partials.Channel],
-	});
+  // Set initial activity
+  client.user.setActivity("Starting", { type: ActivityType.Playing });
 
-	client.commands = new Collection();
-	client.limitCommandUses = new Collection();
-	client.expireAfter = new Collection();
-	client.messageCommands = new Collection();
-	client.messageCommands_Aliases = new Collection();
-	client.events = new Collection();
-	client.slashCommands = new Collection();
-	client.contextMenus = new Collection();
-	client.selectMenus = new Collection();
-	client.buttonCommands = new Collection();
-	client.modalForms = new Collection();
-
-	exports.rootPath = DirPath;
-
-	global.LyricsClient = new Genius.Client();
-
-	const cookies = [
-		{ name: "cookie1", value: config.youtubecookie },
-		{ name: "cookie2", value: "COOKIE2_HERE" },
-	  ];
-
-	  const agentOptions = {
-		pipelining: 5,
-		maxRedirections: 0,
-		localAddress: "127.0.0.1",
-	  };
-
-	const agent = ytdl.createAgent(cookies, agentOptions);
-
-	client.distube = new DisTube(client, {
-		searchSongs: 5,
-		searchCooldown: 30,
-		leaveOnEmpty: false,
-		leaveOnFinish: true,
-		leaveOnStop: true,
-		nsfw: true,
-		plugins: [
-			new DeezerPlugin(),
-			new SpotifyPlugin({ emitEventsAfterFetching: true }),
-			new SoundCloudPlugin(),
-			new YtDlpPlugin({ update: true }),
-		],
-		customFilters: {"subboost": "asubboost"}
-	});
-
-	client.config = require('./Config')
-	connect(config.dbtoken).catch("Database error");
-	await MessageCommandHandler(client, DirPath);
-	await EventManager(client, DirPath);
-	await ButtonCommandHandler(client, DirPath);
-	await SelectMenuHandler(client, DirPath);
-	await ModalFormsHandler(client, DirPath);
-
-	await client.login(config.token);
-
-	client.user.setActivity("Starting", {
-		type: ActivityType.Playing,
-	});
-
-	await SlashCommandsHandler(client, DirPath);
-	await ContextMenuHandler(client, DirPath);
+  console.log("Bot started successfully.");
 })();
