@@ -25,9 +25,13 @@ module.exports = {
 };
 
 async function setVolume(message, client, args, queue) {
+
 	try {
+		if(!args[0]){
+			return `Current volume is ${queue.volume}, provide a number to change the volume`
+		}
 		if (
-			message.member.roles.cache.some((role) => role.name === "Dj") ||
+			message.member.roles.cache.some((role) => role.name.toLowerCase() === "dj") ||
 			message.member.user.id == client.config.owner ||
 			message.member.permissions.has(PermissionsBitField.Flags.Administrator)
 		) {

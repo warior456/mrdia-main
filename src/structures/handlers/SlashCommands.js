@@ -37,6 +37,7 @@ module.exports = async (DiscordClient, RootPath) => {
             })()
         })
             else {
+                console.log(slashCommand.name)
                 const verifier = DiscordClient.application.commands.cache.find(x => x.name == slashCommand.name)
                 if (verifier) await DiscordClient.application.commands.edit(verifier.id, {
                     name: slashCommand.name,
