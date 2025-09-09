@@ -128,6 +128,6 @@ class DisTubeClient extends Client {
 
 	// Set initial activity
 	client.user.setActivity("Starting", { type: ActivityType.Playing });
-
+//
 	console.log("Bot started successfully.");
 })();
