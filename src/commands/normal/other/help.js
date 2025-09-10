@@ -75,7 +75,7 @@ function cmdOptionTypeToString(arg) {
 		case ApplicationCommandOptionType.Boolean:
 			return "boolean";
 		case ApplicationCommandOptionType.Integer:
-			return "interger";
+			return "integer";
 		case ApplicationCommandOptionType.Number:
 			return "number";
 		case ApplicationCommandOptionType.Role:

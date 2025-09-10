@@ -1,12 +1,12 @@
 const { EmbedBuilder } = require("discord.js")
-const config = require('../../../Config')
+const { default: Config } = require("../../../Config.js");
 module.exports = (message, command, IsInteraction) => {
     if (!command.ownerOnly) return true;
     let user;
     if (IsInteraction) user = message.user
     else user = message.author
 
-    if (config.owner == user.id) return true;
+    if (Config.owner == user.id) return true;
     else {
         if (command.returnErrors == false || command.returnOwnerOnlyError == false) return false;
         else {
