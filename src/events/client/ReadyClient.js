@@ -28,7 +28,7 @@ module.exports = {
 			console.log(chalk.hex("#067A00").bold("[ModalForms]", `Loading ${DiscordClient.modalForms.size} Modal Forms.`));
 
 		console.log(chalk.green(`${DiscordClient.user.tag} is Online`));
-
+		console.log("ready")
 		const activities = [`${Config.prefix}help`, `/help`];
 		const updateDelay = 20; // in seconds
 		let currentIndex = 0;
