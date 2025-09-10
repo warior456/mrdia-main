@@ -1,4 +1,3 @@
-const { parseNumber } = require("distube");
 const Reply = require("../../../structures/handlers/replyHandler");
 const { ApplicationCommandOptionType, PermissionsBitField } = require("discord.js");
 module.exports = {
@@ -9,7 +8,7 @@ module.exports = {
 		{
 			name: "volume",
 			type: ApplicationCommandOptionType.Number,
-			description: "give a value between 1-300 (or for Dj's it can be higher)",
+			description: "give a value between 1-150 (or for Dj's it can be higher)",
 			required: true,
 		},
 	],
@@ -35,10 +34,10 @@ async function setVolume(message, client, args, queue) {
 			message.member.user.id == client.config.owner ||
 			message.member.permissions.has(PermissionsBitField.Flags.Administrator)
 		) {
-			await queue.setVolume(parseNumber(args[0]));
+			await queue.setVolume(Number(args[0]));
 			return `Volume set to ${args[0]}`;
 		} else if (args[0] <= 150) {
-			await queue.setVolume(parseNumber(args[0]));
+			await queue.setVolume(Number(args[0]));
 			return `Volume set to ${args[0]}`;
 		} else {
 			return `You need [Dj] role to set the volume above 150`;

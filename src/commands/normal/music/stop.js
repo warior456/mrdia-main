@@ -9,5 +9,6 @@ module.exports = {
 		const queue = client.distube.getQueue(message);
 		if (!queue) return Reply.send(message, { content: `There is nothing playing right now!`, ephemeral: true });
 		queue.stop().then(Reply.send(message, { content: `Stopped the queue!` }));
+		queue.voice.leave()
 	},
 };

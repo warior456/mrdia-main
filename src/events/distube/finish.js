@@ -3,6 +3,10 @@ module.exports = {
 	isCustom: true,
 	run: async (client) => {
 		client.distube
-			.on("finish", (queue) => queue.textChannel.send("Queue ended!"))
+			.on("finish", (queue) => {
+				queue.textChannel.send("Queue ended!")
+				queue.voice.leave()
+	})
+			
 	},
 };

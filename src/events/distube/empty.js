@@ -1,9 +1,21 @@
+const { isVoiceChannelEmpty } = require("distube");
+
 module.exports = {
 	name: "empty",
 	isCustom: true,
-	ignore: true, //disabled
 	run: async (client) => {
-		client.distube
-			.on("empty", (channel) => channel.send("Voice channel is empty! Leaving the channel..."))
+		client.on("voiceStateUpdate", (oldState, newState) => {
+			const queue = client.distube.getQueue(oldState.guild.id);
+			if (!queue) return;
+
+			// If the channel became empty
+			if (oldState.channel && isVoiceChannelEmpty(oldState)) {
+				queue.pause();
+			}
+			// If someone joined (no longer empty)
+			else if (newState.channel && !isVoiceChannelEmpty(newState)) {
+				if (queue.paused) queue.resume();
+			}
+		});
 	},
 };
