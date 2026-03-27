@@ -1,3 +1,4 @@
+const Reply = require("../../structures/handlers/replyHandler");
 module.exports = {
 	name: "error",
 	isCustom: true,
@@ -5,8 +6,8 @@ module.exports = {
 		client.distube
 
 			.on("error", (channel, e) => {
-				if (channel) channel.send(`An error encountered: ${e.toString().slice(0, 1974)}`);
-				else console.error(e);
+				
+				console.error(e);
 			})
 	},
 };
