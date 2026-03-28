@@ -5,7 +5,14 @@ const queueSchema = new Schema({
     serverId: String,
     queueOwnerId: String,
     queueOwnerName: String,
-    songUrls: [String],
+    songs: [{
+        url: String,
+        name: String,
+        requestedBy: String,
+        requestedByName: String,
+    }],
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
 })
 queueSchema.index({ serverId: 1, queueName: 1, queueOwnerId:1 }, { unique: true });
 

@@ -13,6 +13,6 @@ module.exports = {
         } 
 
         message.message.delete()
-        console.log(message.message.type)
+        //console.log(message.message.type)
     }
 }

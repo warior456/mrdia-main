@@ -27,6 +27,7 @@ import { SpotifyPlugin } from "@distube/spotify";
 import SoundCloudPlugin from "@distube/soundcloud";
 import { DeezerPlugin } from "@distube/deezer";
 import { DirectLinkPlugin } from "@distube/direct-link";
+import { YtDlpPlugin } from "@distube/yt-dlp";
 
 // Paths
 const __filename = fileURLToPath(import.meta.url);
@@ -46,11 +47,12 @@ class DisTubeClient extends Client {
 		// Initialize DisTube
 		this.distube = new DisTube(this, {
 			plugins: [
-				new YouTubePlugin(),
-				new SoundCloudPlugin(),
 				new SpotifyPlugin(),
+				new SoundCloudPlugin(),
 				new DeezerPlugin(),
 				new DirectLinkPlugin(),
+				new YouTubePlugin(),
+				new YtDlpPlugin(),
 			],
 			emitAddListWhenCreatingQueue: true,
 			emitAddSongWhenCreatingQueue: true,

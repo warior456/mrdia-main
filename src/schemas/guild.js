@@ -4,7 +4,8 @@ const guildSchema = new Schema({
     guildId: String,
     guildName: String,
     guildQueues: [String],
-    guildIcon: { type: String, required: false }
+    guildIcon: { type: String, required: false },
+    prefix: { type: String, required: false, default: null }
 })
 guildSchema.index({ guildId: 1 }, { unique: true });
 module.exports = model("Guild", guildSchema, "guilds");

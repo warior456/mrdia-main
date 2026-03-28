@@ -5,9 +5,12 @@ module.exports = {
 	run: async (client) => {
 		client.distube
 
-			.on("error", (channel, e) => {
-				
-				console.error(e);
+			.on("error", (arg1, arg2) => {
+				// DisTube versions differ in error event argument order.
+				// Normalize and only log the actual Error object.
+				const error = arg1 instanceof Error ? arg1 : arg2 instanceof Error ? arg2 : null;
+				if (!error) return;
+				console.error(error);
 			})
 	},
 };
