@@ -36,6 +36,7 @@
     "mongoose": "^8.18.1",
     "node-recursive-directory": "^1.2.3",
     "sodium-native": "^5.1.0",
+    "typescript": "^7.0.2",
     "ytmusic-distube-plugin": "^1.2.0"
   }
 }

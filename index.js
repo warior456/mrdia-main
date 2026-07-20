@@ -29,6 +29,15 @@ import { DeezerPlugin } from "@distube/deezer";
 import { DirectLinkPlugin } from "@distube/direct-link";
 import { YtDlpPlugin } from "@distube/yt-dlp";
 
+// const ytmusicPlugin = new YouTubeMusicPlugin({
+// 	emitEventsAfterFetching: true,
+// 	fetchBeforeQueued: false,
+// 	parallel: true,
+// 	maxViews: 1000
+// });
+
+
+
 // Paths
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -51,8 +60,8 @@ class DisTubeClient extends Client {
 				new SoundCloudPlugin(),
 				new DeezerPlugin(),
 				new DirectLinkPlugin(),
-				new YouTubeMusicPlugin(),
 				new YtDlpPlugin(),
+				new YouTubeMusicPlugin(),
 			],
 			emitAddListWhenCreatingQueue: true,
 			emitAddSongWhenCreatingQueue: true,

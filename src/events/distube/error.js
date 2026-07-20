@@ -13,11 +13,11 @@ module.exports = {
 
 				const stack = typeof error.stack === "string" ? error.stack : "";
 				const message = typeof error.message === "string" ? error.message : "";
-				const isYtDlpSolverNoise =
-					stack.includes("@distube/ytdl-core") &&
-					(stack.includes("ejs-solvers.js") || message.includes("reading 'GG'"));
+				// const isYtDlpSolverNoise =
+				// 	stack.includes("@distube/ytdl-core") &&
+				// 	(stack.includes("ejs-solvers.js") || message.includes("reading 'GG'"));
 
-				if (isYtDlpSolverNoise) return;
+				// if (isYtDlpSolverNoise) return;
 				console.error(error);
 			})
 	},
