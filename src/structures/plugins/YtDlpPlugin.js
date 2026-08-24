@@ -160,13 +160,36 @@ class YtDlpSong extends Song {
 class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 	constructor(options = {}) {
 		super();
-		this.options = options;
+		this.options = { autoUpdate: true, ...options };
 		this.binaryPath = options.binaryPath || findBinary();
 
 		if (!fs.existsSync(this.binaryPath)) {
-			downloadBinary(this.binaryPath).catch((err) => {
-				console.error("[YtDlpPlugin] Binary auto-download failed:", err);
+			downloadBinary(this.binaryPath)
+				.then(() => {
+					if (this.options.autoUpdate) this.checkUpdate();
+				})
+				.catch((err) => {
+					console.error("[YtDlpPlugin] Binary auto-download failed:", err);
+				});
+		} else if (this.options.autoUpdate) {
+			this.checkUpdate();
+			// Check for updates every 24 hours
+			this.updateInterval = setInterval(() => this.checkUpdate(), 24 * 60 * 60 * 1000);
+			if (this.updateInterval.unref) this.updateInterval.unref();
+		}
+	}
+
+	async checkUpdate() {
+		try {
+			const proc = spawn(this.binaryPath, ["-U"]);
+			proc.stdout?.on("data", (data) => {
+				const str = data.toString().trim();
+				if (str.includes("Updating") || str.includes("Updated")) {
+					console.log(`[YtDlpPlugin] ${str}`);
+				}
 			});
+		} catch (err) {
+			console.warn(`[YtDlpPlugin] Background update check notice:`, err.message);
 		}
 	}
 
@@ -195,7 +218,9 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 			"--prefer-free-formats",
 			"--skip-download",
 			"--simulate",
-			"--flat-playlist"
+			"--flat-playlist",
+			"--extractor-args",
+			"youtube:player_client=android"
 		];
 
 		if (this.options.cookies) {
@@ -248,6 +273,8 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 			"--prefer-free-formats",
 			"--skip-download",
 			"--simulate",
+			"--extractor-args",
+			"youtube:player_client=android",
 			"-f",
 			"ba/ba*"
 		];
