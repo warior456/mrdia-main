@@ -27,6 +27,12 @@ class Reply {
 
 	static send(message, content) {
 		try {
+			if (typeof content === "object" && content !== null) {
+				if (content.ephemeral) {
+					content.flags = MessageFlags.Ephemeral;
+					delete content.ephemeral;
+				}
+			}
 			if (message.type === InteractionType.ApplicationCommand || message.type === InteractionType.MessageComponent) {
 				message.reply(content);
 			} else {
@@ -43,7 +49,7 @@ class Reply {
 	 */
 	static async deferReply(message, invisible) {
 		if (message.type === InteractionType.ApplicationCommand || message.type === InteractionType.MessageComponent) {
-			await message.deferReply({ ephemeral: invisible });
+			await message.deferReply(invisible ? { flags: MessageFlags.Ephemeral } : {});
 		} else {
 			return;
 		}

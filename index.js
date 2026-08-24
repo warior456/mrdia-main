@@ -22,7 +22,6 @@ const {
 
 // DisTube & plugins
 import { DisTube } from "distube";
-import YouTubeMusicPlugin from "ytmusic-distube-plugin";
 import { SpotifyPlugin } from "@distube/spotify";
 import SoundCloudPlugin from "@distube/soundcloud";
 import { DeezerPlugin } from "@distube/deezer";
@@ -51,7 +50,6 @@ class DisTubeClient extends Client {
 				new SoundCloudPlugin(),
 				new DeezerPlugin(),
 				new DirectLinkPlugin(),
-				new YouTubeMusicPlugin(),
 				new YtDlpPlugin(),
 			],
 			emitAddListWhenCreatingQueue: true,
