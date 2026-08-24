@@ -1,9 +1,7 @@
 async function play(client, message, args, voiceChannel) {
-    try {
-        args = args.join()
-    } catch{
-
-    }
+	if (Array.isArray(args)) {
+		args = args.join(" ");
+	}
 	await client.distube.play(voiceChannel, args, {
 		member: message.member,
 		textChannel: message.channel,

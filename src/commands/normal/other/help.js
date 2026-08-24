@@ -25,10 +25,11 @@ module.exports = {
 };
 
 function help(message, client, option) {
+	const description = helpMsg(client, option) || "No commands found for this category.";
 	const helpEmbed = new EmbedBuilder()
 		.setColor(client.config.otherCommandColor)
 		.setTitle(`**My prefix is: ${client.config.prefix}**`)
-		.setDescription(helpMsg(client, option));
+		.setDescription(description);
 
 	Reply.send(message, { embeds: [helpEmbed] });
 }
