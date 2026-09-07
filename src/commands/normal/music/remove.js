@@ -3,7 +3,7 @@ const { ApplicationCommandOptionType } = require("discord.js");
 
 module.exports = {
 	name: "remove",
-	aliases: [],
+	aliases: ["removesong"],
 	options: [
 		{
 			name: "songnumber",
@@ -21,8 +21,8 @@ module.exports = {
 			return Reply.send(message, { content: "Join a voice channel first!", ephemeral: true });
 		}
 
-		if (!queue || queue.songs.length === 0) {
-			return Reply.send(message, { content: "There are no songs in the queue!", ephemeral: true });
+		if (!queue || queue.songs.length <= 1) {
+			return Reply.send(message, { content: "There are no upcoming songs in the queue to remove!", ephemeral: true });
 		}
 
 		const songIndex = parseInt(args[0]);
@@ -31,12 +31,12 @@ module.exports = {
 			return Reply.send(message, { content: "Please provide a valid song number", ephemeral: true });
 		}
 
-		if (songIndex > queue.songs.length) {
-			return Reply.send(message, { content: `Song number must be between 1 and ${queue.songs.length}`, ephemeral: true });
+		if (songIndex >= queue.songs.length) {
+			return Reply.send(message, { content: `Song number must be between 1 and ${queue.songs.length - 1}`, ephemeral: true });
 		}
 
 		try {
-			const removed = queue.songs.splice(songIndex - 1, 1);
+			const removed = queue.songs.splice(songIndex, 1);
 			Reply.send(message, { content: `Removed **${removed[0].name}** from the queue!`, ephemeral: true });
 		} catch (error) {
 			console.error(error);
