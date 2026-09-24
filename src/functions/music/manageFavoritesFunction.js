@@ -1,11 +1,14 @@
+const mongoose = require("mongoose");
 const { isNatural } = require("../utilities");
-const User = require('../../schemas/user')
+const User = require('../../schemas/user');
 
 async function saveFavorite(message, song) {
 	let userProfile = await User.findOne({ userId: message.member.user.id });
 
 	if (!userProfile) {
 		userProfile = await createUser(message);
+	} else if (userProfile.userName !== message.member.user.username) {
+		userProfile.userName = message.member.user.username;
 	}
 
 	if (!userProfile.userFavoriteLinks.includes(song.url)) {
@@ -41,9 +44,9 @@ module.exports = {
 
 async function createUser(message) {
 	userProfile = await new User({
-		_id: mongoose.Types.ObjectId(),
+		_id: new mongoose.Types.ObjectId(),
 		userId: message.member.user.id,
-		userName: message.member.user.tag,
+		userName: message.member.user.username,
 		userIcon: "todo",
 	});
 	return userProfile;

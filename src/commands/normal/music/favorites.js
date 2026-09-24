@@ -76,6 +76,19 @@ async function listFavorites(message, client, requestedPage, requestedUserId) {
 		return Reply.editReply(message, { content: "User has no favorited songs.", ephemeral: true });
 	}
 
+	let discordUser = client.users.cache.get(requestedUserId);
+	if (!discordUser) {
+		discordUser = await client.users.fetch(requestedUserId).catch(() => null);
+	}
+
+	let requestedUserName = discordUser?.username;
+	if (!requestedUserName) {
+		requestedUserName = userProfile.userName ? userProfile.userName.split("#")[0] : `<@${requestedUserId}>`;
+	} else if (userProfile.userName !== requestedUserName) {
+		userProfile.userName = requestedUserName;
+		userProfile.save().catch(console.error);
+	}
+
 	const itemsPerPage = 10;
 	const totalFavorites = userProfile.userFavoriteLinks.length;
 	const maxPage = Math.ceil(totalFavorites / itemsPerPage) || 1;
@@ -91,7 +104,6 @@ async function listFavorites(message, client, requestedPage, requestedUserId) {
 		description += `\`${i + 1}.\` [${songName}](${songUrl})\n\n`;
 	}
 
-	const requestedUserName = userProfile.userName || `<@${requestedUserId}>`;
 	const footer = `Page ${page}/${maxPage} • ID: ${requestedUserId}`;
 
 	const favoritesEmbed = new EmbedBuilder()
