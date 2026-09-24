@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/warior456/mrdia-main#readme",
   "dependencies": {
-    "@discordjs/opus": "^0.10.0",
+    "opusscript": "^0.1.1",
     "@discordjs/voice": "^0.19.1",
     "@distube/deezer": "^2.0.1",
     "@distube/direct-link": "^1.0.1",
