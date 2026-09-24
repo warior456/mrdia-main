@@ -21,12 +21,29 @@ const {
 } = HandlersManager;
 
 // DisTube & plugins
-import { DisTube } from "distube";
+import { DisTube, Song, Playlist } from "distube";
 import { SpotifyPlugin } from "@distube/spotify";
 import SoundCloudPlugin from "@distube/soundcloud";
 import { DeezerPlugin } from "@distube/deezer";
 import { DirectLinkPlugin } from "@distube/direct-link";
 import { YtDlpPlugin } from "./src/structures/plugins/YtDlpPlugin.js";
+
+// Cross-module compatibility for DisTube plugins (prevents CJS/ESM dual-package instanceof issues)
+DisTube.Song = Song;
+DisTube.Playlist = Playlist;
+Object.defineProperty(Playlist, Symbol.hasInstance, {
+	value: (instance) =>
+		Boolean(instance && (instance.constructor?.name === "Playlist" || Array.isArray(instance.songs))),
+});
+Object.defineProperty(Song, Symbol.hasInstance, {
+	value: (instance) =>
+		Boolean(
+			instance &&
+				(instance.constructor?.name === "Song" ||
+					instance.constructor?.name === "YtDlpSong" ||
+					Boolean(instance.stream))
+		),
+});
 
 // Paths
 const __filename = fileURLToPath(import.meta.url);
@@ -50,7 +67,7 @@ class DisTubeClient extends Client {
 				new SoundCloudPlugin(),
 				new DeezerPlugin(),
 				new DirectLinkPlugin(),
-				new YtDlpPlugin(),
+				new YtDlpPlugin({ Song, Playlist }),
 			],
 			emitAddListWhenCreatingQueue: true,
 			emitAddSongWhenCreatingQueue: true,

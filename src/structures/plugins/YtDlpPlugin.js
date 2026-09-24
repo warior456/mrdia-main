@@ -129,38 +129,97 @@ function runYtDlp(binaryPath, args, options = {}) {
 	});
 }
 
-class YtDlpSong extends Song {
-	constructor(plugin, info, options = {}) {
-		super(
-			{
-				plugin,
-				source: info.extractor || "youtube",
-				playFromSource: true,
-				id: info.id,
-				name: info.title || info.fulltitle || "Unknown Title",
-				url: info.webpage_url || info.original_url || info.url,
-				isLive: Boolean(info.is_live),
-				thumbnail: info.thumbnail || (info.thumbnails && info.thumbnails[0] ? info.thumbnails[0].url : undefined),
-				duration: info.is_live ? 0 : (info.duration || 0),
-				uploader: {
-					name: info.uploader || info.channel || info.artist || "Unknown Artist",
-					url: info.uploader_url || info.channel_url
-				},
-				views: info.view_count || 0,
-				likes: info.like_count || 0,
-				dislikes: info.dislike_count || 0,
-				reposts: info.repost_count || 0,
-				ageRestricted: Boolean(info.age_limit && info.age_limit >= 18)
-			},
-			options
-		);
-	}
+function normalizeQuery(input) {
+	if (typeof input !== "string") return input;
+	let query = input.trim();
+	if (!/^https?:\/\//i.test(query)) return query;
+
+	try {
+		const parsed = new URL(query);
+		const host = parsed.hostname.toLowerCase();
+
+		if (host.includes("youtube.com") || host.includes("youtu.be")) {
+			// Normalize music.youtube.com to www.youtube.com for reliable extraction
+			if (host === "music.youtube.com") {
+				parsed.hostname = "www.youtube.com";
+			}
+
+			// Handle youtu.be shortlinks
+			if (host === "youtu.be") {
+				const videoId = parsed.pathname.slice(1);
+				if (videoId) {
+					parsed.hostname = "www.youtube.com";
+					parsed.pathname = "/watch";
+					parsed.searchParams.set("v", videoId);
+				}
+			}
+
+			// For /watch endpoints, strip auto-generated radio/mix playlists (RD... or UL...)
+			if (parsed.pathname === "/watch") {
+				const listId = parsed.searchParams.get("list");
+				if (listId && (listId.startsWith("RD") || listId.startsWith("UL"))) {
+					parsed.searchParams.delete("list");
+					parsed.searchParams.delete("index");
+					parsed.searchParams.delete("start_radio");
+				}
+			}
+
+			// Clean tracking and UI parameters
+			parsed.searchParams.delete("si");
+			parsed.searchParams.delete("feature");
+			parsed.searchParams.delete("pp");
+
+			return parsed.toString();
+		}
+	} catch {}
+
+	return query;
 }
+
+function createYtDlpSongClass(BaseSong) {
+	return class YtDlpSong extends BaseSong {
+		constructor(plugin, info, options = {}) {
+			const songUrl =
+				info.webpage_url ||
+				info.original_url ||
+				info.url ||
+				(info.id ? `https://www.youtube.com/watch?v=${info.id}` : undefined);
+
+			super(
+				{
+					plugin,
+					source: info.extractor || "youtube",
+					playFromSource: true,
+					id: info.id,
+					name: info.title || info.fulltitle || "Unknown Title",
+					url: normalizeQuery(songUrl),
+					isLive: Boolean(info.is_live),
+					thumbnail: info.thumbnail || (info.thumbnails && info.thumbnails[0] ? info.thumbnails[0].url : undefined),
+					duration: info.is_live ? 0 : (info.duration || 0),
+					uploader: {
+						name: info.uploader || info.channel || info.artist || "Unknown Artist",
+						url: info.uploader_url || info.channel_url
+					},
+					views: info.view_count || 0,
+					likes: info.like_count || 0,
+					dislikes: info.dislike_count || 0,
+					reposts: info.repost_count || 0,
+					ageRestricted: Boolean(info.age_limit && info.age_limit >= 18)
+				},
+				options
+			);
+		}
+	};
+}
+
+const YtDlpSong = createYtDlpSongClass(Song);
 
 class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 	constructor(options = {}) {
 		super();
 		this.options = { autoUpdate: true, ...options };
+		this.SongClass = options.Song ? createYtDlpSongClass(options.Song) : YtDlpSong;
+		this.PlaylistClass = options.Playlist || Playlist;
 		this.binaryPath = options.binaryPath || findBinary();
 
 		if (!fs.existsSync(this.binaryPath)) {
@@ -195,6 +254,12 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 
 	init(distube) {
 		super.init(distube);
+		if (distube?.constructor?.Playlist && !this.options.Playlist) {
+			this.PlaylistClass = distube.constructor.Playlist;
+		}
+		if (distube?.constructor?.Song && !this.options.Song) {
+			this.SongClass = createYtDlpSongClass(distube.constructor.Song);
+		}
 		if (this.distube.plugins[this.distube.plugins.length - 1] !== this) {
 			console.warn(`[${this.constructor.name}] This plugin is recommended to be the last plugin in DisTube.`);
 		}
@@ -206,11 +271,13 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 
 	async resolve(input, options = {}) {
 		let query = typeof input === "string" ? input.trim() : "";
+		query = normalizeQuery(query);
 		const isUrl = /^https?:\/\//i.test(query);
 		if (!isUrl) {
 			query = `ytsearch1:${query}`;
 		}
 
+		const isPlaylistUrl = /[?&]list=([a-zA-Z0-9_-]+)/i.test(query);
 		const flags = [
 			query,
 			"--dump-single-json",
@@ -218,7 +285,7 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 			"--prefer-free-formats",
 			"--skip-download",
 			"--simulate",
-			"--flat-playlist",
+			isPlaylistUrl ? "--flat-playlist" : "--no-playlist",
 			"--extractor-args",
 			"youtube:player_client=android"
 		];
@@ -235,20 +302,26 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 		}
 
 		if (info._type === "playlist" || Array.isArray(info.entries)) {
-			let entries = info.entries || [];
+			let entries = (info.entries || []).filter(
+				(entry) =>
+					entry &&
+					(entry.url || entry.id) &&
+					entry.title !== "[Private video]" &&
+					entry.title !== "[Deleted video]"
+			);
 			if (entries.length === 0) {
-				throw new DisTubeError("YTDLP_ERROR", "The playlist is empty or no search results were found.");
+				throw new DisTubeError("YTDLP_ERROR", "The playlist is empty or contains no playable videos.");
 			}
 
 			// If it was a search (ytsearch1), return single song directly
 			if (query.startsWith("ytsearch1:") && entries.length > 0) {
-				return new YtDlpSong(this, entries[0], options);
+				return new this.SongClass(this, entries[0], options);
 			}
 
-			return new Playlist(
+			return new this.PlaylistClass(
 				{
 					source: info.extractor || "youtube",
-					songs: entries.map((entry) => new YtDlpSong(this, entry, options)),
+					songs: entries.map((entry) => new this.SongClass(this, entry, options)),
 					id: info.id ? info.id.toString() : "",
 					name: info.title || "Playlist",
 					url: info.webpage_url || (isUrl ? query : undefined),
@@ -258,7 +331,7 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 			);
 		}
 
-		return new YtDlpSong(this, info, options);
+		return new this.SongClass(this, info, options);
 	}
 
 	async getStreamURL(song) {
@@ -266,13 +339,15 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 			throw new DisTubeError("YTDLP_INVALID_SONG", "Cannot get stream URL from invalid song.");
 		}
 
+		const streamTarget = normalizeQuery(song.url);
 		const flags = [
-			song.url,
+			streamTarget,
 			"--dump-single-json",
 			"--no-warnings",
 			"--prefer-free-formats",
 			"--skip-download",
 			"--simulate",
+			"--no-playlist",
 			"--extractor-args",
 			"youtube:player_client=android",
 			"-f",
@@ -313,5 +388,6 @@ module.exports = {
 	CustomYtDlpPlugin,
 	YtDlpPlugin: CustomYtDlpPlugin,
 	YtDlpSong,
-	runYtDlp
+	runYtDlp,
+	normalizeQuery
 };
