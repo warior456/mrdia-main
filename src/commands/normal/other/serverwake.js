@@ -1,5 +1,5 @@
 const Reply = require("../../../structures/handlers/replyHandler");
-const fetch = require("node-fetch");
+const fetch = globalThis.fetch;
 
 module.exports = {
 	name: "wake", //extras: commandOptions
