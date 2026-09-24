@@ -108,7 +108,7 @@ async function listFavorites(message, client, requestedPage, requestedUserId) {
 
 	const favoritesEmbed = new EmbedBuilder()
 		.setColor(client.config.musicCommandColor)
-		.setTitle(`${requestedUserName} favorites`)
+		.setTitle(`${requestedUserName}'s favorites`)
 		.setDescription(description || "No favorites on this page.")
 		.setFooter({ text: footer })
 		.setTimestamp();
