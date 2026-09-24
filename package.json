@@ -17,11 +17,14 @@
   },
   "homepage": "https://github.com/warior456/mrdia-main#readme",
   "dependencies": {
+    "@discordjs/opus": "^0.10.0",
     "@discordjs/voice": "^0.19.1",
+    "@distube/bandlab": "^1.0.0",
     "@distube/deezer": "^2.0.1",
     "@distube/direct-link": "^1.0.1",
     "@distube/soundcloud": "^2.0.4",
     "@distube/spotify": "^2.0.2",
+    "@distube/youtube": "^1.0.4",
     "@distube/yt-dlp": "^2.0.1",
     "@snazzah/davey": "^0.1.10",
     "chalk": "^4.1.2",
@@ -33,6 +36,7 @@
     "mongoose": "^8.18.1",
     "node-recursive-directory": "^1.2.3",
     "sodium-native": "^5.1.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "ytmusic-distube-plugin": "^1.2.0"
   }
 }
