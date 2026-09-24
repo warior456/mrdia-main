@@ -6,56 +6,127 @@ module.exports = {
 	name: "favorites", //extras: commandOptions
 	aliases: ["favs"],
 	options: [
-		//optional
+		{
+			name: "page",
+			type: ApplicationCommandOptionType.Integer,
+			description: "Page number to display (10 favorites per page)",
+			required: false,
+		},
 		{
 			name: "userid",
 			type: ApplicationCommandOptionType.String,
-			description: "Give the userid",
+			description: "Give the user ID or mention",
 			required: false,
 		},
 	],
 	description: "Shows a list of your favorites",
 	category: "music",
 	run: async (client, message, args) => {
-		//async only if deferring
-		await Reply.deferReply(message, false); //only use if command can take long
-		requesteduserid = args[0];
-
-		if (!requesteduserid) requesteduserid = message.member.user.id;
-
-		let userProfile = await User.findOne({ userId: requesteduserid });
-		requestedUserName = userProfile.userName;
-        if(!userProfile) return "User not found"
-        if(!userProfile.userFavoriteLinks[0]) return "User has no favorited songs"
-
-        footer = requesteduserid
-		description = makeDescription(userProfile);
-
-		favoritesEmbed = await makeFavoritesEmbed(client, description, footer, requestedUserName);
-		Reply.editReply(message, { embeds: [favoritesEmbed], components: addButtons() });
+		try {
+			await Reply.deferReply(message, false);
+			const { page, requestedUserId } = parseArgs(message, args);
+			await listFavorites(message, client, page, requestedUserId);
+		} catch (error) {
+			console.error("Error in favorites command:", error);
+			Reply.editReply(message, { content: "An error occurred while fetching favorites.", ephemeral: true });
+		}
 	},
 };
 
-function makeDescription(userProfile) {
-	let description = "";
-	for (let i = 0; i < userProfile.userFavoriteLinks.length; i++) {
-		description += `\`${i + 1}.\` [${userProfile.userFavoriteNames[i]}](${userProfile.userFavoriteLinks[i]})\n \n`
+module.exports.listFavorites = listFavorites;
+
+function parseArgs(message, args) {
+	let page = 1;
+	let requestedUserId = message.member?.user?.id || message.author?.id || message.user?.id;
+
+	if (!args || args.length === 0) {
+		return { page, requestedUserId };
 	}
-    return description
+
+	for (const arg of args) {
+		if (!arg) continue;
+		const trimmed = String(arg).trim();
+		const mentionMatch = trimmed.match(/^<@!?(\d+)>$/);
+		if (mentionMatch) {
+			requestedUserId = mentionMatch[1];
+		} else if (/^\d{16,20}$/.test(trimmed)) {
+			requestedUserId = trimmed;
+		} else {
+			const parsedNum = parseInt(trimmed, 10);
+			if (!isNaN(parsedNum) && parsedNum > 0) {
+				page = parsedNum;
+			}
+		}
+	}
+
+	return { page, requestedUserId };
 }
 
-function makeFavoritesEmbed(client, description, footer, requestedUserName) {
-	favoritesEmbed = new EmbedBuilder()
+async function listFavorites(message, client, requestedPage, requestedUserId) {
+	if (!requestedUserId) {
+		requestedUserId = message.member?.user?.id || message.author?.id || message.user?.id;
+	}
+
+	const userProfile = await User.findOne({ userId: requestedUserId });
+	if (!userProfile) {
+		return Reply.editReply(message, { content: "User not found or has no profile saved.", ephemeral: true });
+	}
+
+	if (!userProfile.userFavoriteLinks || userProfile.userFavoriteLinks.length === 0) {
+		return Reply.editReply(message, { content: "User has no favorited songs.", ephemeral: true });
+	}
+
+	const itemsPerPage = 10;
+	const totalFavorites = userProfile.userFavoriteLinks.length;
+	const maxPage = Math.ceil(totalFavorites / itemsPerPage) || 1;
+	const page = Math.max(1, Math.min(requestedPage || 1, maxPage));
+
+	const startIdx = (page - 1) * itemsPerPage;
+	const endIdx = Math.min(startIdx + itemsPerPage, totalFavorites);
+
+	let description = "";
+	for (let i = startIdx; i < endIdx; i++) {
+		const songName = userProfile.userFavoriteNames?.[i] || "Unknown Title";
+		const songUrl = userProfile.userFavoriteLinks[i];
+		description += `\`${i + 1}.\` [${songName}](${songUrl})\n\n`;
+	}
+
+	const requestedUserName = userProfile.userName || `<@${requestedUserId}>`;
+	const footer = `Page ${page}/${maxPage} • ID: ${requestedUserId}`;
+
+	const favoritesEmbed = new EmbedBuilder()
 		.setColor(client.config.musicCommandColor)
 		.setTitle(`${requestedUserName} favorites`)
-		.setDescription(description)
+		.setDescription(description || "No favorites on this page.")
 		.setFooter({ text: footer })
 		.setTimestamp();
-	return favoritesEmbed;
+
+	return Reply.editReply(message, {
+		embeds: [favoritesEmbed],
+		components: makeFavoritesButtons(page, maxPage),
+	});
 }
-function addButtons() {
+
+function makeFavoritesButtons(page, maxPage) {
 	const row = new ActionRowBuilder().addComponents(
-		new ButtonBuilder().setCustomId("load_favorites").setLabel("Load").setStyle(ButtonStyle.Success)
+		new ButtonBuilder()
+			.setCustomId("previous_page_favorites")
+			.setLabel("Previous page")
+			.setStyle(ButtonStyle.Secondary)
+			.setDisabled(page <= 1),
+		new ButtonBuilder()
+			.setCustomId("next_page_favorites")
+			.setLabel("Next page")
+			.setStyle(ButtonStyle.Secondary)
+			.setDisabled(page >= maxPage),
+		new ButtonBuilder()
+			.setCustomId("load_favorites")
+			.setLabel("Load")
+			.setStyle(ButtonStyle.Success),
+		new ButtonBuilder()
+			.setCustomId("end")
+			.setLabel("End interaction")
+			.setStyle(ButtonStyle.Danger)
 	);
 	return [row];
 }
