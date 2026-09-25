@@ -5,20 +5,19 @@ module.exports = {
 	run: async (client) => {
 		client.distube
 
-			.on("error", (arg1, arg2) => {
-				// DisTube versions differ in error event argument order.
-				// Normalize and only log the actual Error object.
-				const error = arg1 instanceof Error ? arg1 : arg2 instanceof Error ? arg2 : null;
-				if (!error) return;
+			.on("error", (error, queue, song) => {
+				const err = error instanceof Error ? error : (queue instanceof Error ? queue : null);
+				if (!err) return;
+				console.error("[DisTube Error]:", err.message || err);
 
-				const stack = typeof error.stack === "string" ? error.stack : "";
-				const message = typeof error.message === "string" ? error.message : "";
-				// const isYtDlpSolverNoise =
-				// 	stack.includes("@distube/ytdl-core") &&
-				// 	(stack.includes("ejs-solvers.js") || message.includes("reading 'GG'"));
+				const targetQueue = queue && queue.textChannel ? queue : null;
+				const targetSong = song || (queue && queue.name ? queue : null);
 
-				// if (isYtDlpSolverNoise) return;
-				console.error(error);
-			})
+				if (targetQueue?.textChannel) {
+					const songTitle = targetSong?.name ? `**${targetSong.name}**` : "a track";
+					const reason = err.message ? ` (${err.message})` : "";
+					targetQueue.textChannel.send(`⚠️ Error playing ${songTitle}${reason}. Skipping to next track...`).catch(() => {});
+				}
+			});
 	},
 };

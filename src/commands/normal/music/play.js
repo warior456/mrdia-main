@@ -20,6 +20,6 @@ module.exports = {
 		if (!voiceChannel) return Reply.send(message, { content: "You must join a voice channel first.", ephemeral: true });
 		if (!args) return Reply.send(message, { content: "You must provide a song name or url.", ephemeral: true });
 		await Reply.deferReply(message, false);
-		play(client, message, args, voiceChannel);
+		await play(client, message, args, voiceChannel);
 	},
 };

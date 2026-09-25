@@ -93,15 +93,26 @@ async function play(client, message, args, voiceChannel) {
 	}
 	const query = (args || "").trim();
 
-	const spotifyPlaylistUrl = getSpotifyPlaylistUrl(query);
-	if (spotifyPlaylistUrl) {
-		await playSpotifyPlaylist(client, message, spotifyPlaylistUrl, voiceChannel);
-	} else {
-		await client.distube.play(voiceChannel, query, {
-			member: message.member,
-			textChannel: message.channel,
-			metadata: { messageObject: message, skipVotes: [], previousVotes: [], ignoremessage: false },
-		});
+	try {
+		const spotifyPlaylistUrl = getSpotifyPlaylistUrl(query);
+		if (spotifyPlaylistUrl) {
+			await playSpotifyPlaylist(client, message, spotifyPlaylistUrl, voiceChannel);
+		} else {
+			await client.distube.play(voiceChannel, query, {
+				member: message.member,
+				textChannel: message.channel,
+				metadata: { messageObject: message, skipVotes: [], previousVotes: [], ignoremessage: false },
+			});
+		}
+	} catch (error) {
+		console.error("[Play] Error playing song:", error.message || error);
+		let userMessage = error.message || "Could not play this song.";
+		if (error.errorCode === "NO_RESULT") {
+			userMessage = `No results found for \`${query}\`.`;
+		} else if (error.errorCode === "EMPTY_PLAYLIST") {
+			userMessage = "The playlist is empty or contains no playable videos.";
+		}
+		return Reply.editReply(message, `⚠️ ${userMessage}`);
 	}
 
 	specials(client, message, voiceChannel);

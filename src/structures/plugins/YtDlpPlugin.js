@@ -176,6 +176,25 @@ function normalizeQuery(input) {
 	return query;
 }
 
+function formatYtDlpError(rawMsg) {
+	if (!rawMsg || typeof rawMsg !== "string") return "Failed to retrieve song info.";
+	const msg = rawMsg.toLowerCase();
+	if (msg.includes("private video")) {
+		return "This video is private and cannot be played.";
+	}
+	if (msg.includes("video unavailable") || msg.includes("this video has been removed") || msg.includes("not available")) {
+		return "This video is unavailable or has been removed.";
+	}
+	if (msg.includes("confirm your age") || msg.includes("age-restricted")) {
+		return "This video is age-restricted and requires authentication.";
+	}
+	if (msg.includes("members-only")) {
+		return "This video is only available to channel members.";
+	}
+	const firstLine = rawMsg.split(/\r?\n/)[0].replace(/^ERROR:\s*(\[[^\]]+\]\s*)?/i, "").trim();
+	return firstLine || rawMsg;
+}
+
 function createYtDlpSongClass(BaseSong) {
 	return class YtDlpSong extends BaseSong {
 		constructor(plugin, info, options = {}) {
@@ -298,7 +317,8 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 		try {
 			info = await runYtDlp(this.binaryPath, flags);
 		} catch (err) {
-			throw new DisTubeError("YTDLP_ERROR", err.message);
+			const cleanMsg = formatYtDlpError(err.message);
+			throw new DisTubeError("YTDLP_ERROR", cleanMsg);
 		}
 
 		if (info._type === "playlist" || Array.isArray(info.entries)) {
@@ -362,7 +382,8 @@ class CustomYtDlpPlugin extends PlayableExtractorPlugin {
 		try {
 			info = await runYtDlp(this.binaryPath, flags);
 		} catch (err) {
-			throw new DisTubeError("YTDLP_ERROR", err.message);
+			const cleanMsg = formatYtDlpError(err.message);
+			throw new DisTubeError("YTDLP_ERROR", cleanMsg);
 		}
 
 		if (Array.isArray(info.entries)) {
